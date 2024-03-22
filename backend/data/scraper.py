@@ -5,7 +5,18 @@ import requests
 from pathlib import Path
 from bs4 import BeautifulSoup as soup
 
+
+from models_dto import (
+    TagDTO,
+    UnitDTO,
+    PromoDTO,
+    ProductDTO,
+    CategoryDTO,
+    CharacteristicsDTO,
+)
+
 IMAGE_PATH = Path(__file__).parent / "backup_data" / "images"
+DUMP_PATH = Path(__file__).parent / "backup_data" / "dump"
 
 
 class Parsed(object):
@@ -523,11 +534,119 @@ class FarForScraper(object):
 
 
 class BackupData(object):
-    def __init__(self) -> None:
-        self.path = Path(__file__).parent / "backup_data"
+    def transfer_promos(
+        self,
+        promos: list[Promo],
+    ) -> list[PromoDTO]:
+        promos_dtos = []
+        for promo in promos[:1]:
+            promo_dto = PromoDTO.model_validate(
+                promo,
+                from_attributes=True,
+            )
+            promos_dtos.append(promo_dto)
+
+        return promos_dtos
+
+    def transfer_characteristics(
+        self,
+        charachteristics: Characteristics,
+    ) -> list[CharacteristicsDTO]:
+        return CharacteristicsDTO(
+            measure=charachteristics.measure,
+            measure_symbol=charachteristics.measure_symbol,
+            measure_count=charachteristics.measure_count,
+            quantity=charachteristics.quantity,
+            proteins=charachteristics.proteins,
+            fats=charachteristics.fats,
+            carbohydrates=charachteristics.carbohydrates,
+            kilocalories=charachteristics.kilocalories,
+        )
+
+    def transfer_units(
+        self,
+        units: list[Unit],
+    ) -> list[UnitDTO]:
+        units_dtos: list[UnitDTO] = []
+        for unit in units:
+            charchs = unit.characteristics
+            charchs_dto = self.transfer_characteristics(charchs)
+
+            unit_dto = UnitDTO(
+                name=unit.name,
+                price=unit.price,
+                discount_price=unit.discount_price,
+                characteristics=charchs_dto,
+            )
+
+            units_dtos.append(unit_dto)
+
+        return units_dtos
+
+    def transfet_tags(
+        self,
+        tags: list[Tag],
+    ) -> list[Tag]:
+        tags_dtos: list[TagDTO] = []
+        for tag in tags:
+            tag_dto = TagDTO(
+                image_url=tag.image_url,
+                image_path=tag.image_path,
+                name=tag.name,
+            )
+
+            tags_dtos.append(tag_dto)
+
+        return tags_dtos
+
+    def transfer_products(
+        self,
+        products: list[Product],
+    ) -> list[ProductDTO]:
+        products_dtos: list[ProductDTO] = []
+        for product in products:
+            tags = product.tags
+            units = product.units
+
+            units_dtos = self.transfer_units(units)
+            tags_dtos = self.transfet_tags(tags)
+
+            product_dto = ProductDTO(
+                image_url=product.image_url,
+                image_path=product.image_path,
+                name=product.name,
+                description=product.description,
+                tags=tags_dtos,
+                units=units_dtos,
+            )
+
+            products_dtos.append(product_dto)
+
+        return products_dtos
+
+    def transfer_categories(
+        self,
+        categories: list[Category],
+    ) -> None:
+        categories_dtos: list[CategoryDTO] = []
+        for category in categories:
+            products: list[Product] = category.products
+            products_dtos = self.transfer_products(products)
+
+            category_dto = CategoryDTO(
+                image_url=category.image_url,
+                image_path=category.image_path,
+                name=category.name,
+                products=products_dtos,
+            )
+            categories_dtos.append(category_dto)
 
 
 if __name__ == "__main__":
     scraper = FarForScraper()
+    backuper = BackupData()
 
-    cats = scraper.scrape()
+    promos, categories = scraper.scrape()
+
+    backuper.transfer_promos(promos)
+    backuper.transfer_categories(categories)

@@ -31,10 +31,14 @@ class Product(
 
 
 class Unit(
-    NameMixin,
     AvailableMixin,
     models.Model,
 ):
+    name = models.CharField(
+        verbose_name="Название",
+        blank=True,
+        null=True,  ## use Product.name
+    )
     price = models.DecimalField(
         verbose_name="Цена товарной единицы",
         max_digits=10,
