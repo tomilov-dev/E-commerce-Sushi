@@ -51,8 +51,11 @@ class ProductPromotion(models.Model):
     )
 
     class Meta:
-        verbose_name = "Промо-акция продукта"
-        verbose_name_plural = "Промо-акции продукта"
+        verbose_name = "Промо-категория товара"
+        verbose_name_plural = "Промо-категории товара"
+
+    def __str__(self) -> str:
+        return f"{self.product.name} :: {self.promotion_category.name}"
 
 
 class PromoAction(

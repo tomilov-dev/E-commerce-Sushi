@@ -66,6 +66,10 @@ class Unit(
         verbose_name = "Товарная единица"
         verbose_name_plural = "Товарные единицы"
 
+    def __str__(self):
+        postfix = " :: " + self.name if self.name else ""
+        return f"{self.product.name}{postfix}"
+
 
 class Measure(
     NameMixin,
@@ -76,6 +80,9 @@ class Measure(
     class Meta:
         verbose_name = "Единица измерения"
         verbose_name_plural = "Единицы измерения"
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Characteristics(models.Model):
@@ -127,3 +134,6 @@ class Characteristics(models.Model):
     class Meta:
         verbose_name = "Характеристика товарной единицы"
         verbose_name_plural = "Характеристики товарных единиц"
+
+    def __str__(self) -> str:
+        return f"{self.unit.__str__()}"

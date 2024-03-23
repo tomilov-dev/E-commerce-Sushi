@@ -36,3 +36,6 @@ class ProductTag(models.Model):
     class Meta:
         verbose_name = "Тег товара"
         verbose_name_plural = "Теги товара"
+
+    def __str__(self) -> str:
+        return f"{self.product.name} :: {self.tag.name}"

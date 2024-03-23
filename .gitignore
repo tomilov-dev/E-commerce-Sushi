@@ -4,3 +4,4 @@ __pycache__/.*
 .venv
 backup_data
 media
+node_modules
