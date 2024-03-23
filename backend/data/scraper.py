@@ -1,7 +1,9 @@
 import re
 import os
+import json
 import random
 import requests
+from datetime import datetime
 from pathlib import Path
 from bs4 import BeautifulSoup as soup
 
@@ -15,8 +17,16 @@ from models_dto import (
     CharacteristicsDTO,
 )
 
+current_date = str(datetime.now().date())
 IMAGE_PATH = Path(__file__).parent / "backup_data" / "images"
-DUMP_PATH = Path(__file__).parent / "backup_data" / "dump"
+DUMP_PATH = Path(__file__).parent / "backup_data" / "json_dump" / current_date
+
+
+if not os.path.exists(DUMP_PATH):
+    os.mkdir(DUMP_PATH)
+
+if not os.path.exists(IMAGE_PATH):
+    os.mkdir(IMAGE_PATH)
 
 
 class Parsed(object):
@@ -53,9 +63,8 @@ class Parsed(object):
                 self.image = path
 
             else:
-                # with open(path, "wb") as file:
-                #     file.write(image.content)
-                pass
+                with open(path, "wb") as file:
+                    file.write(image.content)
 
         else:
             counter = 1
@@ -64,8 +73,8 @@ class Parsed(object):
                 path = IMAGE_PATH / filename
                 counter += 1
 
-            # with open(path, "wb") as file:
-            #     file.write(image.content)
+            with open(path, "wb") as file:
+                file.write(image.content)
 
         self.image_path = filename
 
@@ -522,7 +531,6 @@ class FarForScraper(object):
             category = self._parse_category(html)
             products = self._parse_products(html, measure, inp)
 
-            products = products[:1]
             for product in products:
                 self._add_extra_info(product)
 
@@ -539,10 +547,13 @@ class BackupData(object):
         promos: list[Promo],
     ) -> list[PromoDTO]:
         promos_dtos = []
-        for promo in promos[:1]:
-            promo_dto = PromoDTO.model_validate(
-                promo,
-                from_attributes=True,
+        for promo in promos:
+            promo_dto = PromoDTO(
+                image_url=promo.image_url,
+                image_path=promo.image_path,
+                name=promo.name,
+                description=promo.description,
+                id=None,
             )
             promos_dtos.append(promo_dto)
 
@@ -551,7 +562,7 @@ class BackupData(object):
     def transfer_characteristics(
         self,
         charachteristics: Characteristics,
-    ) -> list[CharacteristicsDTO]:
+    ) -> CharacteristicsDTO:
         return CharacteristicsDTO(
             measure=charachteristics.measure,
             measure_symbol=charachteristics.measure_symbol,
@@ -561,6 +572,7 @@ class BackupData(object):
             fats=charachteristics.fats,
             carbohydrates=charachteristics.carbohydrates,
             kilocalories=charachteristics.kilocalories,
+            id=None,
         )
 
     def transfer_units(
@@ -577,6 +589,7 @@ class BackupData(object):
                 price=unit.price,
                 discount_price=unit.discount_price,
                 characteristics=charchs_dto,
+                id=None,
             )
 
             units_dtos.append(unit_dto)
@@ -593,6 +606,7 @@ class BackupData(object):
                 image_url=tag.image_url,
                 image_path=tag.image_path,
                 name=tag.name,
+                id=None,
             )
 
             tags_dtos.append(tag_dto)
@@ -618,6 +632,7 @@ class BackupData(object):
                 description=product.description,
                 tags=tags_dtos,
                 units=units_dtos,
+                id=None,
             )
 
             products_dtos.append(product_dto)
@@ -627,7 +642,7 @@ class BackupData(object):
     def transfer_categories(
         self,
         categories: list[Category],
-    ) -> None:
+    ) -> list[CategoryDTO]:
         categories_dtos: list[CategoryDTO] = []
         for category in categories:
             products: list[Product] = category.products
@@ -638,8 +653,33 @@ class BackupData(object):
                 image_path=category.image_path,
                 name=category.name,
                 products=products_dtos,
+                id=None,
             )
             categories_dtos.append(category_dto)
+
+        return categories_dtos
+
+    def dump_categories(self, categories: list[CategoryDTO]) -> None:
+        for index in range(len(categories)):
+            category = categories[index]
+            data = category.model_dump()
+
+            if not os.path.exists(DUMP_PATH):
+                os.mkdir(DUMP_PATH)
+
+            with open(DUMP_PATH / f"category_{index}.json", "w") as file:
+                json.dump(data, file, ensure_ascii=False)
+
+    def dump_promos(self, promos: list[PromoDTO]) -> None:
+        for index in range(len(promos)):
+            promo = promos[index]
+            data = promo.model_dump()
+
+            if not os.path.exists(DUMP_PATH):
+                os.mkdir(DUMP_PATH)
+
+            with open(DUMP_PATH / f"promo_{index}.json", "w") as file:
+                json.dump(data, file, ensure_ascii=False)
 
 
 if __name__ == "__main__":
@@ -648,5 +688,9 @@ if __name__ == "__main__":
 
     promos, categories = scraper.scrape()
 
-    backuper.transfer_promos(promos)
-    backuper.transfer_categories(categories)
+    backuper.dump_promos(
+        backuper.transfer_promos(promos),
+    )
+    backuper.dump_categories(
+        backuper.transfer_categories(categories),
+    )

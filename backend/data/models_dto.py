@@ -10,7 +10,12 @@ class NameMixin(BaseModel):
     name: str
 
 
+class IDMixin(BaseModel):
+    id: int | str | None
+
+
 class TagDTO(
+    IDMixin,
     NameMixin,
     ImageMixin,
     BaseModel,
@@ -18,7 +23,10 @@ class TagDTO(
     pass
 
 
-class CharacteristicsDTO(BaseModel):
+class CharacteristicsDTO(
+    IDMixin,
+    BaseModel,
+):
     measure: str
     measure_symbol: str
     measure_count: int
@@ -30,7 +38,10 @@ class CharacteristicsDTO(BaseModel):
     kilocalories: int | None
 
 
-class UnitDTO(BaseModel):
+class UnitDTO(
+    IDMixin,
+    BaseModel,
+):
     name: str | None
     price: int
     discount_price: int | None
@@ -38,6 +49,7 @@ class UnitDTO(BaseModel):
 
 
 class ProductDTO(
+    IDMixin,
     NameMixin,
     ImageMixin,
     BaseModel,
@@ -48,6 +60,7 @@ class ProductDTO(
 
 
 class CategoryDTO(
+    IDMixin,
     NameMixin,
     ImageMixin,
     BaseModel,
@@ -56,6 +69,7 @@ class CategoryDTO(
 
 
 class PromoDTO(
+    IDMixin,
     NameMixin,
     ImageMixin,
     BaseModel,
