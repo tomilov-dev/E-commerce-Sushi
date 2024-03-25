@@ -1,0 +1,233 @@
+{% load static %}
+
+<header class="bg-white mb-4">
+
+    <nav class="flex items-center justify-between p-6">
+
+        <!-- Logo at the right -->
+        <div class="flex basis-1/4">
+            <a href="#" class="-m-1.5 p-1.5">
+                <img class="h-8 w-auto" src="{% static 'logo.svg' %}" alt="">
+            </a>
+        </div>
+
+        <!-- Mobile menu show/hide button -->
+        <!-- Active only at small devices -->
+        <div class="sm:hidden group flex">
+            <button type="button" id="mobileMenuOpenButton"
+                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ">
+                {% include 'svg/menu.html' %}
+            </button>
+        </div>
+
+        <!-- Desktop menu -->
+        <div class="hidden basis-2/4 justify-center sm:flex sm:gap-x-8 md:gap-x-12 lg:gap-x-16">
+
+            <a href="/" class="my-text1 hover:my-icon1-hover leading-6">
+                Меню
+            </a>
+
+            <a href="promo" class="my-text1 hover:my-icon1-hover leading-6">
+                Акции
+            </a>
+
+            <!-- Desktop Flyout menu -->
+            <div class="relative">
+
+                <button type="button" id="flyoutContactButtonDesktop" class="group flex items-center gap-x-1 leading-6">
+                    <span class=" my-text1 group-hover:my-text1-hover">
+                        Контакты
+                    </span>
+
+                    <div id="flyoutContactExpandMoreDesktop">
+                        {% include 'svg/expand_more.html' %}
+                    </div>
+                    <div id="flyoutContactExpandLessDesktop">
+                        {% include 'svg/expand_less.html' %}
+                    </div>
+
+                </button>
+
+                <div class="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
+                    id="flyoutContactDesktop">
+
+                    <div class="p-4">
+
+                        <div
+                            class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                            <div
+                                class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+
+                                {% include 'svg/call.html' %}
+                            </div>
+
+                            <div class="flex-auto">
+                                <a href="#" class="block">
+                                    <span class="my-text1 group-hover:my-text1-hover">8-922-644-17-29</span>
+                                    <span class="absolute inset-0"></span>
+                                </a>
+                                <p class="my-text2 mt-1">Звонок бесплатный по всей России</p>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+
+                            <div
+                                class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+
+                                {% include 'svg/explore_nearby.html' %}
+                            </div>
+
+                            <div class="flex-auto">
+                                <a href="#" class="block">
+                                    <span class="my-text1 group-hover:my-text1-hover">ул. Шурманова, дом 113б</span>
+                                    <span class="absolute inset-0"></span>
+                                </a>
+                                <p class="my-text2 mt-1">Наш адрес</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+
+                        <a href="#"
+                            class="group flex items-center justify-center gap-x-2.5 p-3 leading-6 hover:bg-gray-100">
+
+                            {% include 'svg/play_circle.html' %}
+                            <span class="my-text1 group-hover: my-text1-hover">Превью</span>
+                        </a>
+
+                        <a href="#"
+                            class="group flex items-center justify-center gap-x-2.5 p-3 leading-6 hover:bg-gray-100">
+
+                            {% include 'svg/support_agent.html' %}
+                            <span class="my-text1 group-hover:my-text1-hover">Связаться</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Desktop Flyout menu END -->
+
+            <a href="#" class="my-text1 hover:my-text1-hover leading-6">
+                О нас
+            </a>
+
+        </div>
+
+        <div class="hidden basis-1/4 sm:flex justify-end">
+
+            <div class="group mr-3">
+                <a href="#">
+                    {% include 'svg/fast_check.html' %}
+                </a>
+            </div>
+
+            <div class="group mr-3">
+                <a href="{% url 'cart:cart_details' %}">
+                    {% include 'svg/shopping_bag.html' %}
+                </a>
+            </div>
+
+            <div class="group">
+                <a href="#">
+                    {% include 'svg/account_circle.html' %}
+                </a>
+            </div>
+        </div>
+        <!-- Desktop menu END -->
+
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="sm:hidden" id="mobileMenu" role="dialog" aria-modal="true">
+
+        <div class="fixed inset-0 z-10"></div>
+
+        <div
+            class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div class="flex items-center justify-between">
+
+                <a href="#" class="-m-1.5 p-1.5">
+                    <img class="h-8 w-auto" src="{% static 'logo.svg' %}">
+                </a>
+
+                <button type="button" id="mobileMenuCloseButton" class="group -m-2.5 rounded-md p-2.5">
+                    {% include 'svg/close.html' %}
+                </button>
+
+            </div>
+
+            <!-- Divider -->
+            <hr class="mt-6 mx-auto flex max-w-7xl">
+
+            <div class="mt-6 flow-root">
+                <div class="-my-6 divide-y divide-gray-500/10">
+                    <div class="space-y-2 py-6">
+
+                        <!-- Mobile menu flyout -->
+                        <div class="-mx-3">
+                            <button id="flyoutContactButtonMobile" type="button"
+                                class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 leading-7 hover:bg-gray-50"
+                                aria-controls="disclosure-1" aria-expanded="false">
+
+                                <span class="my-text1">Контакты</span>
+
+                                <div id="flyoutContactExpandMoreMobile">
+                                    {% include 'svg/expand_more.html' %}
+                                </div>
+                                <div id="flyoutContactExpandLessMobile">
+                                    {% include 'svg/expand_less.html' %}
+                                </div>
+                            </button>
+
+                            <div id="flyoutContactMobile" class="mt-2 space-y-2" id="disclosure-1">
+
+                                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 leading-7 hover:bg-gray-50">
+                                    <span class="my-text1">8-922-644-17-29</span>
+                                </a>
+
+                                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 leading-7 hover:bg-gray-50">
+                                    <span class="my-text1">ул. Шурманова, дом 113б</span>
+                                </a>
+
+                            </div>
+                        </div>
+                        <!-- Mobile menu flyout END -->
+
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">О компании</span>
+                        </a>
+
+                    </div>
+
+                    <div class="py-6">
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">Оформить заказ</span>
+                        </a>
+
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">Корзина</span>
+                        </a>
+
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">Личный кабинет</span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Mobile menu END -->
+
+    <hr class="flex">
+
+</header>

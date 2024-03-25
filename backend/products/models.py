@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 from django.db import models
+from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -23,7 +24,12 @@ class Product(
         on_delete=models.SET_NULL,  ## in case of accidental deletion
         verbose_name="Категория",
         null=True,  ## in case of accidental deletion
+        related_name="products",
     )
+
+    @property
+    def link(self) -> str:
+        return reverse("products:get_product", args=[self.slug])
 
     class Meta:
         verbose_name = "Товар"
@@ -60,11 +66,19 @@ class Unit(
         Product,
         on_delete=models.CASCADE,
         verbose_name="Товар",
+        related_name="units",
     )
 
     class Meta:
         verbose_name = "Товарная единица"
         verbose_name_plural = "Товарные единицы"
+
+    @property
+    def full_name(self) -> str:
+        if self.name:
+            return self.product.name + " " + self.name
+        else:
+            return self.product.name
 
     def __str__(self):
         postfix = " :: " + self.name if self.name else ""

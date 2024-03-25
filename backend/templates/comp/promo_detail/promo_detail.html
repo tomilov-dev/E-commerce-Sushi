@@ -1,0 +1,21 @@
+{% load static %}
+<div class="flex flex-row mx-6">
+
+    <div class='basis-1/2 mr-4'>
+        <div>
+            {% if promo_action.image %}
+            <img src="{{ promo_action.image.url }}">
+            {% else %}
+            <img src="{% static 'no-image.jpg' %}">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="basis-1/2">
+        <div>
+            <p class="text-center text-2xl font-medium">{{ promo_action.name }}</p>
+            <p>{{ promo_action.description }}</p>
+        </div>
+    </div>
+
+</div>

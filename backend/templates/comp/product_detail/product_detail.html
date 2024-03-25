@@ -1,0 +1,22 @@
+{% load static %}
+<div class="flex flex-row mx-6">
+
+    <div class='basis-1/2 mr-4'>
+        <div>
+            {% if product.image %}
+            <img src="{{ product.image.url }}">
+            {% else %}
+            <img src="{% static 'no-image.jpg' %}">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="basis-1/2">
+        <div>
+            <p class="text-center text-2xl font-medium">{{ product.name }}</p>
+            <p>{{ product.description }}</p>
+            <p>{{ product.price }} рублей</p>
+        </div>
+    </div>
+
+</div>

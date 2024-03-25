@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ product.name }}
+{% endblock %}
+
+{% block main %}
+{% include 'product_detail/product_detail.html' with product=product %}
+{% endblock main %}

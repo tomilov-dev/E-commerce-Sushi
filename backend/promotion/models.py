@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 from django.db import models
+from django.urls import reverse
 
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -32,9 +33,16 @@ class PromotionCategory(
     Combines products that relies to specific promo action.
     """
 
+    @property
+    def link(self) -> str:
+        return reverse("promotion:get_promotion_category", args=[self.slug])
+
     class Meta:
         verbose_name = "Промо-категория"
         verbose_name_plural = "Промо-категории"
+
+    def __repr__(self) -> str:
+        return self.link
 
 
 class ProductPromotion(models.Model):
@@ -43,11 +51,13 @@ class ProductPromotion(models.Model):
         Product,
         on_delete=models.CASCADE,
         verbose_name="Товар",
+        related_name="product_promotions",
     )
     promotion_category = models.ForeignKey(
         PromotionCategory,
         on_delete=models.CASCADE,
         verbose_name="Промо-категория",
+        related_name="product_promotions",
     )
 
     class Meta:
@@ -92,6 +102,20 @@ class PromoAction(
         blank=True,
         null=True,
     )
+
+    @property
+    def link(self) -> str | None:
+        if self.straight_redirect:
+            if self.product:
+                return self.product.link
+            elif self.category:
+                return self.category.link
+            elif self.promotion_category:
+                return self.promotion_category.link
+            else:
+                return "#"
+        else:
+            return reverse("promotion:get_promo_action", args=[self.slug])
 
     class Meta:
         verbose_name = "Промо-акция"

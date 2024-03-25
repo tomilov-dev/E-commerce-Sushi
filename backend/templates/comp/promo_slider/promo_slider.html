@@ -1,0 +1,9 @@
+<div class="flex flex-wrap my-8 gap-3 justify-center">
+    {% for promotion in promotion_context %}
+    <div class="max-w-sm">
+        <a href="{{ promotion.link }}">
+            <img src="{{ promotion.image.url }}">
+        </a>
+    </div>
+    {% endfor %}
+</div>

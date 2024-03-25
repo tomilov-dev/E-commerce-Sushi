@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+
+    {% block seo %}
+    {% endblock seo %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% block css_dependencies %}
+    {% endblock css_dependencies %}
+
+</head>
+
+<body class="max-w-screen-2xl mx-auto">
+    <div class="flex flex-col h-screen justify-between">
+
+        {% include 'header/header.html' %}
+
+        {% block category_slider %}
+        {% include 'category_slider/category_slider.html' with current_category=None %}
+        {% endblock category_slider %}
+
+        <main>
+            {% block main %}
+            {% endblock main%}
+        </main>
+
+        {% include 'footer/footer.html' %}
+
+    </div>
+
+    <script src="{% static 'header/header.js' %}"></script>
+
+    {% block js_dependecies %}
+    {% endblock js_dependecies %}
+
+</body>
+
+</html>

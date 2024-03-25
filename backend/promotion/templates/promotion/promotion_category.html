@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ promotion_category.name }}
+{% endblock title %}
+
+{% block category_slider %}
+{% include 'category_slider/category_slider.html' with current_category=current_category %}
+{% endblock category_slider %}
+
+{% block main %}
+{% include 'products_grid/products_grid.html' with products=products %}
+{% endblock main %}
+
+{% block js_dependecies %}
+<script src="{% static 'products_grid/products_grid.js' %}"></script>
+{% endblock js_dependecies %}

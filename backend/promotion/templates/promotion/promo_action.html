@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ promo_action.name }}
+{% endblock title %}
+
+{% block category_slider %}
+{% include 'category_slider/category_slider.html' %}
+{% endblock category_slider %}
+
+{% block main %}
+{% include 'promo_detail/promo_detail.html' with promo_action=promo_action %}
+{% endblock main %}
