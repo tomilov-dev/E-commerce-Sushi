@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="max-w-sm border rounded-xl shadow-sm hover:shadow-md">
+    <div class="tags absolute ml-1 mt-1 flex flex-col gap-1">
+        {% for tag in product.tags %}
+        {% if tag.image %}
+        <div>
+            <img class="w-6" src="{{ tag.image.url }}">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div>
+        <a href="{{ product.link }}">
+            {% if product.image %}
+            <img class="rounded-xl duration-500 hover:scale-95" src="{{ product.image.url }}">
+            {% else %}
+            <img src="{% static 'no-image.jpg' %}">
+            {% endif %}
+        </a>
+    </div>
+
+    <hr class="opacity-50">
+
+    {% block product_prices %}
+    {% endblock product_prices %}
+
+</div>

@@ -1,1 +1,6 @@
-{% include 'items_grid/items_grid.html' with items=categories_context %}
+<div class="mb-4">
+    <h1 class="text-lg text-center">
+        Категории товаров
+    </h1>
+</div>
+{% include 'items_grid/items_grid.html' with items=categories_context with_scale=True %}

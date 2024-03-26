@@ -7,3 +7,11 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+#promo-carousel {
+  width: 1200px;
+}
+
+#category-carousel {
+  width: 800px;
+}

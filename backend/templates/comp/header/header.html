@@ -6,7 +6,7 @@
 
         <!-- Logo at the right -->
         <div class="flex basis-1/4">
-            <a href="#" class="-m-1.5 p-1.5">
+            <a href="{% url 'pages:home' %}" class="-m-1.5 p-1.5">
                 <img class="h-8 w-auto" src="{% static 'logo.svg' %}" alt="">
             </a>
         </div>
@@ -27,7 +27,7 @@
                 Меню
             </a>
 
-            <a href="promo" class="my-text1 hover:my-icon1-hover leading-6">
+            <a href="{% url 'promotion:promotion_list' %}" class="my-text1 hover:my-icon1-hover leading-6">
                 Акции
             </a>
 

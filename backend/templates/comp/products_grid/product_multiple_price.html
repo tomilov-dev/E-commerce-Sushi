@@ -1,0 +1,100 @@
+{% extends 'products_grid/product.html' %}
+
+{% block product_prices %}
+<div class="text-center mt-2 p-2 text-base font-normal" id="{{ product.id }}">
+    <div class="font-medium text-lg">
+        <a href="{{ product.link }}">
+            <p>{{ product.name }}</p>
+        </a>
+    </div>
+
+    <div class="units-list mt-2 mx-4">
+
+        <div class="units-selectors flex justify-center gap-6">
+            {% for unit in product.units.all %}
+            {% if forloop.first %}
+            <div class="unit-selector selected" unit-id="{{ unit.id }}">
+                <button onclick="selectUnit(this)" unit-id="{{ unit.id }}">
+                    <p>{{ unit.name }}</p>
+                </button>
+            </div>
+            {% else %}
+            <div class="unit-selector" unit-id="{{ unit.id }}">
+                <button onclick="selectUnit(this)" unit-id="{{ unit.id }}">
+                    <p>{{ unit.name }}</p>
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="units-cards">
+            {% for unit in product.units.all %}
+            {% if forloop.first %}
+            <div class="unit-card" unit-id="{{ unit.id }}">
+                <div class="flex justify-between">
+                    <div class="price-value text-start">
+                        {% if unit.discount_price %}
+                        <p class="font-medium text-lg">
+                            {{ unit.discount_price|floatformat:"0" }} ₽
+                            <span class="ml-1 line-through text-sm text-gray-400">
+                                {{unit.price|floatformat:"0"}}₽
+                            </span>
+                        </p>
+                        {% else %}
+                        <p class="font-medium text-lg">
+                            {{unit.price|floatformat:"0"}} ₽
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="add-unit-form">
+                        <form action="{% url 'cart:cart_add' unit.id %}" method="post">
+                            {% csrf_token %}
+                            {{ cart_add_product_form }}
+                            <button type="submit" onclick="return addToCart(this)">
+                                <span>{% include 'svg/add.html' %}</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="unit-card" unit-id="{{ unit.id }}" hidden>
+                <div class="flex justify-between ">
+                    <div class="price-value text-start">
+                        {% if unit.discount_price %}
+                        <p class="font-medium text-lg">
+                            {{ unit.discount_price|floatformat:"0" }} ₽
+                            <span class="ml-1 line-through text-sm text-gray-400">
+                                {{unit.price|floatformat:"0"}}₽
+                            </span>
+                        </p>
+                        {% else %}
+                        <p class="font-medium text-lg">
+                            {{unit.price|floatformat:"0"}} ₽
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="add-unit-form">
+                        <form action="{% url 'cart:cart_add' unit.id %}" method="post">
+                            {% csrf_token %}
+
+                            {% for field in cart_add_product_form %}
+                            {{ field }}
+                            {% endfor %}
+
+                            <button type="submit" onclick="return addToCart(this)">
+                                <span>{% include 'svg/add.html' %}</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock product_prices %}

@@ -1,0 +1,49 @@
+{% extends 'products_grid/product.html' %}
+
+{% block product_prices %}
+<div class="text-center mt-2 p-2 text-base font-normal" id="{{ product.id }}">
+    <div class="font-medium text-lg">
+        <a href="{{ product.link }}">
+            <p>{{ unit.full_name }}</p>
+        </a>
+    </div>
+
+    <div class="units-list mt-2 mx-4">
+
+        <div class="units-cards">
+
+            <div class="unit-card" unit-id="{{ unit.id }}">
+                <div class="flex justify-between">
+
+                    <div class="price-value text-start">
+                        {% if unit.discount_price %}
+                        <p class="font-medium text-lg">
+                            {{ unit.discount_price|floatformat:"0" }} ₽
+                            <span class="ml-1 line-through text-sm text-gray-400">
+                                {{unit.price|floatformat:"0"}}₽
+                            </span>
+                        </p>
+                        {% else %}
+                        <p class="font-medium text-lg">
+                            {{unit.price|floatformat:"0"}} ₽
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="add-unit-form">
+                        <form action="{% url 'cart:cart_add' unit.id %}" method="post">
+                            {% csrf_token %}
+                            {{ cart_add_product_form }}
+                            <button type="submit" onclick="return addToCart(this)">
+                                <span>{% include 'svg/add.html' %}</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock product_prices %}

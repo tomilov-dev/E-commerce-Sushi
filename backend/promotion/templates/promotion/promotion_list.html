@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Промо-акции
+{% endblock title %}
+
+{% block main %}
+{% include 'items_grid/items_grid.html' with items=promo_actions %}
+{% endblock main %}

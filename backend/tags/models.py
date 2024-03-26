@@ -31,6 +31,7 @@ class ProductTag(models.Model):
         Product,
         on_delete=models.CASCADE,
         verbose_name="Товар",
+        related_name="product_tags",
     )
 
     class Meta:

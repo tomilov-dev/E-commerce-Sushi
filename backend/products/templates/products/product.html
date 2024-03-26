@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 {{ product.name }}
@@ -7,3 +8,7 @@
 {% block main %}
 {% include 'product_detail/product_detail.html' with product=product %}
 {% endblock main %}
+
+{% block js_dependecies %}
+<script src="{% static 'product_detail/product_detail.js' %}"></script>
+{% endblock js_dependecies %}

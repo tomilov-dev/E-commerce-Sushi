@@ -4,10 +4,13 @@ function selectUnit(button) {
   let unitSelector = button.parentNode;
   let unitsSelectors = unitSelector.parentNode;
   let unitsCards = unitsSelectors.nextElementSibling;
+  let productDescription = unitsCards.nextElementSibling;
+  let unitsButtons = productDescription.nextElementSibling;
 
   let unitsSelectorsElements =
     unitsSelectors.querySelectorAll(".unit-selector");
   let unitsCardsElements = unitsCards.querySelectorAll(".unit-card");
+  let unitsButtonsElements = unitsButtons.querySelectorAll(".unit-button");
 
   for (unitSelectorElement of unitsSelectorsElements) {
     if (unitSelectorElement.getAttribute("unit-id") === unitId) {
@@ -22,6 +25,14 @@ function selectUnit(button) {
       unitCardElement.removeAttribute("hidden");
     } else {
       unitCardElement.setAttribute("hidden", true);
+    }
+  }
+
+  for (unitButtonElement of unitsButtonsElements) {
+    if (unitButtonElement.getAttribute("unit-id") === unitId) {
+      unitButtonElement.removeAttribute("hidden");
+    } else {
+      unitButtonElement.setAttribute("hidden", true);
     }
   }
 }

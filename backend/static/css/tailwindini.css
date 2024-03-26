@@ -6,10 +6,10 @@
   @apply text-red-400;
 }
 
-.unit {
-  @apply bg-red-50 rounded-xl p-1;
+.unit-selector {
+  @apply rounded-full p-2;
 }
 
-.unit.selected {
-  @apply bg-red-200;
+.unit-selector.selected {
+  @apply bg-red-200 bg-opacity-50;
 }

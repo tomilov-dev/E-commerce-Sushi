@@ -1,9 +1,35 @@
-<div class="flex flex-wrap my-8 gap-3 justify-center">
-    {% for promotion in promotion_context %}
-    <div class="max-w-sm">
-        <a href="{{ promotion.link }}">
-            <img src="{{ promotion.image.url }}">
-        </a>
-    </div>
-    {% endfor %}
+<div class="my-4">
+    <h1 class="text-lg text-center">
+        Акции для Вас
+    </h1>
 </div>
+
+<div class="flex justify-center mb-8">
+    <div id="promo-carousel" class="splide" aria-label="Beautiful Images">
+        <div class="splide__track">
+            <ul class="splide__list">
+                {% for promotion in promotion_context %}
+                <li class="splide__slide">
+                    <div class="relative mx-2">
+                        <div class="image-container">
+                            <a href="{{ promotion.link }}">
+                                <img class="rounded-xl" src="{{ promotion.image.url }}">
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Splide("#promo-carousel", {
+            type: 'loop',
+            perPage: 3,
+            perMove: 1,
+        }).mount();
+    });
+</script>

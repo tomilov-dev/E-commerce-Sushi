@@ -5,6 +5,15 @@ from .models import PromotionCategory, ProductPromotion, PromoAction
 from cart.forms import SimpleCartAddProductForm
 
 
+def promotion_list(request: HttpRequest) -> HttpResponse:
+    promo_actions = PromoAction.objects.all()
+    return render(
+        request,
+        "promotion/promotion_list.html",
+        context={"promo_actions": promo_actions},
+    )
+
+
 def get_promotion_category(
     request: HttpRequest,
     slug: str,
@@ -32,7 +41,7 @@ def get_promo_action(
     promo_action = PromoAction.objects.get(slug=slug)
     return render(
         request,
-        "promotion/promo_action.html",
+        "promotion/promotion_action.html",
         context={
             "promo_action": promo_action,
         },

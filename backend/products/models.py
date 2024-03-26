@@ -28,6 +28,11 @@ class Product(
     )
 
     @property
+    def tags(self):
+        product_tags = self.product_tags.all()
+        return [pt.tag for pt in product_tags]
+
+    @property
     def link(self) -> str:
         return reverse("products:get_product", args=[self.slug])
 
@@ -72,6 +77,13 @@ class Unit(
     class Meta:
         verbose_name = "Товарная единица"
         verbose_name_plural = "Товарные единицы"
+
+    @property
+    def discount(self) -> float | None:
+        if self.discount_price:
+            return int(100 * (1 - (self.discount_price / self.price)))
+        else:
+            return None
 
     @property
     def full_name(self) -> str:

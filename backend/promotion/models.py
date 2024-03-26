@@ -104,6 +104,17 @@ class PromoAction(
     )
 
     @property
+    def get_redir_link(self) -> str | None:
+        if self.product:
+            return self.product.link
+        elif self.category:
+            return self.category.link
+        elif self.promotion_category:
+            return self.promotion_category.link
+        else:
+            return None
+
+    @property
     def link(self) -> str | None:
         if self.straight_redirect:
             if self.product:
@@ -114,6 +125,7 @@ class PromoAction(
                 return self.promotion_category.link
             else:
                 return "#"
+
         else:
             return reverse("promotion:get_promo_action", args=[self.slug])
 

@@ -1,0 +1,65 @@
+<div class="flex items-center space-x-4 my-4">
+    <div>
+        <div class="rounded-lg bg-gray-100 flex py-2 px-3">
+            {% if unit.discount_price %}
+            <span class="font-bold text-red-500 text-3xl">
+                {{unit.discount_price|floatformat:"0"}}
+            </span>
+            <span class="text-red-400 ml-1 mt-1">₽</span>
+            <p class="ml-1 mt-2 line-through font-bold text-red-400 text-sm">
+                {{unit.price|floatformat:"0"}}
+            </p>
+            {% else %}
+            <span class="font-bold text-red-500 text-3xl">{{unit.price|floatformat:"0"}}</span>
+            <span class="text-red-400 ml-1 mt-1">₽</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="flex-1">
+        {% if unit.discount %}
+        <p class="text-green-500 text-xl font-semibold">Скидка {{ unit.discount }}%</p>
+        {% endif %}
+        <p class="text-gray-400 text-sm">Без учета доставки</p>
+    </div>
+</div>
+
+<p class="text-gray-500">
+    {{ product.description }}
+</p>
+
+<div class="flex py-4 space-x-4">
+    <div class="relative">
+        <div
+            class="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
+            шт
+        </div>
+        <select
+            class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+
+        <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+        </svg>
+    </div>
+
+    <div class="add-unit-form">
+        <form action="{% url 'cart:cart_add' unit.id %}" method="post">
+            {% csrf_token %}
+
+            {% for field in cart_add_product_form %}
+            {{ field }}
+            {% endfor %}
+
+            <button type="submit" onclick="return addToCart(this)"
+                class="h-14 px-6 py-2 font-semibold rounded-xl bg-red-500 hover:bg-red-300 text-white">
+                Добавить
+            </button>
+        </form>
+    </div>
+</div>

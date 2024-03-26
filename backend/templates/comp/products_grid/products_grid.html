@@ -1,5 +1,15 @@
 {% load static %}
-<div class="flex justify-center mx-6">
+
+<div class="max-w-3xl mx-auto text-center my-10">
+    <h1 class="text-4xl font-bold text-gray-900 leading-tight mb-2 pb-4 relative">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-500">
+            {{ category.name}}
+        </span>
+        <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-300 to-pink-500"></span>
+    </h1>
+</div>
+
+<div class="flex relative justify-center mx-6">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for product in products %}
@@ -7,130 +17,19 @@
 
         {% if units|length == 1 %}
         {% with unit=units.first %}
-        <div class="max-w-sm border rounded-xl bg-red-50 bg-opacity-30">
-            <a href="{{ product.link }}">
-                {% if product.image %}
-                <img src="{{ product.image.url }}">
-                {% else %}
-                <img src="{% static 'no-image.jpg' %}">
-                {% endif %}
-            </a>
-
-            <hr class="opacity-50">
-
-            <div class="text-center mt-2 p-4 text-base font-normal" id="{{ product.id }}">
-                <p>{{ unit.full_name }}</p>
-
-                <div class="units-list">
-                    <div class="units-cards">
-                        <div class="unit-card" unit-id="{{ unit.id }}">
-                            <div class="flex justify-between">
-                                <div class="price-value">
-                                    <p>{{ unit.price }} рублей</p>
-                                </div>
-                                <div class="add-unit-form">
-                                    <form action="{% url 'cart:cart_add' unit.id %}" method="post">
-                                        {% csrf_token %}
-                                        {{ cart_add_product_form }}
-                                        <button type="submit" onclick="return addToCart(this)">
-                                            <span>{% include 'svg/add.html' %}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        {% include 'products_grid/product_one_price.html' %}
         {% endwith %}
 
         {% elif units|length > 1 %}
-        <div class="max-w-sm border rounded-xl bg-red-50 bg-opacity-30">
-            <a href="{{ product.link }}">
-                {% if product.image %}
-                <img src="{{ product.image.url }}">
-                {% else %}
-                <img src="{% static 'no-image.jpg' %}">
-                {% endif %}
-            </a>
-
-            <hr class="opacity-50">
-
-            <div class="text-center mt-2 p-4 text-base font-normal" id="{{ product.id }}">
-                <p>{{ product.name }}</p>
-
-                <div class="units-list">
-                    <div class="units-selectors flex justify-center gap-6">
-                        {% for unit in product.units.all %}
-                        {% if forloop.first %}
-                        <div class="unit selected" unit-id="{{ unit.id }}">
-                            <button onclick="selectUnit(this)" id="{{ unit.id }}">
-                                <p>{{ unit.name }}</p>
-                            </button>
-                        </div>
-                        {% else %}
-                        <div class="unit" unit-id="{{ unit.id }}">
-                            <button onclick="selectUnit(this)" id="{{ unit.id }}">
-                                <p>{{ unit.name }}</p>
-                            </button>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    <div class="units-cards">
-                        {% for unit in product.units.all %}
-                        {% if forloop.first %}
-                        <div class="unit-card" unit-id="{{ unit.id }}">
-                            <div class="flex justify-between">
-                                <div class="price-value">
-                                    <p>{{ unit.price }} рублей</p>
-                                </div>
-                                <div class="add-unit-form">
-                                    <form action="{% url 'cart:cart_add' unit.id %}" method="post">
-                                        {% csrf_token %}
-                                        {{ cart_add_product_form }}
-                                        <button type="submit" onclick="return addToCart(this)">
-                                            <span>{% include 'svg/add.html' %}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        {% else %}
-                        <div class="unit-card" unit-id="{{ unit.id }}" hidden>
-                            <div class="flex justify-between ">
-                                <div class="price-value">
-                                    <p>{{ unit.price }} рублей</p>
-                                </div>
-                                <div class="add-unit-form">
-                                    <form action="{% url 'cart:cart_add' unit.id %}" method="post">
-                                        {% csrf_token %}
-
-                                        {% for field in cart_add_product_form %}
-                                        {{ field }}
-                                        {% endfor %}
-
-                                        <button type="submit" onclick="return addToCart(this)">
-                                            <span>{% include 'svg/add.html' %}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        {% include 'products_grid/product_multiple_price.html' %}
 
         {% endif %}
         {% endwith %}
         {% endfor %}
 
     </div>
+
+    {% include 'toast/toast_container.html' %}
+    {% include 'toast/toast_template.html' %}
+
 </div>

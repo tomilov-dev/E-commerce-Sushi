@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-{{ promotion_category.name }}
+{{ category.name }}
 {% endblock title %}
 
 {% block category_slider %}
@@ -15,4 +15,5 @@
 
 {% block js_dependecies %}
 <script src="{% static 'products_grid/products_grid.js' %}"></script>
+<script src="{% static 'toast/toast.js' %}"></script>
 {% endblock js_dependecies %}

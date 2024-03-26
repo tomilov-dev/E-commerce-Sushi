@@ -4,13 +4,17 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for item in items %}
-        <div class="max-w-sm border rounded-xl bg-red-50 bg-opacity-30">
-            <a href="{{ item.link }}">
+        <div class="max-w-sm border rounded-xl bg-red-50 bg-opacity-30 shadow-sm hover:shadow-md">
+            <a class="group" href="{{ item.link }}">
 
                 {% if item.image %}
-                <img src="{{ item.image.url }}">
+                {% if with_scale == True %}
+                <img class="rounded-t-xl duration-500 group-hover:scale-95" src="{{ item.image.url }}">
                 {% else %}
-                <img src="{% static 'no-image.jpg' %}">
+                <img class="rounded-t-xl duration-500" src="{{ item.image.url }}">
+                {% endif %}
+                {% else %}
+                <img class="rounded-t-xl" src="{% static 'no-image.jpg' %}">
                 {% endif %}
 
                 <div>
