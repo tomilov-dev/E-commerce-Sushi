@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 CART_SESSION_ID = "cart"
+PHONE_HASH_SESSION_ID = "PHONE_HASH"
+RESEND_TIMER_SESSION_ID = "RESEND_TIMER"
+
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,6 +60,7 @@ INSTALLED_APPS = [
     "tags.apps.TagsConfig",
     "pages.apps.PagesConfig",
     "cart.apps.CartConfig",
+    "accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [

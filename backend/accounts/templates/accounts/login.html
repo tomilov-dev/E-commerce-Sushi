@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Вход в аккаунт
+{% endblock title %}
+
+{% block main %}
+{% if errors %}
+{% for error in errors %}
+<h1 class="text-red-600">{{ error }}</h1>
+{% endfor %}
+{% endif %}
+
+{% if login_messages %}
+{% for msg in login_messages %}
+<h1>{{ msg }}</h1>
+{% endfor %}
+{% endif %}
+
+<h1>Требуется авторизация</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ user_login_form.as_p }}
+    <button type="submit">Вход</button>
+</form>
+
+<h2>Забыли пароль?</h2>
+<a href="{% url 'accounts:restore_password' %}">
+    <p class="text-red-600 hover:text-red-400">Восстановить пароль</p>
+</a>
+
+<h2>Если у Вас нет аккаунта, Вы можете:</h2>
+<a href="{% url 'accounts:account_register' %}">
+    <p class="text-red-600 hover:text-red-400">Зарегистрироваться</p>
+</a>
+{% endblock main %}

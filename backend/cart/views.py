@@ -1,6 +1,6 @@
 import re
 
-from django.shortcuts import render, redirect, get_object_or_404, resolve_url
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import HttpRequest, HttpResponse, Http404, JsonResponse
 from django.urls import reverse
@@ -36,8 +36,6 @@ def get_redirect_url(request: HttpRequest, product: Unit) -> str:
 
 def cart_details(request: HttpRequest) -> HttpResponse:
     cart = Cart(request)
-    print(cart)
-
     return render(
         request,
         "cart/details.html",

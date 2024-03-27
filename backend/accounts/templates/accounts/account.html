@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Аккаунт
+{% endblock title %}
+
+{% block main %}
+<div>
+    <h1>Ваш аккаунт</h1>
+    <p>Номер телефона: {{ user.phone }}</p>
+    <button>
+        <a href="{% url 'accounts:account_logout' %}">
+            Выйти из аккаунта
+        </a>
+    </button>
+</div>
+{% endblock main %}

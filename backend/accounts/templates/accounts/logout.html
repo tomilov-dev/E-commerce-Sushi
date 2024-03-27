@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Выход из аккаунта
+{% endblock title %}
+
+{% block main %}
+
+<h1>Вы действительно хотите выйти из аккаунта?</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ user_login_form.as_p }}
+    <button class="text-red-500" type="submit">Да</button>
+</form>
+<button class="text-green-500">
+    <a href="{% url 'pages:home' %}">
+        Нет
+    </a>
+</button>
+{% endblock main %}
