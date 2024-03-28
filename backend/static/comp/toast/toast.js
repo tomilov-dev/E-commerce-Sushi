@@ -4,7 +4,7 @@ let toastComponentHTML = document
   .querySelector(".toast").outerHTML;
 let toastContainer = document.querySelector(".toast-container");
 
-function showToast(productName) {
+function showToast(content) {
   let newToast = document.createElement("div");
   newToast.innerHTML = toastComponentHTML;
   if (!newToast.classList.contains("toast-element")) {
@@ -15,6 +15,8 @@ function showToast(productName) {
   let newToastCloseButton = newToast.querySelector("button");
 
   newToast.setAttribute("toast-id", toastId);
+  newToastContent = newToast.querySelector(".toast-content");
+  newToastContent.textContent = content;
   newToastCloseButton.setAttribute("toast-id", toastId);
 
   toastCounter++;

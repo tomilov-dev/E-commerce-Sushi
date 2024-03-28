@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 
 from .models import PromotionCategory, ProductPromotion, PromoAction
-from cart.forms import SimpleCartAddProductForm
+from cart.forms import SimpleCartAddProductForm, SimpleCartRemoveProductForm
 
 
 def promotion_list(request: HttpRequest) -> HttpResponse:
@@ -30,6 +30,7 @@ def get_promotion_category(
             "products": products,
             "current_category": promotion_category.name,
             "cart_add_product_form": SimpleCartAddProductForm(),
+            "cart_remove_product_form": SimpleCartRemoveProductForm(),
         },
     )
 

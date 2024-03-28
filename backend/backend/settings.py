@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+DELIVERY_PRICES = {
+    0: 150,
+    2500: 100,
+    5000: 0,
+}
+
 CART_SESSION_ID = "cart"
 PHONE_HASH_SESSION_ID = "PHONE_HASH"
 RESEND_TIMER_SESSION_ID = "RESEND_TIMER"
@@ -60,6 +66,7 @@ INSTALLED_APPS = [
     "tags.apps.TagsConfig",
     "pages.apps.PagesConfig",
     "cart.apps.CartConfig",
+    "orders.apps.OrdersConfig",
     "accounts.apps.AccountsConfig",
 ]
 

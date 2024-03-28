@@ -45,7 +45,6 @@
                     <div id="flyoutContactExpandLessDesktop">
                         {% include 'svg/expand_less.html' %}
                     </div>
-
                 </button>
 
                 <div class="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
@@ -123,15 +122,21 @@
         <div class="hidden basis-1/4 sm:flex justify-end">
 
             <div class="group mr-3">
-                <a href="#">
+                <a href="{% url 'orders:order_list' %}">
                     {% include 'svg/fast_check.html' %}
                 </a>
             </div>
 
-            <div class="group mr-3">
+            <div class="relative group mr-3">
                 <a href="{% url 'cart:cart_details' %}">
                     {% include 'svg/shopping_bag.html' %}
                 </a>
+                <div class="absolute -top-2 left-3.5">
+                    <span id="cart-units-count-badge" class="text-xs rounded-full bg-red-500 p-0.5 px-1 text-white"
+                        count="{{ cart.units_count }}">
+                        {{ cart.units_count_text }}
+                    </span>
+                </div>
             </div>
 
             <div class="group">

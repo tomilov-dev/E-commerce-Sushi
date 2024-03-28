@@ -44,4 +44,11 @@
             </div>
         </div>
     </div>
+
+    {% include 'toast/toast_container.html' %}
+    {% include 'toast/toast_template.html' %}
 </div>
+
+{% block js_dependencies %}
+<script src="{% static 'toast/toast.js' %}"></script>
+{% endblock js_dependencies %}

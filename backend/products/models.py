@@ -92,6 +92,11 @@ class Unit(
         else:
             return self.product.name
 
+    def get_price(self) -> int:
+        if self.discount_price:
+            return self.discount_price
+        return self.price
+
     def __str__(self):
         postfix = " :: " + self.name if self.name else ""
         return f"{self.product.name}{postfix}"
@@ -119,7 +124,7 @@ class Characteristics(models.Model):
     )
     quantity = models.IntegerField(
         default=1,
-        verbose_name="Количества товара в упаковке, шт",
+        verbose_name="Количества штук в упаковке, шт",
     )
 
     proteins = models.IntegerField(

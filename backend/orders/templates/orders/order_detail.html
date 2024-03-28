@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Заказ №{{ order.id }}
+{% endblock title %}
+
+{% block main %}
+<div class="flex flex-col justify-center">
+    <div>
+        <h1>Заказ №{{ order.id }}</h1>
+        <h2>Статус: {{ order.get_status_display }}</h2>
+    </div>
+
+    <div class="order-items justify-center">
+        {% for item in items %}
+        <div class="order-item">
+            <p>{{ item.unit.full_name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}

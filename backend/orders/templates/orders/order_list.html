@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои заказы
+{% endblock title %}
+
+{% block main %}
+<div class="flex gap-2">
+    {% for order in orders %}
+    <div class="order-card bg-slate-100 border rounded-xl p-10">
+        <p>Заказ №{{ order.id }}</p>
+        <p>Статус: {{ order.get_status_display }}</p>
+        {% if order.business_comment %}
+        <p>Комментарий компании: {{ order.business_comment }}</p>
+        {% endif %}
+
+        <button class="bg-red-200 p-2 rounded-xl">
+            <a href="{{ order.get_absolute_url }}">
+                Детали заказа
+            </a>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock main %}
