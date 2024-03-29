@@ -1,20 +1,48 @@
-{% extends 'base.html' %}
+{% extends 'accounts/account_base.html' %}
 
 {% block title %}
 Выход из аккаунта
 {% endblock title %}
 
-{% block main %}
+{% if errors %}
+{% block account_errors %}
+{% for error in errors %}
+<div>
+    <p>{{ error }}</p>
+</div>
+{% endfor %}
+{% endblock account_errors %}
+{% endif %}
 
-<h1>Вы действительно хотите выйти из аккаунта?</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ user_login_form.as_p }}
-    <button class="text-red-500" type="submit">Да</button>
-</form>
-<button class="text-green-500">
-    <a href="{% url 'pages:home' %}">
-        Нет
-    </a>
-</button>
-{% endblock main %}
+{% if login_messages %}
+{% block account_messages %}
+{% for msg in login_messages %}
+<div>
+    <p>{{ msg }}</p>
+</div>
+{% endfor %}
+{% endblock account_messages %}
+{% endif %}
+
+{% block account_main %}
+<div>
+    <div class="my-4">
+        <h1 class="text-center my-4">Вы действительно хотите выйти из аккаунта?</h1>
+        <div class="flex justify-around">
+            <form method="post">
+                {% csrf_token %}
+                {{ user_login_form.as_p }}
+                <button class="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                    Да
+                </button>
+            </form>
+            <button class="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                <a href="{% url 'pages:home' %}">
+                    Нет
+                </a>
+            </button>
+        </div>
+
+    </div>
+</div>
+{% endblock account_main %}

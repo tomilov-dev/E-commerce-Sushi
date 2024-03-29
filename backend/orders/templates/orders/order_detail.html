@@ -1,22 +1,67 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Заказ №{{ order.id }}
 {% endblock title %}
 
 {% block main %}
-<div class="flex flex-col justify-center">
-    <div>
-        <h1>Заказ №{{ order.id }}</h1>
-        <h2>Статус: {{ order.get_status_display }}</h2>
-    </div>
+<div class="mx-auto max-w-screen-md">
+    <div class="bg-slate-100 rounded-xl p-10">
+        <div class="flex flex-col justify-center gap-4">
+            <div>
+                <h1>Заказ №{{ order.id }}</h1>
+                <h2>Статус: {{ order.get_status_display }}</h2>
+            </div>
 
-    <div class="order-items justify-center">
-        {% for item in items %}
-        <div class="order-item">
-            <p>{{ item.unit.full_name }}</p>
+            <div class="order-items justify-center">
+                <div class="flex flex-col gap-2">
+                    {% for item in items %}
+                    <div class="cart-item relative">
+                        <div class="cart-item-wrapper flex justify-start bg-slate-200 rounded-3xl pr-10 py-4">
+                            <div class="item-image basis-1/4 mx-4">
+                                {% if item.unit.product.image %}
+                                <img src="{{ item.unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
+                                {% else %}
+                                <img src="{% static 'no-image.jpg' %}" class="w-full rounded-lg sm:w-40" />
+                                {% endif %}
+                            </div>
+                            <div class="item-info basis-2/4 flex flex-col justify-start">
+                                <div class="item-name" class="mt-4 sm:mt-0">
+                                    <h2 class="text-lg font-bold text-gray-900">{{ item.unit.full_name }}</h2>
+                                </div>
+                                <div class="item-price" class="mt-8 flex justify-between">
+                                    <p class="text-sm">
+                                        <span>Цена единицы:</span>
+                                        <span class="item-price-value">
+                                            {{ item.price|floatformat:"0" }} ₽
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class='item-total-price'>
+                                    <p class="text-sm">
+                                        <span>Итого:</span>
+                                        <span class="item-total-price-value text-sm">
+                                            {{ item.total_cost |floatformat:"0" }}
+                                        </span>
+                                        <span>₽</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="item-forms basis-1/4 flex justify-end mt-auto">
+                                <div class="item-quantity">
+                                    <span class="item-quantity-value mx-1">
+                                        {{ item.quantity }}
+                                    </span>
+                                    <span> шт</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock main %}

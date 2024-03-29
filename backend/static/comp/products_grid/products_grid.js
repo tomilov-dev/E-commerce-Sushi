@@ -26,22 +26,6 @@ function selectUnit(button) {
   }
 }
 
-function cartBadgeChanges(change) {
-  let cartBadge = document.querySelector("#cart-units-count-badge");
-  let count = parseInt(cartBadge.getAttribute("count"));
-
-  count += change;
-  console.log(count);
-
-  let countText = count;
-  if (count > 9) {
-    countText = "9+";
-  }
-
-  cartBadge.textContent = countText;
-  cartBadge.setAttribute("count", count);
-}
-
 function addToCart(button) {
   let form = button.closest("form");
   let data = new FormData(form);

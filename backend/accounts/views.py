@@ -92,6 +92,7 @@ def resend_code(request: HttpRequest, action: Action) -> HttpResponse:
 
         code = generate_code()
         phone_confirmation.code = code
+        phone_confirmation.sent_time = current_time()
         phone_confirmation.save()
 
         send_code(request, phone, code)
@@ -148,7 +149,7 @@ def restore_user_password(phone: str, password: str) -> CustomUser:
 
 
 def create_user(phone: str, password: str) -> CustomUser:
-    return CustomUser.objects.create(
+    return CustomUser.objects.create_user(
         phone=phone,
         password=password,
     )

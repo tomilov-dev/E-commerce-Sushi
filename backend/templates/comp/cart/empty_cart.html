@@ -1,3 +1,19 @@
+{% load static %}
+
 <div class="mt-10">
-    <h1 class="mb-10 text-center text-2xl font-bold">Корзина пуста</h1>
+    <div class="flex flex-row justify-center">
+        <div>
+            <div>
+                <p class="text-center text-2xl font-bold">Ваша Корзина пуста</p>
+                <a href="{% url 'pages:home' %}">
+                    <p class="text-center text-2xl font-semibold text-green-400 hover:text-green-200">
+                        Сделать покупки
+                    </p>
+                </a>
+            </div>
+            <div>
+                <img src="{% static 'empty_cart.jpg' %}">
+            </div>
+        </div>
+    </div>
 </div>

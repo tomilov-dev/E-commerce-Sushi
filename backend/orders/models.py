@@ -163,5 +163,9 @@ class OrderItem(models.Model):
     def total_cost(self) -> int:
         return self.get_cost()
 
+    @property
+    def total_cost(self) -> int:
+        return self.get_cost()
+
     def __str__(self) -> str:
         return str(self.id)

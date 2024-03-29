@@ -1,57 +1,67 @@
-{% extends 'base.html' %}
+{% extends 'accounts/account_base.html' %}
+{% load static %}
 
 {% block title %}
 Подтверждение номера телефона
 {% endblock title %}
 
-{% block main %}
 {% if errors %}
+{% block account_errors %}
 {% for error in errors %}
-<h1 class="text-red-600">{{ error }}</h1>
+<div>
+    <p>{{ error }}</p>
+</div>
 {% endfor %}
+{% endblock account_errors %}
 {% endif %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ phone_confirmation_form.as_p }}
-    <button type="submit">Отправить</button>
-</form>
+{% if login_messages %}
+{% block account_messages %}
+{% for msg in login_messages %}
+<div>
+    <p>{{ msg }}</p>
+</div>
+{% endfor %}
+{% endblock account_messages %}
+{% endif %}
 
-<h1>Не пришел код?</h1>
 
-<p1 id="resend-code">
-    <button class="text-red-500">
-        <a href="{% url 'accounts:resend_restore_code' %}">
-            Отправить новый
-        </a>
-    </button>
-</p1>
+{% block account_main %}
+<div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ phone_confirmation_form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
 
-<p1 id="resend-code-time-element">
-    Отправить новый: через
-    <span id="resend-code-time">
-        {{ resend_time }}
-    </span>
-    <span> секунд</span>
-</p1>
+    <div>
+        <h1>Не пришел код?</h1>
 
-<script>
-    let resendCodeElement = document.getElementById('resend-code')
-    let resendCodeTimeElement = document.getElementById('resend-code-time-element');
+        <div>
+            <p id="resend-code">
+                <button class="text-red-500">
+                    <a href="{% url 'accounts:resend_restore_code' %}">
+                        Отправить новый
+                    </a>
+                </button>
+            </p>
+        </div>
 
-    let timeElement = document.getElementById('resend-code-time');
-    let timeValue = parseInt(timeElement.textContent);
+        <div>
+            <p id="resend-code-time-element">
+                Отправить новый: через
+                <span id="resend-code-time">
+                    {{ resend_time }}
+                </span>
+                <span> секунд</span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock account_main %}
 
-    let countDown = setInterval(function () {
-        timeValue--;
-        timeElement.textContent = timeValue;
-
-        if (timeValue <= 0) {
-            clearInterval(countDown);
-            resendCodeElement.removeAttribute('hidden');
-            resendCodeTimeElement.setAttribute('hidden', true);
-        }
-    }, 1000)
-</script>
-
-{% endblock main %}
+{% block js_dependencies %}
+<script src="{% static 'accounts/restore_confirm.js' %}"></script>
+{% endblock js_dependencies %}

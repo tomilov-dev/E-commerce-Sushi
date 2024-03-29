@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block seo %}
+{% endblock seo %}
+
+{% block title %}
+Аккаунт
+{% endblock title %}
+
+{% block main %}
+<div class="max-w-lg bg-slate-100 mx-auto py-5 px-10 rounded-xl">
+    <div class="account-error-block text-red-600 text-center mt-2">
+        {% block account_errors %}
+        {% endblock account_errors %}
+    </div>
+
+    <div class="account-message-block text-yellow-600 text-center mt-2">
+        {% block account_messages %}
+        {% endblock account_messages %}
+    </div>
+
+    {% block account_main %}
+    {% endblock account_main %}
+</div>
+{% endblock main %}

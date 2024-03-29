@@ -33,18 +33,18 @@ class OrderCreateForm(forms.ModelForm):
         ]
 
         widgets = {
-            "phone": forms.TextInput(attrs={"class": "order-form text-field"}),
-            "first_name": forms.TextInput(attrs={"class": "order-form text-field"}),
-            "last_name": forms.TextInput(attrs={"class": "order-form text-field"}),
+            "phone": forms.TextInput(attrs={"class": "form-style text-field"}),
+            "first_name": forms.TextInput(attrs={"class": "form-style text-field"}),
+            "last_name": forms.TextInput(attrs={"class": "form-style text-field"}),
             "delivery": forms.Select(
-                attrs={"class": "order-form select-field form-select"}
+                attrs={"class": "form-style select-field form-select"}
             ),
             "payment": forms.Select(
-                attrs={"class": "order-form select-field form-select"}
+                attrs={"class": "form-style select-field form-select"}
             ),
-            "address": forms.TextInput(attrs={"class": "order-form text-field"}),
+            "address": forms.TextInput(attrs={"class": "form-style text-field"}),
             "client_comment": forms.Textarea(
-                attrs={"class": "order-form message-field", "cols": 20, "rows": 10}
+                attrs={"class": "form-style message-field", "cols": 20, "rows": 10}
             ),
         }
 

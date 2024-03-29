@@ -88,7 +88,7 @@ def order_list(request: HttpRequest) -> HttpResponse:
         )
         return redirect("accounts:account_login")
 
-    orders = user.orders.all()
+    orders: list[Order] = user.orders.order_by("-created")[:18]
     return render(
         request,
         "orders/order_list.html",

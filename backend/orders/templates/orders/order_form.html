@@ -1,12 +1,11 @@
-<div>
+<div class="max-w-screen-xl">
     <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-            <div class="text-gray-600">
-                <p class="font-medium text-lg">Оформление заказа</p>
-                <p>Пожалуйста, заполните перечисленные поля</p>
-            </div>
-
-            <div class="lg:col-span-2">
+        <div class="text-gray-600 text-center my-4">
+            <p class="font-medium text-lg">Оформление заказа</p>
+            <p>Пожалуйста, заполните перечисленные поля</p>
+        </div>
+        <div class="text-sm">
+            <div>
                 <form method="post" action="{% url 'orders:order_confirm' %}">
                     {% csrf_token %}
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
@@ -40,7 +39,7 @@
                             </label>
                             {{ order_form.delivery }}
                         </div>
-                        <div class="md:col-span-3">
+                        <div class="md:col-span-3" id="address-div" hidden>
                             <label for="{{ order_form.address.id_for_label }}">
                                 Адрес:
                             </label>
@@ -61,7 +60,25 @@
 
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let addressDiv = document.getElementById('address-div');
+        let deliverySelect = document.getElementById("id_delivery");
+        let addressInput = document.getElementById("id_address");
+
+        deliverySelect.addEventListener("change", function () {
+            if (deliverySelect.value === "DL") {
+                addressDiv.removeAttribute('hidden');
+                addressInput.setAttribute('value', '');
+            } else if (deliverySelect.value === "PK") {
+                addressDiv.setAttribute('hidden', true);
+                let value = deliverySelect.options[deliverySelect.selectedIndex].text;
+                addressInput.setAttribute('value', value);
+            }
+        });
+    });
+</script>

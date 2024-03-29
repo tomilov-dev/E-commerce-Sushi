@@ -8,18 +8,13 @@
 
 {% block main %}
 <div>
-    <h1 class="text-center">Оформление заказа</h1>
-
-    {% include 'orders/order_form.html' %}
+    <div class="flex justify-center">
+        {% include 'orders/order_form.html' %}
+    </div>
 
     <div>
         <div class="flex justify-center">
             <h1 class="font-medium">Ваш заказ:</h1>
-            <button class="ml-12 rounded-full font-semibold">
-                <a href="{% url 'cart:cart_details' %}">
-                    Редактировать
-                </a>
-            </button>
         </div>
 
         <div>
@@ -29,14 +24,14 @@
                     {% with unit=item.unit %}
                     <div class="cart-item relative">
                         <div class="cart-item-wrapper flex justify-start bg-slate-100 rounded-3xl pr-10 py-4">
-                            <div class="item-image">
+                            <div class="item-image basis-1/4 mx-4">
                                 {% if unit.product.image %}
                                 <img src="{{ unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
                                 {% else %}
                                 <img src="{% static 'no-image.jpg' %}" class="w-full rounded-lg sm:w-40" />
                                 {% endif %}
                             </div>
-                            <div class="item-info flex flex-col justify-start">
+                            <div class="item-info basis-2/4 flex flex-col justify-start">
                                 <div class="item-name" class="mt-4 sm:mt-0">
                                     <h2 class="text-lg font-bold text-gray-900">{{ item.name }}</h2>
                                 </div>
@@ -70,7 +65,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="item-forms flex mt-auto">
+                            <div class="item-forms basis-1/4 flex justify-end mt-auto">
                                 <div class="item-quantity">
                                     <span class="item-quantity-value mx-1">
                                         {{ cart|cart_count_of:unit.id }}
@@ -108,6 +103,13 @@
                                 </p>
                                 <p class="text-sm text-gray-700">Включая НДС</p>
                             </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="rounded-full font-semibold text-red-600 hover:text-red-300">
+                                <a href="{% url 'cart:cart_details' %}">
+                                    Редактировать
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>

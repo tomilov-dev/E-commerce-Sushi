@@ -13,6 +13,31 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ("phone",)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["phone"].widget = forms.TextInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Номер телефона",
+            }
+        )
+        self.fields["password1"].widget = forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Пароль",
+            }
+        )
+        self.fields["password2"].widget = forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Повторите пароль",
+            }
+        )
+
+        self.fields["phone"].help_text = ""
+        self.fields["password1"].help_text = ""
+        self.fields["password2"].help_text = ""
+
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
@@ -21,16 +46,44 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].widget = forms.TextInput(
+            attrs={"class": "form-style text-field", "placeholder": "Номер телефона"}
+        )
+        self.fields["password"].widget = forms.PasswordInput(
+            attrs={"class": "form-style text-field", "placeholder": "Пароль"}
+        )
 
 
 class RestorePasswordForm(forms.Form):
-    phone = forms.CharField(max_length=20, label="Введите Ваш номер телефона")
+    phone = forms.CharField(
+        max_length=12,
+        label="Введите Ваш номер телефона",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Номер телефона",
+            }
+        ),
+    )
     password1 = forms.CharField(
-        label="Введите новый пароль", widget=forms.PasswordInput
+        label="Введите новый пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Введите новый пароль",
+            },
+        ),
     )
     password2 = forms.CharField(
-        label="Подтвердите новый пароль", widget=forms.PasswordInput
+        label="Подтвердите новый пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Подтвердите новый пароль",
+            },
+        ),
     )
 
     def clean_phone(self):
@@ -51,4 +104,13 @@ class RestorePasswordForm(forms.Form):
 
 
 class PhoneConfirmationForm(forms.Form):
-    code = forms.CharField(max_length=6, label="Введите код подтверждения")
+    code = forms.CharField(
+        max_length=6,
+        label="Введите код подтверждения",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Код подтверждения",
+            }
+        ),
+    )

@@ -1,17 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'accounts/account_base.html' %}
 
-{% block title %}
-Аккаунт
-{% endblock title %}
-
-{% block main %}
+{% if errors %}
+{% block account_errors %}
+{% for error in errors %}
 <div>
-    <h1>Ваш аккаунт</h1>
-    <p>Номер телефона: {{ user.phone }}</p>
-    <button>
+    <p>{{ error }}</p>
+</div>
+{% endfor %}
+{% endblock account_errors %}
+{% endif %}
+
+{% if login_messages %}
+{% block account_messages %}
+{% for msg in login_messages %}
+<div>
+    <p>{{ msg }}</p>
+</div>
+{% endfor %}
+{% endblock account_messages %}
+{% endif %}
+
+{% block account_main %}
+<div>
+    <h1 class="text-center">Ваш аккаунт</h1>
+    <div class="account-info my-4">
+        <p>Номер телефона: {{ user.phone }}</p>
+    </div>
+
+    <button class="text-red-600 hover:text-red-400">
         <a href="{% url 'accounts:account_logout' %}">
             Выйти из аккаунта
         </a>
     </button>
 </div>
-{% endblock main %}
+{% endblock account_main %}

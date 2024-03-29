@@ -127,12 +127,7 @@
                 <a href="{% url 'cart:cart_details' %}">
                     {% include 'svg/shopping_bag.html' %}
                 </a>
-                <div class="absolute -top-2 left-3.5">
-                    <span id="cart-units-count-badge" class="text-xs rounded-full bg-red-500 p-0.5 px-1 text-white"
-                        count="{{ cart.units_count }}">
-                        {{ cart.units_count_text }}
-                    </span>
-                </div>
+                {% include 'header/cart_badge.html' %}
             </div>
 
             <div class="group">
