@@ -16,3 +16,11 @@ def home(request: HttpRequest) -> HttpRequest:
         "pages/home.html",
         context={"items": categories},
     )
+
+
+def on_map(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/on_map.html")
+
+
+def about(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/about.html")

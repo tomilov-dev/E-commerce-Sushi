@@ -23,7 +23,7 @@
         <!-- Desktop menu -->
         <div class="hidden basis-2/4 justify-center sm:flex sm:gap-x-8 md:gap-x-12 lg:gap-x-16">
 
-            <a href="/" class="my-text1 hover:my-icon1-hover leading-6">
+            <a href="{% url 'pages:home' %}" class="my-text1 hover:my-icon1-hover leading-6">
                 Меню
             </a>
 
@@ -35,7 +35,7 @@
             <div class="relative">
 
                 <button type="button" id="flyoutContactButtonDesktop" class="group flex items-center gap-x-1 leading-6">
-                    <span class=" my-text1 group-hover:my-text1-hover">
+                    <span class="my-text1 group-hover:my-text1-hover">
                         Контакты
                     </span>
 
@@ -56,7 +56,6 @@
                             class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
                             <div
                                 class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-
                                 {% include 'svg/call.html' %}
                             </div>
 
@@ -75,12 +74,11 @@
 
                             <div
                                 class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-
                                 {% include 'svg/explore_nearby.html' %}
                             </div>
 
                             <div class="flex-auto">
-                                <a href="#" class="block">
+                                <a href="{% url 'pages:map' %}" class="block">
                                     <span class="my-text1 group-hover:my-text1-hover">ул. Шурманова, дом 113б</span>
                                     <span class="absolute inset-0"></span>
                                 </a>
@@ -94,14 +92,12 @@
 
                         <a href="#"
                             class="group flex items-center justify-center gap-x-2.5 p-3 leading-6 hover:bg-gray-100">
-
                             {% include 'svg/play_circle.html' %}
                             <span class="my-text1 group-hover: my-text1-hover">Превью</span>
                         </a>
 
                         <a href="#"
                             class="group flex items-center justify-center gap-x-2.5 p-3 leading-6 hover:bg-gray-100">
-
                             {% include 'svg/support_agent.html' %}
                             <span class="my-text1 group-hover:my-text1-hover">Связаться</span>
                         </a>
@@ -113,7 +109,7 @@
             </div>
             <!-- Desktop Flyout menu END -->
 
-            <a href="#" class="my-text1 hover:my-text1-hover leading-6">
+            <a href="{% url 'pages:about' %}" class="my-text1 hover:my-text1-hover leading-6">
                 О нас
             </a>
 
@@ -158,7 +154,7 @@
             class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div class="flex items-center justify-between">
 
-                <a href="#" class="-m-1.5 p-1.5">
+                <a href="{% url 'pages:home' %}" class="-m-1.5 p-1.5">
                     <img class="h-8 w-auto" src="{% static 'logo.svg' %}">
                 </a>
 
@@ -197,31 +193,46 @@
                                     <span class="my-text1">8-922-644-17-29</span>
                                 </a>
 
-                                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 leading-7 hover:bg-gray-50">
-                                    <span class="my-text1">ул. Шурманова, дом 113б</span>
+                                <a href="{% url 'pages:map' %}"
+                                    class="block rounded-lg py-2 pl-6 pr-3 leading-7 hover:bg-gray-50">
+                                    <span class="my-text1">
+                                        ул. Шурманова, дом 113б
+                                    </span>
                                 </a>
 
                             </div>
                         </div>
                         <!-- Mobile menu flyout END -->
 
-                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2 leading-7 hover:bg-gray-50">
-                            <span class="my-text1">О компании</span>
+                        <a href="{% url 'pages:about' %}"
+                            class="-mx-3 block rounded-lg px-3 py-2 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">
+                                О компании
+                            </span>
                         </a>
 
                     </div>
 
                     <div class="py-6">
-                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
-                            <span class="my-text1">Оформить заказ</span>
+                        <a href="{% url 'orders:order_confirm' %}"
+                            class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">
+                                Оформить заказ
+                            </span>
                         </a>
 
-                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
-                            <span class="my-text1">Корзина</span>
+                        <a href="{% url 'cart:cart_details' %}"
+                            class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">
+                                Корзина
+                            </span>
                         </a>
 
-                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
-                            <span class="my-text1">Личный кабинет</span>
+                        <a href="{% url 'accounts:account_page' %}"
+                            class="-mx-3 block rounded-lg px-3 py-2.5 leading-7 hover:bg-gray-50">
+                            <span class="my-text1">
+                                Личный кабинет
+                            </span>
                         </a>
 
                     </div>

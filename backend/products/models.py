@@ -29,8 +29,7 @@ class Product(
 
     @property
     def tags(self):
-        product_tags = self.product_tags.all()
-        return [pt.tag for pt in product_tags]
+        return [pt.tag for pt in self.product_tags.all()]
 
     @property
     def link(self) -> str:

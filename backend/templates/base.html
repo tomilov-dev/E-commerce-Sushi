@@ -48,7 +48,12 @@
 
     </div>
 
+    {% include 'toast/toast_container.html' %}
+    {% include 'toast/toast_template.html' %}
+
     <script src="{% static 'header/header.js' %}"></script>
+    <script src="{% static 'toast/toast.js' %}"></script>
+    <script src="{% static 'category_slider/category_slider.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     {% block js_dependecies %}
     {% endblock js_dependecies %}

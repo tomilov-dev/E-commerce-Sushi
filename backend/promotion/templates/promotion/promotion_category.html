@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block seo %}
+{% endblock seo %}
+
 {% block title %}
 {{ category.name }}
 {% endblock title %}
@@ -15,5 +18,4 @@
 
 {% block js_dependecies %}
 <script src="{% static 'products_grid/products_grid.js' %}"></script>
-<script src="{% static 'toast/toast.js' %}"></script>
 {% endblock js_dependecies %}

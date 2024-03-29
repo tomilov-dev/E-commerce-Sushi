@@ -1,21 +1,18 @@
 {% extends 'products_grid/product.html' %}
 {% load cart_filters %}
 
-{% block product_prices %}
-<div class="text-center mt-2 p-2 text-base font-normal" id="{{ product.id }}">
-    <div class="font-medium text-lg">
+{% block product_units %}
+<div class="product-info text-center mt-2 p-2 text-base font-normal" id="{{ product.id }}">
+    <div class="product-name font-medium text-lg">
         <a href="{{ product.link }}">
             <p>{{ unit.full_name }}</p>
         </a>
     </div>
 
     <div class="units-list mt-2 mx-4">
-
         <div class="units-cards">
-
             <div class="unit-card" unit-id="{{ unit.id }}">
                 <div class="flex justify-between">
-
                     <div class="price-value text-start">
                         {% if unit.discount_price %}
                         <p class="font-medium text-lg">
@@ -73,11 +70,9 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-{% endblock product_prices %}
+{% endblock product_units %}

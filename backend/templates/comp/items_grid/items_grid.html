@@ -1,24 +1,26 @@
 {% load static %}
 
-<div class="flex justify-center mx-6">
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+<div class="items-grid flex justify-center mx-6">
+    <div class="items-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for item in items %}
-        <div class="max-w-sm border rounded-xl bg-red-50 bg-opacity-30 shadow-sm hover:shadow-md">
+        <div class="item max-w-sm border rounded-xl bg-red-50 bg-opacity-30 shadow-sm hover:shadow-md">
             <a class="group" href="{{ item.link }}">
+                <div class="item-image">
+                    {% if item.image %}
+                    {% if with_scale == True %}
+                    <img class="rounded-t-xl duration-500 group-hover:scale-95" src="{{ item.image.url }}">
+                    {% else %}
+                    <img class="rounded-t-xl duration-500" src="{{ item.image.url }}">
+                    {% endif %}
+                    {% else %}
+                    <img class="rounded-t-xl" src="{% static 'no-image.jpg' %}">
+                    {% endif %}
+                </div>
 
-                {% if item.image %}
-                {% if with_scale == True %}
-                <img class="rounded-t-xl duration-500 group-hover:scale-95" src="{{ item.image.url }}">
-                {% else %}
-                <img class="rounded-t-xl duration-500" src="{{ item.image.url }}">
-                {% endif %}
-                {% else %}
-                <img class="rounded-t-xl" src="{% static 'no-image.jpg' %}">
-                {% endif %}
+                <hr class="opacity-50">
 
-                <div>
-                    <hr class="opacity-50">
+                <div class="item-content">
                     <div class="text-center mt-2 p-4 text-base font-normal">
                         <p>{{ item.name }}</p>
                     </div>

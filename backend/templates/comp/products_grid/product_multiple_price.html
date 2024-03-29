@@ -1,16 +1,15 @@
 {% extends 'products_grid/product.html' %}
 {% load cart_filters %}
 
-{% block product_prices %}
-<div class="text-center mt-2 p-2 text-base font-normal" id="{{ product.id }}">
-    <div class="font-medium text-lg">
+{% block product_units %}
+<div class="product-info text-center mt-2 p-2 text-base font-normal" id="{{ product.id }}">
+    <div class="product-name font-medium text-lg">
         <a href="{{ product.link }}">
             <p>{{ product.name }}</p>
         </a>
     </div>
 
     <div class="units-list mt-2 mx-4">
-
         <div class="units-selectors flex justify-center gap-6">
             {% for unit in product.units.all %}
             {% if forloop.first %}
@@ -159,7 +158,6 @@
             {% endif %}
             {% endfor %}
         </div>
-
     </div>
 </div>
-{% endblock product_prices %}
+{% endblock product_units %}
