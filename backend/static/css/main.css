@@ -15,3 +15,8 @@ body {
 #category-carousel {
   width: 800px;
 }
+
+#map-container {
+  width: 1000px;
+  height: 600px;
+}
