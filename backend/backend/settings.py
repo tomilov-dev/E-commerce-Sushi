@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 DELIVERY_PRICES = {
@@ -27,6 +28,9 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_ROOT = "static"
+MEDIA_ROOT = "media"
+
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -42,7 +46,7 @@ SESSION_COOKIE_AGE = 86400
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-uq*0=&8_f+0y*o+1rcj-#ji&jz6n$!p@!e#f$e2bnhdk4a!1pu"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -115,11 +119,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "delivery_mpa",
-        "USER": "admin",
-        "PASSWORD": "Parad228Hurt",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "PORT": os.getenv("POSTGRES_PORT", 5432),
+        "NAME": os.getenv("POSTGRES_NAME", "delivery_mpa"),
+        "USER": os.getenv("POSTGRES_USER", "admin"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
     }
 }
 
