@@ -22,7 +22,7 @@ services:
       - media_volume:/mainus/media
     env_file:
       - .env
-    command: bash -c "./manage.py collectstatic --noinput && ./manage.py migrate && gunicorn -b 0.0.0.0:8000 backend.backend.wsgi:application"
+    command: bash -c "./backend/manage.py collectstatic --noinput && ./backend/manage.py migrate && gunicorn -b 0.0.0.0:8000 backend.backend.wsgi:application"
 
   nginx:
     build: 
