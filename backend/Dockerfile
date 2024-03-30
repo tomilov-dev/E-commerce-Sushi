@@ -13,7 +13,7 @@ COPY --chown=mainus:mainus . .
 RUN pip install -r requirements.txt
 
 CMD sleep 5 && python manage.py migrate \
-    # && python manage.py setup_superuser \
+    && python manage.py setup_superuser \
     # && python manage.py fill_database \
     && python manage.py collectstatic --no-input \
     && gunicorn -b 0.0.0.0:8000 backend.wsgi:application

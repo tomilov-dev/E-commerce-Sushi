@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import json
 import random
 import requests
@@ -7,8 +8,10 @@ from datetime import datetime
 from pathlib import Path
 from bs4 import BeautifulSoup as soup
 
+ROOT_DIR = Path(__file__).parent.parent
+sys.path.append(str(ROOT_DIR))
 
-from models_dto import (
+from data.models_dto import (
     TagDTO,
     UnitDTO,
     PromoDTO,
@@ -18,8 +21,20 @@ from models_dto import (
 )
 
 current_date = str(datetime.now().date())
-IMAGE_PATH = Path(__file__).parent / "backup_data" / "images"
-DUMP_PATH = Path(__file__).parent / "backup_data" / "json_dump" / current_date
+
+
+BACKUP_DATA_PATH = Path(__file__).parent / "backup_data"
+JSON_DUMP_PATH = BACKUP_DATA_PATH / "json_dump"
+
+if not os.path.exists(BACKUP_DATA_PATH):
+    os.mkdir(BACKUP_DATA_PATH)
+
+if not os.path.exists(JSON_DUMP_PATH):
+    os.mkdir(JSON_DUMP_PATH)
+
+
+IMAGE_PATH = BACKUP_DATA_PATH / "images"
+DUMP_PATH = JSON_DUMP_PATH / current_date
 
 
 if not os.path.exists(DUMP_PATH):
