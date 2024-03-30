@@ -1,40 +1,38 @@
 version: "3.9"
 
 services:
-  pg_db:
-    image: postgres:16
+  pgdb:
     container_name: pg_deliverympa
-    volumes:
-      - ~/.pg/pd_data/mainus:/var/lib/postgresql/data
+    image: postgres:16
     env_file:
       - .env
+    volumes:
+      - ~/.pg/pd_data/delivery-mpa:/var/lib/postgresql/data
 
   backend:
-    image: deliverympa_docker:latest
+    container_name: backend_deliverympa
     build: 
       dockerfile: ./Dockerfile
-      context: .
-    container_name: backend_deliverympa
-    depends_on:
-      - pg_db
-    volumes:
-      - static_volume:/mainus/static
-      - media_volume:/mainus/media
+      context: ./backend
+    ports:
+      - "8001:8000"
     env_file:
       - .env
-    command: bash -c "./backend/manage.py collectstatic --noinput && ./backend/manage.py migrate && gunicorn -b 0.0.0.0:8000 backend.backend.wsgi:application"
+    depends_on:
+      - pgdb
+    volumes:
+      - static_volume:/backend/static
+      - media_volume:/backend/media
 
   nginx:
-    build: 
-      dockerfile: ./Dockerfile
-      context: ./docker/nginx/
     container_name: nginx_deliverympa
-    image: nginx_deliverympa
-    volumes:
-      - static_volume:/mainus/static
-      - media_volume:/mainus/media
+    build:
+      context: ./docker/nginx/
     depends_on:
       - backend
+    volumes:
+      - static_volume:/backend/static
+      - media_volume:/backend/media
     ports:
       - "${NGINX_EXTERNAL_PORT}:80"
 

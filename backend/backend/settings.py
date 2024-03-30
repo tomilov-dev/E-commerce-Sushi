@@ -12,6 +12,28 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+## Environment Checkout
+load_dotenv()
+check_env = os.getenv("ENV_CHECK")
+if not check_env:
+    raise FileNotFoundError(".env file not found")
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_ROOT = BASE_DIR / "static"
+MEDIA_ROOT = BASE_DIR / "media"
+
+STATIC_URL = "/static/"
+MEDIA_URL = "/media/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    BASE_DIR / "static/comp",
+]
+
 
 DELIVERY_PRICES = {
     0: 150,
@@ -24,21 +46,6 @@ PHONE_HASH_SESSION_ID = "PHONE_HASH"
 RESEND_TIMER_SESSION_ID = "RESEND_TIMER"
 
 AUTH_USER_MODEL = "accounts.CustomUser"
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-STATIC_ROOT = "static"
-MEDIA_ROOT = "media"
-
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    BASE_DIR / "static/comp",
-]
-
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
 
 SESSION_COOKIE_AGE = 86400
 
