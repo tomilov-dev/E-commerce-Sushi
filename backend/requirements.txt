@@ -5,8 +5,10 @@ bs4==0.0.2
 certifi==2024.2.2
 charset-normalizer==3.3.2
 Django==5.0.3
+gunicorn==21.2.0
 idna==3.6
 lxml==5.1.0
+packaging==24.0
 pillow==10.2.0
 psycopg2-binary==2.9.9
 pydantic==2.6.4
