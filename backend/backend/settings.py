@@ -31,7 +31,7 @@ MEDIA_URL = "/media/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
-    BASE_DIR / "staticfiles/comp",
+    BASE_DIR / "components",
 ]
 
 
@@ -62,6 +62,8 @@ ALLOWED_HOSTS = [
     "tomilov.space",
     "192.168.0.101",
     "192.168.0.102",
+    "localhost",
+    "127.0.0.1",
 ]
 
 # Application definition
@@ -101,7 +103,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             "templates",
-            "templates/comp",
+            "components",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
