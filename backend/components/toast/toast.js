@@ -24,7 +24,7 @@ function showToast(content) {
 
   setTimeout(function () {
     closeToast(newToastCloseButton);
-  }, 3000);
+  }, 1500);
 }
 
 function closeToast(toastCloseButton) {

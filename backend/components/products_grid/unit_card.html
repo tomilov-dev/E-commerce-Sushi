@@ -4,17 +4,49 @@
     {% if unit.charcs.measure_count %}
     <div>
         <p class="text-sm text-gray-400">
-            <span>({{ unit.charcs.measure_count }}</span>
-            <span>{{unit.charcs.measure.symbol }})</span>
+            <span>{{ unit.charcs.measure.display_name }}:</span>
+            <span>{{ unit.charcs.measure_count }}</span>
+            <span>{{unit.charcs.measure.symbol }}</span>
         </p>
     </div>
     {% endif %}
-    <div>
-        КБЖУ
+    <div class="relative group">
+        <div class="bg-sec-200 p-1 rounded-lg text-xs text-gray-400">
+            КБЖУ
+        </div>
+        <div class="absolute bottom-2 z-10 -right-16 flex-col items-center hidden mb-5 group-hover:flex">
+            <div class="flex gap-1.5 px-8 py-2 rounded-md text-xs text-white bg-black shadow-lg">
+                {% if unit.charcs.proteins %}
+                <div>
+                    <p>{{ unit.charcs.proteins }}</p>
+                    <p>бел.</p>
+                </div>
+                {% endif %}
+                {% if unit.charcs.fats %}
+                <div>
+                    <p>{{ unit.charcs.fats }}</p>
+                    <p>жир.</p>
+                </div>
+                {% endif %}
+                {% if unit.charcs.carbohydrates %}
+                <div>
+                    <p>{{ unit.charcs.carbohydrates }}</p>
+                    <p>угл.</p>
+                </div>
+                {% endif %}
+                {% if unit.charcs.kilocalories %}
+                <div>
+                    <p>{{ unit.charcs.kilocalories }}</p>
+                    <p>Ккал</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
+        </div>
     </div>
 </div>
 
-<div class="flex justify-between">
+<div class="flex justify-between my-1">
     <div class="price-value text-start flex items-center">
         {% if unit.discount_price %}
         <p class="font-medium text-lg">
