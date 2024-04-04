@@ -9,7 +9,7 @@ function selectUnit(button) {
     unitsSelectors.querySelectorAll(".unit-selector");
   let unitsCardsElements = unitsCards.querySelectorAll(".unit-card");
 
-  for (unitSelectorElement of unitsSelectorsElements) {
+  for (let unitSelectorElement of unitsSelectorsElements) {
     if (unitSelectorElement.getAttribute("unit-id") === unitId) {
       unitSelectorElement.classList.add("selected");
     } else {
@@ -17,7 +17,7 @@ function selectUnit(button) {
     }
   }
 
-  for (unitCardElement of unitsCardsElements) {
+  for (let unitCardElement of unitsCardsElements) {
     if (unitCardElement.getAttribute("unit-id") === unitId) {
       unitCardElement.removeAttribute("hidden");
     } else {

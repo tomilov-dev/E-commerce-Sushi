@@ -1,120 +1,19 @@
 {% load cart_filters %}
 
-<div class="flex items-center space-x-4 my-4">
-    <div>
-        <div class="rounded-lg bg-gray-100 flex py-2 px-3">
-            {% if unit.discount_price %}
-            <span class="font-bold text-red-500 text-3xl">
-                {{unit.discount_price|floatformat:"0"}}
-            </span>
-            <span class="text-red-400 ml-1 mt-1">₽</span>
-            <p class="ml-1 mt-2 line-through font-bold text-red-400 text-sm">
-                {{unit.price|floatformat:"0"}}
-            </p>
-            {% else %}
-            <span class="font-bold text-red-500 text-3xl">{{unit.price|floatformat:"0"}}</span>
-            <span class="text-red-400 ml-1 mt-1">₽</span>
-            {% endif %}
-        </div>
-    </div>
-    <div class="flex-1">
-        {% if unit.discount %}
-        <p class="text-green-500 text-xl font-semibold">Скидка {{ unit.discount }}%</p>
-        {% endif %}
-        <p class="text-gray-400 text-sm">Без учета доставки</p>
+<div class="units-cards">
+    <div class="unit-card" unit-id="{{ unit.id }}">
+        {% include 'product_detail/unit_card.html' %}
     </div>
 </div>
 
-<div class="flex flex-col">
-    {% if unit.charcs.measure_count %}
-    <div>
-        <p>
-            <span>{{ unit.charcs.measure.display_name }}:</span>
-            <span>{{ unit.charcs.measure_count }}</span>
-            <span>{{unit.charcs.measure.symbol }}</span>
-        </p>
-    </div>
-    {% endif %}
-
-    {% if unit.charcs.quantity %}
-    <div>
-        <p>
-            Количество в упаковке: {{ unit.charcs.quantity }} шт
-        </p>
-    </div>
-    {% endif %}
-
-    <div class="flex gap-1">
-        {% if unit.charcs.proteins %}
-        <p>
-            Белки: {{ unit.charcs.proteins }}
-        </p>
-        {% endif %}
-        {% if unit.charcs.fats %}
-        <p>
-            Жиры: {{ unit.charcs.fats }}
-        </p>
-        {% endif %}
-        {% if unit.charcs.carbohydrates %}
-        <p>
-            Углеводы: {{ unit.charcs.carbohydrates }}
-        </p>
-        {% endif %}
-        {% if unit.charcs.kilocalories %}
-        <p>
-            Килокалории: {{ unit.charcs.kilocalories }}
-        </p>
-        {% endif %}
-    </div>
-</div>
-
-{% if product.description %}
-<div>
+<div class="product-description">
     <p class="text-gray-500">
         {{ product.description }}
     </p>
 </div>
-{% endif %}
 
-<div class="flex py-4 space-x-4">
-    <div class="unit-forms flex">
-        <div class="unit-add-form p-1">
-            <form action="{% url 'cart:cart_add' unit.id %}" method="post">
-                {% csrf_token %}
-                {{ cart_add_product_form }}
-                <button type="submit" onclick="return addToCart(this)">
-                    <span>{% include 'svg/cart_add.html' %}</span>
-                </button>
-            </form>
-        </div>
-        {% if unit.id in cart %}
-        <div class="unit-quantity p-1 border border-neutral-200">
-            <span class="unit-quantity-value mx-1">
-                {{ cart|cart_count_of:unit.id }}
-            </span>
-        </div>
-        <div class="unit-remove-form p-1">
-            <form action="{% url 'cart:cart_remove' unit.id %}" method="post">
-                {% csrf_token %}
-                {{ cart_remove_product_form }}
-                <button type="submit" onclick="return removeFromCart(this)">
-                    <span>{% include 'svg/cart_remove.html' %}</span>
-                </button>
-            </form>
-        </div>
-        {% else %}
-        <div class="unit-quantity p-1 border border-neutral-200" hidden>
-            <span class="unit-quantity-value mx-1">0</span>
-        </div>
-        <div class="unit-remove-form p-1" hidden>
-            <form action="{% url 'cart:cart_remove' unit.id %}" method="post">
-                {% csrf_token %}
-                {{ cart_remove_product_form }}
-                <button type="submit" onclick="return removeFromCart(this)">
-                    <span>{% include 'svg/cart_remove.html' %}</span>
-                </button>
-            </form>
-        </div>
-        {% endif %}
+<div class="units-buttons mt-2">
+    <div class="unit-forms" unit-id="{{ unit.id }}">
+        {% include 'product_detail/unit_forms.html' %}
     </div>
 </div>
