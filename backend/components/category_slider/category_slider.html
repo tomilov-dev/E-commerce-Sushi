@@ -1,5 +1,5 @@
-<div class="flex justify-center mb-8">
-    <div id="category-carousel" class="splide" slides-count="{{ categories_context|length }}">
+<div class="flex justify-center">
+    <div id="category-carousel" class="splide mx-auto" slides-count="{{ categories_context|length }}">
         <div class="splide__track">
             <ul class="splide__list">
                 {% for category in categories_context %}
@@ -9,7 +9,7 @@
                         <a href="{{ category.link }}">
                             <!-- Max width control -->
                             {% if current_category == category.name %}
-                            <div class="w-24 h-24 rounded-lg bg-red-100 p-2 border mx-1" id="selected-category"
+                            <div class="w-24 h-24 rounded-xl p-2 border bg-accent bg-opacity-50" id="selected-category"
                                 category-index="{{ forloop.counter }}">
                                 {% if category.icon %}
                                 <img src="{{ category.icon.url }}">
@@ -17,7 +17,7 @@
                                 <div class="text-center text-sm">{{ category.name }}</div>
                             </div>
                             {% else %}
-                            <div class="w-24 h-24 rounded-xl p-2 border  mx-1">
+                            <div class="w-24 h-24 rounded-xl p-2 border bg-sec">
                                 {% if category.icon %}
                                 <img src="{{ category.icon.url }}">
                                 {% endif %}

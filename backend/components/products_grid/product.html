@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="product max-w-sm border rounded-xl shadow-sm hover:shadow-md">
+<div class="product max-w-sm bg-sec border border-neutral-200 rounded-xl shadow-md hover:shadow-lg hover:border-accent">
     <div class="product-tags absolute ml-1 mt-1 flex flex-col gap-1">
         {% for tag in product.tags %}
         {% if tag.image %}
@@ -11,7 +11,7 @@
         {% endfor %}
     </div>
 
-    <div class="product-image">
+    <div class="product-image p-2">
         <a href="{{ product.link }}">
             {% if product.image %}
             <img class="rounded-xl duration-500 hover:scale-95" src="{{ product.image.url }}">
@@ -21,9 +21,6 @@
         </a>
     </div>
 
-    <hr class="opacity-50">
-
     {% block product_units %}
     {% endblock product_units %}
-
 </div>

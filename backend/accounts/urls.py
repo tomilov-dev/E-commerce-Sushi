@@ -8,8 +8,9 @@ from .views import (
     account_logout,
     resend_code,
     restore_password,
-    # restore_password_confim,
-    # resend_restore_code,
+    change_password,
+    change_phone,
+    change_presonal_info,
 )
 
 app_name = "accounts"
@@ -22,4 +23,7 @@ urlpatterns = [
     path("confirm/<str:action>/", confirm_phone, name="confirm_phone"),
     path("resend/<str:action>", resend_code, name="resend_code"),
     path("restore_password/", restore_password, name="restore_password"),
+    path("change_password/", change_password, name="change_password"),
+    path("change_phone/", change_phone, name="change_phone"),
+    path("change_presonal_info/", change_presonal_info, name="change_presonal_info"),
 ]

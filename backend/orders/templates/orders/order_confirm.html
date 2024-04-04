@@ -7,116 +7,114 @@
 {% endblock title %}
 
 {% block main %}
-<div>
-    <div class="flex justify-center">
-        {% include 'orders/order_form.html' %}
-    </div>
+<div class="bg-sec mt-8 py-10 border rounded-xl mx-4">
 
-    <div>
-        <div class="flex justify-center">
-            <h1 class="font-medium">Ваш заказ:</h1>
-        </div>
+    <div class="mx-4">
+        <h1 class="my-2 text-center text-xl font-medium">Ваш заказ:</h1>
 
-        <div>
-            <div class="flex flex-row gap-3 justify-center">
-                <div class="cart-items flex flex-col gap-3">
-                    {% for item in cart %}
-                    {% with unit=item.unit %}
-                    <div class="cart-item relative">
-                        <div class="cart-item-wrapper flex justify-start bg-slate-100 rounded-3xl pr-10 py-4">
-                            <div class="item-image basis-1/4 mx-4">
-                                {% if unit.product.image %}
-                                <img src="{{ unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
+        <div class="flex flex-col md:flex-row gap-3 justify-center">
+            <div class="cart-items flex flex-col gap-3">
+                {% for item in cart %}
+                {% with unit=item.unit %}
+                <div class="cart-item relative">
+                    <div class="cart-item-wrapper flex justify-start border bg-sec-100 rounded-3xl pr-10 py-4">
+                        <div class="item-image basis-1/4 mx-4">
+                            {% if unit.product.image %}
+                            <img src="{{ unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
+                            {% else %}
+                            <img src="{% static 'no-image.jpg' %}" class="w-full rounded-lg sm:w-40" />
+                            {% endif %}
+                        </div>
+                        <div class="item-info basis-2/4 flex flex-col justify-start">
+                            <div class="item-name" class="mt-4 sm:mt-0">
+                                <h2 class="text-lg font-bold text-gray-900">{{ item.name }}</h2>
+                            </div>
+                            <div class="item-price" class="mt-8 flex justify-between">
+                                {% if unit.discount_price %}
+                                <p class="text-sm ">
+                                    <span>Цена единицы:</span>
+                                    <span class="item-price-value text-xs line-through mr-1">
+                                        {{ unit.price|floatformat:"0" }} ₽
+                                    </span>
+                                    <span class="item-discount-price-value">
+                                        {{ unit.discount_price|floatformat:"0" }} ₽
+                                    </span>
+                                </p>
                                 {% else %}
-                                <img src="{% static 'no-image.jpg' %}" class="w-full rounded-lg sm:w-40" />
+                                <p class="text-sm">
+                                    <span>Цена единицы:</span>
+                                    <span class="item-price-value">
+                                        {{ unit.price|floatformat:"0" }} ₽
+                                    </span>
+                                </p>
                                 {% endif %}
                             </div>
-                            <div class="item-info basis-2/4 flex flex-col justify-start">
-                                <div class="item-name" class="mt-4 sm:mt-0">
-                                    <h2 class="text-lg font-bold text-gray-900">{{ item.name }}</h2>
-                                </div>
-                                <div class="item-price" class="mt-8 flex justify-between">
-                                    {% if unit.discount_price %}
-                                    <p class="text-sm ">
-                                        <span>Цена единицы:</span>
-                                        <span class="item-price-value text-xs line-through mr-1">
-                                            {{ unit.price|floatformat:"0" }} ₽
-                                        </span>
-                                        <span class="item-discount-price-value">
-                                            {{ unit.discount_price|floatformat:"0" }} ₽
-                                        </span>
-                                    </p>
-                                    {% else %}
-                                    <p class="text-sm">
-                                        <span>Цена единицы:</span>
-                                        <span class="item-price-value">
-                                            {{ unit.price|floatformat:"0" }} ₽
-                                        </span>
-                                    </p>
-                                    {% endif %}
-                                </div>
-                                <div class='item-total-price'>
-                                    <p class="text-sm">
-                                        <span>Итого:</span>
-                                        <span class="item-total-price-value text-sm">
-                                            {{ item.total_price |floatformat:"0" }}
-                                        </span>
-                                        <span>₽</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item-forms basis-1/4 flex justify-end mt-auto">
-                                <div class="item-quantity">
-                                    <span class="item-quantity-value mx-1">
-                                        {{ cart|cart_count_of:unit.id }}
+                            <div class='item-total-price'>
+                                <p class="text-sm">
+                                    <span>Итого:</span>
+                                    <span class="item-total-price-value text-sm">
+                                        {{ item.total_price |floatformat:"0" }}
                                     </span>
-                                    <span> шт</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endwith %}
-                    {% endfor %}
-                </div>
-
-                {% with total_prices=cart.total_price %}
-                <div class="cart-subtotal">
-                    <div class="rounded-lg border bg-white shadow-md p-10">
-                        <div class="mb-2 flex justify-between">
-                            <p class="text-gray-700">Стоимость товаров</p>
-                            <p id="cart-items-price" class="ml-8 text-gray-700">
-                                {{ total_prices.items_price|floatformat:"0" }} ₽
-                            </p>
-                        </div>
-                        <div class="flex justify-between">
-                            <p class="text-gray-700">Доставка</p>
-                            <p id="cart-delivery-price" class="text-gray-700">
-                                {{ cart.delivery_price }} ₽
-                            </p>
-                        </div>
-                        <hr class="my-4" />
-                        <div class="flex justify-between">
-                            <p class="text-lg font-bold">Итого: </p>
-                            <div class="">
-                                <p id="cart-total-price" class="mb-1 text-lg font-bold">
-                                    {{ total_prices.cart_price|floatformat:"0" }} ₽
+                                    <span>₽</span>
                                 </p>
-                                <p class="text-sm text-gray-700">Включая НДС</p>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <button class="rounded-full font-semibold text-red-600 hover:text-red-300">
-                                <a href="{% url 'cart:cart_details' %}">
-                                    Редактировать
-                                </a>
-                            </button>
+                        <div class="item-forms basis-1/4 flex justify-end mt-auto">
+                            <div class="item-quantity">
+                                <span class="item-quantity-value mx-1">
+                                    {{ cart|cart_count_of:unit.id }}
+                                </span>
+                                <span> шт</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 {% endwith %}
+                {% endfor %}
             </div>
-        </div>
 
+            {% with total_prices=cart.total_price %}
+            <div class="cart-subtotal">
+                <div class="rounded-lg border bg-white shadow-md p-10">
+                    <div class="mb-2 flex justify-between">
+                        <p class="text-gray-700">Стоимость товаров</p>
+                        <p id="cart-items-price" class="ml-8 text-gray-700">
+                            {{ total_prices.items_price|floatformat:"0" }} ₽
+                        </p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p class="text-gray-700">Доставка</p>
+                        <p id="cart-delivery-price" class="text-gray-700">
+                            {{ cart.delivery_price }} ₽
+                        </p>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="flex justify-between">
+                        <p class="text-lg font-bold">Итого: </p>
+                        <div class="">
+                            <p id="cart-total-price" class="mb-1 text-lg font-bold">
+                                {{ total_prices.cart_price|floatformat:"0" }} ₽
+                            </p>
+                            <p class="text-sm text-gray-700">Включая НДС</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="rounded-full font-semibold text-red-600 hover:text-red-300">
+                            <a href="{% url 'cart:cart_details' %}">
+                                Редактировать
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+
+    <div class="mt-8 mx-4">
+        <div class="flex justify-center">
+            {% include 'orders/order_form.html' %}
+        </div>
     </div>
 
 </div>

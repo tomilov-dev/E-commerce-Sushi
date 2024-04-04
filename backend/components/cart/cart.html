@@ -2,16 +2,17 @@
 {% load cart_filters %}
 
 <section class="cart-section">
-    <div class="flex justify-center">
-        <div class="max-w-screen-lg mt-10 bg-slate-50 p-8 rounded-xl">
+    <div class="flex justify-center mx-4">
+        <div class="max-w-screen-lg mt-10 bg-sec border p-8 rounded-xl">
             <h1 class="mb-10 text-center text-2xl font-bold">Корзина</h1>
 
-            <div class="flex flex-row gap-3 justify-center">
+            <div class="flex flex-col md:flex-row gap-3 justify-center">
                 <div class="cart-items flex flex-col gap-3">
                     {% for item in cart %}
                     {% with unit=item.unit %}
                     <div class="cart-item relative">
-                        <div class="cart-item-wrapper flex justify-start bg-slate-200 rounded-3xl pr-10 py-4">
+                        <div
+                            class="cart-item-wrapper flex justify-start border bg-sec-100 shadow-sm rounded-3xl pr-10 py-4">
                             <div class="item-image basis-1/4 mx-4">
                                 {% if unit.product.image %}
                                 <img src="{{ unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
@@ -22,7 +23,9 @@
 
                             <div class="item-info basis-2/4 flex flex-col justify-start">
                                 <div class="item-name" class="mt-4 sm:mt-0">
-                                    <h2 class="text-lg font-bold text-gray-900">{{ item.name }}</h2>
+                                    <a href="{{ unit.link }}">
+                                        <h2 class="text-lg font-bold text-gray-900">{{ item.name }}</h2>
+                                    </a>
                                 </div>
                                 <div class="item-price" class="mt-8 flex justify-between">
                                     {% if unit.discount_price %}
@@ -56,27 +59,26 @@
                             </div>
 
                             <div class="item-forms basis-1/4 flex justify-end mt-auto">
-                                <div class="item-remove-form">
+                                <div class="item-remove-form p-1">
                                     <form action="{% url 'cart:cart_remove' unit.id %}" method="post">
                                         {% csrf_token %}
                                         {{ cart_remove_product_form }}
                                         <button type="submit" onclick="return removeFromCart(this)">
-                                            <span>{% include 'svg/remove.html' %}</span>
+                                            <span>{% include 'svg/cart_remove.html' %}</span>
                                         </button>
                                     </form>
                                 </div>
-                                <div class="item-quantity mt-1 mr-2">
+                                <div class="item-quantity p-1 border border-neutral-200">
                                     <span class="item-quantity-value mx-1">
                                         {{ cart|cart_count_of:unit.id }}
                                     </span>
-                                    <span> шт</span>
                                 </div>
-                                <div class="item-add-form">
+                                <div class="item-add-form p-1">
                                     <form action="{% url 'cart:cart_add' unit.id %}" method="post">
                                         {% csrf_token %}
                                         {{ cart_add_product_form }}
                                         <button type="submit" onclick="return addToCart(this)">
-                                            <span>{% include 'svg/add.html' %}</span>
+                                            <span>{% include 'svg/cart_add.html' %}</span>
                                         </button>
                                     </form>
                                 </div>

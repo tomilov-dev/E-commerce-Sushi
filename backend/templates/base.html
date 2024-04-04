@@ -20,6 +20,9 @@
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
+    <link href="{% static 'category_slider/category_slider.css' %}" rel="stylesheet">
+    <link href="{% static 'promo_slider/promo_slider.css' %}" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -27,17 +30,21 @@
 
     {% block css_dependencies %}
     {% endblock css_dependencies %}
-
 </head>
 
-<body class="max-w-screen-2xl mx-auto">
+<body class="max-w-screen-2xl mx-auto bg-prim">
     <div class="flex flex-col h-screen justify-between">
 
-        {% include 'header/header.html' %}
+        <header
+            class="p-2 fixed left-0 right-0 top-0 z-30 bg-sec mx-auto border-b max-w-screen-2xl rounded-b-xl shadow-sm">
+            {% include 'header/header.html' %}
+        </header>
 
-        {% block category_slider %}
-        {% include 'category_slider/category_slider.html' with current_category=None %}
-        {% endblock category_slider %}
+        <div class="mt-32">
+            {% block category_slider %}
+            {% include 'category_slider/category_slider.html' with current_category=None %}
+            {% endblock category_slider %}
+        </div>
 
         <main>
             {% block main %}
@@ -55,6 +62,7 @@
     <script src="{% static 'header/cart_badge.js' %}"></script>
     <script src="{% static 'toast/toast.js' %}"></script>
     <script src="{% static 'category_slider/category_slider.js' %}"></script>
+    <script src="{% static 'promo_slider/promo_slider.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 
     {% block js_dependencies %}

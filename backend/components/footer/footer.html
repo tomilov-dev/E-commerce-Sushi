@@ -1,104 +1,114 @@
 {% load tz %}
 {% load static %}
 
-<footer class="bg-white mt-auto">
+<footer class="mt-auto">
 
-    <hr class="my-6 mx-auto">
+    <div class="bg-sec mt-10 px-4 pb-4 pt-8 border-t rounded-t-2xl shadow-sm">
 
-    <div class="mx-4">
+        <div class="mx-4">
 
-        <!-- High footer space -->
-        <div class="flex flex-col gap-2 px-4 md:flex-row">
-
-            <div>
-                <p class="my-text1 text-lg">Самая вкусная доставка в городе!</p>
-                <p class="my-text2">
-                    Доставим Вам еду горячей. Если нет, то вернем Вам деньги.
-                </p>
-            </div>
-
-            <div class="flex flex-col gap-2 md:mx-auto lg:flex-row lg:mx-0 lg:ml-auto lg:justify-end lg:gap-8">
+            <!-- High footer space -->
+            <div class="flex flex-col gap-2 px-4 md:flex-row">
 
                 <div>
-                    <span class="my-text1 block uppercase mb-2">Полезные
-                        ссылки</span>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a class="my-text2 hover:my-text2-hover block pb-2" href="#">
-                                О компании
+                    <p class="my-text1 text-lg">Самая вкусная доставка в городе!</p>
+                    <p class="my-text2">
+                        Доставим Вам еду горячей. Если нет, то вернем Вам деньги.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2 md:mx-auto lg:flex-row lg:mx-0 lg:ml-auto lg:justify-end lg:gap-8">
+
+                    <div>
+                        <span class="my-text1 block uppercase mb-2">Полезные
+                            ссылки</span>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:about' %}">
+                                    О компании
+                                </a>
+                            </li>
+                            <li>
+                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:blog' %}">
+                                    Блог
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <span class="my-text1 block uppercase mb-2">Прочие ресурсы</span>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:license' %}">
+                                    Лицензия
+                                </a>
+                            </li>
+                            <li>
+                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:terms' %}">
+                                    Условия работы
+                                </a>
+                            </li>
+                            <li>
+                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:contact' %}">
+                                    Связаться с нами
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr class="mx-auto my-8 flex">
+
+            <!-- Low footer space -->
+            <div class="mx-3 mb-3 flex flex-col md:flex-row">
+
+                <div class="basis-1/3">
+                    <div class="py-1 text-left">
+                        <span class="my-text2">
+                            Данные о продавце в разделе
+                            <a href="{% url 'pages:requisites' %}">
+                                <span class="underline underline-offset-2">
+                                    реквизиты
+                                </span>
                             </a>
-                        </li>
-                        <li>
-                            <a class="my-text2 hover:my-text2-hover block pb-2" href="#">
-                                Блог
+                        </span>
+                    </div>
+                </div>
+
+                <div class="basis-1/3 md:text-center my-auto">
+                    <div class="py-1">
+                        <span class="my-text2">© {% now 'Y' %}, MyCompany</span>
+                    </div>
+                </div>
+
+                <div class="basis-1/3 flex flex-col gap-1 md:flex-row">
+
+                    <!-- Payment Methods -->
+                    <div class="basis-1/2 flex gap-2 justify-start flex-row md:justify-center">
+                        <img class="w-8" src="{% static 'svg/visa.svg' %}">
+                        <img class="w-8" src="{% static 'svg/mastercard.svg' %}">
+                        <img class="w-8" src="{% static 'svg/mir.svg' %}">
+                    </div>
+
+                    <!-- Social Networks -->
+                    <div class="basis-1/2 flex gap-2 flex-row md:justify-end">
+                        <button class="">
+                            <a href="#">
+                                <img class="w-6" src="{% static 'svg/vk.svg' %}">
                             </a>
-                        </li>
-                    </ul>
-                </div>
+                        </button>
 
-                <div>
-                    <span class="my-text1 block uppercase mb-2">Прочие ресурсы</span>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a class="my-text2 hover:my-text2-hover block pb-2" href="#">Лицензия</a>
-                        </li>
-                        <li>
-                            <a class="my-text2 hover:my-text2-hover block pb-2" href="#">Условия работы</a>
-                        </li>
-                        <li>
-                            <a class="my-text2 hover:my-text2-hover block pb-2" href="#">Связаться с нами</a>
-                        </li>
-                    </ul>
-                </div>
+                        <button>
+                            <a href="#">
+                                <img class='w-6' src="{% static 'svg/instagram.svg' %}">
+                            </a>
+                        </button>
+                    </div>
 
-            </div>
-
-        </div>
-
-        <hr class="mx-auto my-3 flex">
-
-        <!-- Low footer space -->
-        <div class="mx-3 mb-3 flex flex-col md:flex-row">
-
-            <div class="basis-1/3">
-                <div class="py-1 text-left">
-                    <span class="my-text2">
-                        Данные о продавце в разделе
-                        <a href="#">
-                            <span class="underline underline-offset-2">реквизиты</span>
-                        </a>
-                    </span>
-                </div>
-            </div>
-
-            <div class="basis-1/3 md:text-center my-auto">
-                <div class="py-1">
-                    <span class="my-text2">© {% now 'Y' %}, MyCompany</span>
-                </div>
-            </div>
-
-            <div class="basis-1/3 flex flex-col gap-1 md:flex-row">
-
-                <!-- Payment Methods -->
-                <div class="basis-1/2 flex gap-2 justify-start flex-row md:justify-center">
-                    <img class="w-8" src="{% static 'svg/visa.svg' %}">
-                    <img class="w-8" src="{% static 'svg/mastercard.svg' %}">
-                    <img class="w-8" src="{% static 'svg/mir.svg' %}">
-                </div>
-
-                <!-- Social Networks -->
-                <div class="basis-1/2 flex gap-2 flex-row md:justify-end">
-                    <button class="">
-                        <a href="#">
-                            <img class="w-6" src="{% static 'svg/vk.svg' %}">
-                        </a>
-                    </button>
-
-                    <button>
-                        <a href="#">
-                            <img class='w-6' src="{% static 'svg/instagram.svg' %}">
-                        </a>
-                    </button>
                 </div>
 
             </div>

@@ -21,16 +21,61 @@
 {% endif %}
 
 {% block account_main %}
-<div>
-    <h1 class="text-center">Ваш аккаунт</h1>
+<div class="flex flex-col">
+    <h1 class="text-center text-lg font-medium my-4">Ваш аккаунт</h1>
     <div class="account-info my-4">
-        <p>Номер телефона: {{ user.phone }}</p>
+        <div class="flex justify-between">
+            <p>Номер телефона: {{ user.phone }}</p>
+            <button class="text-red-600 hover:text-red-400">
+                <a href="{% url 'accounts:change_phone' %}">
+                    Сменить
+                </a>
+            </button>
+        </div>
+
+        <div>
+            {% if user.first_name %}
+            <p>Имя: {{ user.first_name }}</p>
+            {% else %}
+            <p>Имя: Не указано</p>
+            {% endif %}
+        </div>
+
+        <div>
+            {% if user.last_name %}
+            <p>Фамилия: {{ user.last_name }}</p>
+            {% else %}
+            <p>Фамилия: Не указана</p>
+            {% endif %}
+        </div>
+        <div>
+            <button class="text-red-600 hover:text-red-400">
+                <a href="{% url 'accounts:change_presonal_info' %}">
+                    Редактировать аккаунт
+                </a>
+            </button>
+        </div>
     </div>
 
-    <button class="text-red-600 hover:text-red-400">
-        <a href="{% url 'accounts:account_logout' %}">
-            Выйти из аккаунта
-        </a>
-    </button>
+    <div class="flex justify-between mt-6">
+        <div>
+            <div>
+                <button class="text-red-600 hover:text-red-400">
+                    <a href="{% url 'accounts:change_password' %}">
+                        Сменить пароль
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-auto flex justify-end">
+            <button class="text-red-600 hover:text-red-400">
+                <a href="{% url 'accounts:account_logout' %}">
+                    Выйти из аккаунта
+                </a>
+            </button>
+        </div>
+    </div>
+
 </div>
 {% endblock account_main %}

@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 .main-icon {
-  @apply text-red-400;
+  @apply text-icons;
 }
 
 .unit-selector {
-  @apply rounded-full p-2;
+  @apply p-2 px-4 rounded-md;
 }
 
 .unit-selector.selected {
-  @apply bg-red-200 bg-opacity-50;
+  @apply bg-sec-200;
 }
 
 .form-style.text-field {

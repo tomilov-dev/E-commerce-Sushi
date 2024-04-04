@@ -91,6 +91,14 @@ class Unit(
         else:
             return self.product.name
 
+    @property
+    def link(self) -> str:
+        return self.product.link
+
+    @property
+    def charcs(self) -> "Characteristics":
+        return self.characteristics
+
     def get_price(self) -> int:
         if self.discount_price:
             return self.discount_price
@@ -106,6 +114,7 @@ class Measure(
     models.Model,
 ):
     symbol = models.CharField()
+    display_name = models.CharField()
 
     class Meta:
         verbose_name = "Единица измерения"
@@ -148,10 +157,11 @@ class Characteristics(models.Model):
     )
 
     ## FK
-    unit = models.ForeignKey(
+    unit = models.OneToOneField(
         Unit,
         on_delete=models.CASCADE,
         verbose_name="Товарная единица",
+        related_name="characteristics",
     )
     measure = models.ForeignKey(
         Measure,

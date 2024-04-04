@@ -4,9 +4,17 @@
     <div class="items-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for item in items %}
-        <div class="item max-w-sm border rounded-xl bg-red-50 bg-opacity-30 shadow-sm hover:shadow-md">
+        <div
+            class="item max-w-sm border border-neutral-200 rounded-xl shadow-md p-4 bg-sec hover:shadow-lg hover:border-accent">
             <a class="group" href="{{ item.link }}">
-                <div class="item-image">
+
+                <div class="item-content">
+                    <div class="text-center text-lg font-medium">
+                        <p>{{ item.name }}</p>
+                    </div>
+                </div>
+
+                <div class="item-image my-4">
                     {% if item.image %}
                     {% if with_scale == True %}
                     <img class="rounded-t-xl duration-500 group-hover:scale-95" src="{{ item.image.url }}">
@@ -18,13 +26,6 @@
                     {% endif %}
                 </div>
 
-                <hr class="opacity-50">
-
-                <div class="item-content">
-                    <div class="text-center mt-2 p-4 text-base font-normal">
-                        <p>{{ item.name }}</p>
-                    </div>
-                </div>
             </a>
         </div>
         {% endfor %}

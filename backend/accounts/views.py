@@ -7,8 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse, Http404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 
-from .messages import LOGIN_LEVEL, RESEND_TEXT_LEVEL, RESEND_TIME_LEVEL
+from .messages import LOGIN_LEVEL, RESEND_TEXT_LEVEL, RESEND_TIME_LEVEL, ACCOUNT_LEVEL
 from .sms_sender import sms_sender
 from .models import PhoneConfirmation, CustomUser
 from .forms import (
@@ -16,6 +17,9 @@ from .forms import (
     PhoneConfirmationForm,
     CustomAuthenticationForm,
     RestorePasswordForm,
+    ChangePasswordForm,
+    ChangePhoneForm,
+    ChangePersonalInfoForm,
 )
 
 
@@ -26,7 +30,8 @@ CODE_RESEND_TIME = 60
 
 class Action(object):
     register = "register"
-    restore = "restore"
+    restore = "restore_password"
+    change_phone = "change_phone"
 
 
 def current_time() -> int:
@@ -155,6 +160,21 @@ def create_user(phone: str, password: str) -> CustomUser:
     )
 
 
+def change_user_phone(
+    request: HttpRequest,
+    phone: str,
+) -> CustomUser:
+    user = request.user
+    if user.is_authenticated:
+        user.phone = phone
+        user.save()
+        return user
+
+    else:
+        messages.add_message(request, LOGIN_LEVEL, "Требуется авторизация")
+        return redirect("accounts:account_login")
+
+
 def confirm_phone(request: HttpRequest, action: Action) -> HttpResponse:
     error_messages = []
     if request.method == "POST":
@@ -165,7 +185,7 @@ def confirm_phone(request: HttpRequest, action: Action) -> HttpResponse:
 
             phone_hash = request.session.get(PHONE_HASH_SESSION_ID)
             if not phone_hash:
-                raise Http404("Отсутствует хеш номера телефона! Повторите попытку. ")
+                raise Http404("Отсутствует хеш номера телефона! Повторите попытку.")
 
             phone_confirmation = PhoneConfirmation.objects.get(phone_hash=phone_hash)
             if code == phone_confirmation.code:
@@ -184,6 +204,13 @@ def confirm_phone(request: HttpRequest, action: Action) -> HttpResponse:
                     user = create_user(phone, password)
                     login(request, user)
                     return redirect("pages:home")
+
+                elif action == Action.change_phone:
+                    user = change_user_phone(request, phone)
+                    messages.add_message(
+                        request, ACCOUNT_LEVEL, "Телефон успешно сменен"
+                    )
+                    return redirect("accounts:account_page")
 
                 else:
                     raise Http404("Незарегистрированное действие")
@@ -258,11 +285,13 @@ def account_register(request: HttpRequest) -> HttpResponse:
 def account_page(request: HttpRequest) -> HttpResponse:
     user = request.user
     if user.is_authenticated:
+        msgs = get_messages(request, ACCOUNT_LEVEL)
         return render(
             request,
             "accounts/account.html",
             context={
                 "user": user,
+                "login_messages": msgs,
             },
         )
 
@@ -310,3 +339,118 @@ def account_logout(request: HttpRequest) -> HttpResponse:
         return redirect("pages:home")
     else:
         return render(request, "accounts/logout.html")
+
+
+def change_phone(request: HttpRequest) -> HttpResponse:
+    errors = []
+    user = request.user
+    if not user.is_authenticated:
+        messages.add_message(request, LOGIN_LEVEL, "Необходима авторизация")
+        return redirect("accounts:account_login")
+
+    if request.method == "POST":
+        form = ChangePhoneForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            phone = cleaned.get("phone")
+            password = cleaned.get("password")
+
+            if user.check_password(password):
+                code = generate_code()
+                phone_hash = save_phone_confirmation(
+                    phone,
+                    password,
+                    code,
+                )
+
+                request.session[PHONE_HASH_SESSION_ID] = phone_hash
+                send_code(request, phone, code)
+                return redirect("accounts:confirm_phone", Action.change_phone)
+
+            else:
+                errors.append("Введен неправильный пароль")
+
+        else:
+            errors.extend(form.errors.values())
+
+    return render(
+        request,
+        "accounts/change_phone.html",
+        context={
+            "errors": errors,
+            "change_phone_form": ChangePhoneForm(),
+        },
+    )
+
+
+def change_password(request: HttpRequest) -> HttpResponse:
+    errors = []
+    user = request.user
+    if not user.is_authenticated:
+        messages.add_message(request, LOGIN_LEVEL, "Необходима авторизация")
+        return redirect("accounts:account_login")
+
+    if request.method == "POST":
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            password = cleaned.get("password2")
+            user.set_password(password)
+            user.save()
+
+            update_session_auth_hash(request, user)
+
+            messages.add_message(
+                request,
+                ACCOUNT_LEVEL,
+                "Пароль успешно сменен",
+            )
+            return redirect("accounts:account_page")
+
+        else:
+            errors = form.errors.values()
+
+    return render(
+        request,
+        "accounts/change_password.html",
+        context={
+            "errors": errors,
+            "change_password_form": ChangePasswordForm(),
+        },
+    )
+
+
+def change_presonal_info(request: HttpRequest) -> HttpResponse:
+    errors = []
+    user = request.user
+    if not user.is_authenticated:
+        messages.add_message(request, LOGIN_LEVEL, "Необходима авторизация")
+        return redirect("accounts:account_login")
+
+    if request.method == "POST":
+        form = ChangePersonalInfoForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+
+            user.first_name = cleaned.get("first_name", "Не указано")
+            user.last_name = cleaned.get("last_name", "Не указана")
+            user.save()
+
+            messages.add_message(
+                request,
+                ACCOUNT_LEVEL,
+                "Личная информация успешно редактирована",
+            )
+            return redirect("accounts:account_page")
+
+        else:
+            errors = form.errors.values()
+
+    return render(
+        request,
+        "accounts/change_personal_info.html",
+        context={
+            "errors": errors,
+            "personal_info_form": ChangePersonalInfoForm(),
+        },
+    )

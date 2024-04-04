@@ -1,19 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block seo %}
 {% endblock seo %}
+
+{% block css_dependencies %}
+<link href="{% static 'map/map.css' %}" rel="stylesheet">
+{% endblock css_dependencies %}
 
 {% block title %}
 Мы на карте
 {% endblock title %}
 
 {% block main %}
-<div class="flex justify-center">
-    <div>
-        <h1 class="text-center font-medium">
+<div class="flex justify-center mt-8">
+    <div class="bg-sec p-8 rounded-xl border">
+        <h1 class="text-center text-lg font-medium mb-4">
             Мы на карте
         </h1>
-        {% include 'map/map.html' %}
+        <div>
+            {% include 'map/map.html' %}
+        </div>
     </div>
 </div>
 {% endblock main %}

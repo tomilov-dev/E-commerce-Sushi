@@ -1,0 +1,27 @@
+#category-carousel {
+  max-width: 300px;
+}
+
+@media (min-width: 640px) {
+  #category-carousel {
+    max-width: 420px;
+  }
+}
+
+@media (min-width: 768px) {
+  #category-carousel {
+    max-width: 620px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #category-carousel {
+    max-width: 820px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #category-carousel {
+    max-width: 1190px;
+  }
+}

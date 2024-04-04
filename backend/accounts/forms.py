@@ -11,7 +11,7 @@ from .models import CustomUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ("phone",)
+        fields = ["phone"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -67,6 +67,7 @@ class RestorePasswordForm(forms.Form):
             }
         ),
     )
+
     password1 = forms.CharField(
         label="Введите новый пароль",
         widget=forms.PasswordInput(
@@ -114,3 +115,89 @@ class PhoneConfirmationForm(forms.Form):
             }
         ),
     )
+
+
+class ChangePhoneForm(forms.Form):
+    phone = forms.CharField(
+        max_length=12,
+        label="Введите Ваш новый номер телефона",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Номер телефона",
+            }
+        ),
+    )
+
+    password = forms.CharField(
+        label="Введите свой пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Пароль",
+            },
+        ),
+    )
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get("phone")
+        if CustomUser.objects.filter(phone=phone).exists():
+            raise forms.ValidationError(
+                "Пользователь с указанным номером телефона уже существует."
+            )
+        return phone
+
+
+class ChangePasswordForm(forms.Form):
+    password1 = forms.CharField(
+        label="Введите новый пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Введите новый пароль",
+            },
+        ),
+    )
+    password2 = forms.CharField(
+        label="Подтвердите новый пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Подтвердите новый пароль",
+            },
+        ),
+    )
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Пароли не совпадают.")
+        return password2
+
+
+class ChangePersonalInfoForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = [
+            "first_name",
+            "last_name",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["first_name"].widget = forms.TextInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Имя",
+            }
+        )
+
+        self.fields["last_name"].widget = forms.TextInput(
+            attrs={
+                "class": "form-style text-field",
+                "placeholder": "Фамилия",
+            }
+        )

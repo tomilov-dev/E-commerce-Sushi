@@ -24,3 +24,23 @@ def on_map(request: HttpRequest) -> HttpResponse:
 
 def about(request: HttpRequest) -> HttpResponse:
     return render(request, "pages/about.html")
+
+
+def blog(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/blog.html")
+
+
+def license(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/license.html")
+
+
+def terms(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/terms.html")
+
+
+def contact(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/contact.html")
+
+
+def requisites(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/requisites.html")

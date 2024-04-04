@@ -60,8 +60,8 @@ class UnitAdmin(admin.ModelAdmin):
 
 @admin.register(Measure)
 class MeasureAdmin(admin.ModelAdmin):
-    fields = ["name", "symbol"]
-    list_display = ["name", "symbol"]
+    fields = ["name", "symbol", "display_name"]
+    list_display = ["name", "symbol", "display_name"]
 
 
 @admin.register(Characteristics)

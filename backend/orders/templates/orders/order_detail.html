@@ -6,17 +6,19 @@
 {% endblock title %}
 
 {% block main %}
-<div class="mx-auto max-w-screen-md">
-    <div class="bg-slate-100 rounded-xl p-10">
+<div class="mt-8 mx-auto max-w-screen-md">
+    <div class="bg-slate-100 rounded-xl p-10 mx-4">
         <div class="flex flex-col justify-center gap-4">
             <div>
-                <h1>Заказ №{{ order.id }}</h1>
-                <h2>Статус: {{ order.get_status_display }}</h2>
+                <h1 class="mb-5 text-center text-2xl font-bold">Заказ №{{ order.id }}</h1>
+                <h2 class="mb-5 text-lg">Статус: <span class="font-medium">{{ order.get_status_display }}</span></h2>
             </div>
 
+            <p class="text-center text-lg">Детали заказа:</p>
             <div class="order-items justify-center">
                 <div class="flex flex-col gap-2">
                     {% for item in items %}
+                    {% with unit=item.unit %}
                     <div class="cart-item relative">
                         <div class="cart-item-wrapper flex justify-start bg-slate-200 rounded-3xl pr-10 py-4">
                             <div class="item-image basis-1/4 mx-4">
@@ -28,7 +30,9 @@
                             </div>
                             <div class="item-info basis-2/4 flex flex-col justify-start">
                                 <div class="item-name" class="mt-4 sm:mt-0">
-                                    <h2 class="text-lg font-bold text-gray-900">{{ item.unit.full_name }}</h2>
+                                    <a href="{{ unit.link }}">
+                                        <h2 class="text-lg font-bold text-gray-900">{{ unit.full_name }}</h2>
+                                    </a>
                                 </div>
                                 <div class="item-price" class="mt-8 flex justify-between">
                                     <p class="text-sm">
@@ -58,6 +62,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endwith %}
                     {% endfor %}
                 </div>
             </div>

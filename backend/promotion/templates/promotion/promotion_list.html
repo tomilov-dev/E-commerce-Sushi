@@ -8,5 +8,7 @@
 {% endblock title %}
 
 {% block main %}
-{% include 'items_grid/items_grid.html' with items=promo_actions %}
+<div class="my-8">
+    {% include 'promo_grid/promo_grid.html' with items=promo_actions %}
+</div>
 {% endblock main %}

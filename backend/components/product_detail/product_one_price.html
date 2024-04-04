@@ -25,48 +25,93 @@
     </div>
 </div>
 
-<p class="text-gray-500">
-    {{ product.description }}
-</p>
+<div class="flex flex-col">
+    {% if unit.charcs.measure_count %}
+    <div>
+        <p>
+            <span>{{ unit.charcs.measure.display_name }}:</span>
+            <span>{{ unit.charcs.measure_count }}</span>
+            <span>{{unit.charcs.measure.symbol }}</span>
+        </p>
+    </div>
+    {% endif %}
+
+    {% if unit.charcs.quantity %}
+    <div>
+        <p>
+            Количество в упаковке: {{ unit.charcs.quantity }} шт
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="flex gap-1">
+        {% if unit.charcs.proteins %}
+        <p>
+            Белки: {{ unit.charcs.proteins }}
+        </p>
+        {% endif %}
+        {% if unit.charcs.fats %}
+        <p>
+            Жиры: {{ unit.charcs.fats }}
+        </p>
+        {% endif %}
+        {% if unit.charcs.carbohydrates %}
+        <p>
+            Углеводы: {{ unit.charcs.carbohydrates }}
+        </p>
+        {% endif %}
+        {% if unit.charcs.kilocalories %}
+        <p>
+            Килокалории: {{ unit.charcs.kilocalories }}
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+{% if product.description %}
+<div>
+    <p class="text-gray-500">
+        {{ product.description }}
+    </p>
+</div>
+{% endif %}
 
 <div class="flex py-4 space-x-4">
     <div class="unit-forms flex">
-        <div class="unit-add-form">
+        <div class="unit-add-form p-1">
             <form action="{% url 'cart:cart_add' unit.id %}" method="post">
                 {% csrf_token %}
                 {{ cart_add_product_form }}
                 <button type="submit" onclick="return addToCart(this)">
-                    <span>{% include 'svg/add.html' %}</span>
+                    <span>{% include 'svg/cart_add.html' %}</span>
                 </button>
             </form>
         </div>
         {% if unit.id in cart %}
-        <div class="unit-quantity">
+        <div class="unit-quantity p-1 border border-neutral-200">
             <span class="unit-quantity-value mx-1">
                 {{ cart|cart_count_of:unit.id }}
             </span>
-            <span> шт</span>
         </div>
-        <div class="unit-remove-form">
+        <div class="unit-remove-form p-1">
             <form action="{% url 'cart:cart_remove' unit.id %}" method="post">
                 {% csrf_token %}
                 {{ cart_remove_product_form }}
                 <button type="submit" onclick="return removeFromCart(this)">
-                    <span>{% include 'svg/remove.html' %}</span>
+                    <span>{% include 'svg/cart_remove.html' %}</span>
                 </button>
             </form>
         </div>
         {% else %}
-        <div class="unit-quantity" hidden>
+        <div class="unit-quantity p-1 border border-neutral-200" hidden>
             <span class="unit-quantity-value mx-1">0</span>
-            <span> шт</span>
         </div>
-        <div class="unit-remove-form" hidden>
+        <div class="unit-remove-form p-1" hidden>
             <form action="{% url 'cart:cart_remove' unit.id %}" method="post">
                 {% csrf_token %}
                 {{ cart_remove_product_form }}
                 <button type="submit" onclick="return removeFromCart(this)">
-                    <span>{% include 'svg/remove.html' %}</span>
+                    <span>{% include 'svg/cart_remove.html' %}</span>
                 </button>
             </form>
         </div>
