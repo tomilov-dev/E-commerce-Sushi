@@ -3,6 +3,16 @@
 
 <div class="bg-sec mt-8 py-10 border rounded-xl mx-4">
 
+    {% if errors %}
+    <div class="account-error-block text-red-600 text-center mt-2">
+        {% for error in errors %}
+        <div>
+            <p>{{ error }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="mx-4">
         <h1 class="my-2 text-center text-xl font-medium">Ваш заказ:</h1>
 

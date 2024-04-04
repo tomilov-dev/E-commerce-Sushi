@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib import messages
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -16,6 +16,7 @@ from cart.cart import Cart
 
 
 def order_confirm(request: HttpRequest) -> HttpResponse:
+    errors = []
     user: CustomUser = request.user
     cart = Cart(request)
 
@@ -55,7 +56,7 @@ def order_confirm(request: HttpRequest) -> HttpResponse:
             return redirect("orders:order_list")
 
         else:
-            return HttpResponse("Форма не валидна")
+            errors.extend(form.errors.values())
 
     if cart.empty:
         return redirect("cart:cart_details")
@@ -74,6 +75,7 @@ def order_confirm(request: HttpRequest) -> HttpResponse:
         context={
             "cart": cart,
             "order_form": order_form,
+            "errors": errors,
         },
     )
 
@@ -108,3 +110,8 @@ def order_detail(request: HttpRequest, uuid: str) -> HttpResponse:
             "items": items,
         },
     )
+
+
+def unprocessed_orders_count(request: HttpRequest) -> HttpResponse:
+    count = Order.objects.filter(status=Order.Status.PENDING).count()
+    return JsonResponse({"count": count})

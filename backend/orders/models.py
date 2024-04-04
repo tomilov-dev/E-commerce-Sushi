@@ -25,14 +25,6 @@ class Order(models.Model):
         PICKUP = "PK", "Самовывоз"
         DELIVERY = "DL", "Доставка"
 
-    account = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        related_name="orders",
-        verbose_name="Аккаунт заказчика",
-        editable=False,
-    )
-
     uuid = models.UUIDField(
         default=uuid.uuid4,
         blank=True,
@@ -90,6 +82,10 @@ class Order(models.Model):
         default=Status.PENDING,
         verbose_name="Статус",
     )
+    order_done = models.BooleanField(
+        verbose_name="Заказ выполнен",
+        default=False,
+    )
 
     created = models.DateTimeField(
         auto_now_add=True,
@@ -98,6 +94,15 @@ class Order(models.Model):
     updated = models.DateTimeField(
         auto_now=True,
         verbose_name="Время последнего обновления",
+    )
+
+    ## FK
+    account = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="orders",
+        verbose_name="Аккаунт заказчика",
+        editable=False,
     )
 
     class Meta:
@@ -131,6 +136,18 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Цена",
+    )
+
+    quantity = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Количество",
+    )
+
+    ## FK
     order = models.ForeignKey(
         Order,
         related_name="items",
@@ -143,17 +160,6 @@ class OrderItem(models.Model):
         Unit,
         on_delete=models.CASCADE,
         verbose_name="Товарная единица",
-    )
-
-    price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Цена",
-    )
-
-    quantity = models.PositiveIntegerField(
-        default=1,
-        verbose_name="Количество",
     )
 
     def get_cost(self) -> int:

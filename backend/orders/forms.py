@@ -6,7 +6,7 @@ from .models import Order
 
 
 PHONE_RX = re.compile(r"^\+?[78]\d{10}$")
-NAME_RX = re.compile(r"^[а-я]+$", re.IGNORECASE)
+NAME_RX = re.compile(r"^[а-яa-z]+$", re.IGNORECASE)
 
 
 def validate_phone_number(value):

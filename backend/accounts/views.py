@@ -432,8 +432,10 @@ def change_presonal_info(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             cleaned = form.cleaned_data
 
-            user.first_name = cleaned.get("first_name", "Не указано")
-            user.last_name = cleaned.get("last_name", "Не указана")
+            if cleaned.get("first_name", None) is not None:
+                user.first_name = cleaned.get("first_name")
+            if cleaned.get("last_name", None) is not None:
+                user.last_name = cleaned.get("last_name")
             user.save()
 
             messages.add_message(

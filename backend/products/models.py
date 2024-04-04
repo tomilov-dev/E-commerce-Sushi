@@ -47,7 +47,7 @@ class Unit(
     name = models.CharField(
         verbose_name="Название",
         blank=True,
-        null=True,  ## use Product.name
+        null=True,  ## if null use Product.name
     )
     price = models.DecimalField(
         verbose_name="Цена товарной единицы",
