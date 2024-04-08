@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ~/.pg/pd_data/delivery-mpa:/var/lib/postgresql/data
+      - ~/vols/delivery-mpa/pg_data:/var/lib/postgresql/data
 
   backend:
     container_name: backend_deliverympa
@@ -21,8 +21,8 @@ services:
     depends_on:
       - pgdb
     volumes:
-      - static_volume:/backend/static
-      - media_volume:/backend/media
+      - ~/vols/delivery-mpa/static:/backend/static
+      - ~/vols/delivery-mpa/media:/backend/media
 
   nginx:
     container_name: nginx_deliverympa
@@ -33,11 +33,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - static_volume:/backend/static
-      - media_volume:/backend/media
+      - ~/vols/delivery-mpa/static:/backend/static
+      - ~/vols/delivery-mpa/media:/backend/media
     ports:
       - "${NGINX_EXTERNAL_PORT}:80"
-
-volumes:
-  static_volume:
-  media_volume:
