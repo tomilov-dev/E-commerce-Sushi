@@ -7,21 +7,19 @@ sys.path.append(str(ROOT_DIR))
 
 from data.scraper import FarForScraper, BackupData
 from data.add_data import JsonDataAdder, JsonDumpReader
+from products.models import Product
 
 
 class Command(BaseCommand):
     def data_added(self) -> bool:
-        with open(ROOT_DIR / "backend" / "data_added.txt", "r") as file:
-            added = file.read().strip()
-            added = True if added == "True" else False
-        return added
-
-    def set_added(self) -> bool:
-        with open(ROOT_DIR / "backend" / "data_added.txt", "w") as file:
-            file.write("True")
+        products = Product.objects.all()
+        if len(products) >= 3:
+            return True
+        return False
 
     def handle(self, *args, **kwargs) -> None:
         if not self.data_added():
+            print("Start Data Initialization")
             scraper = FarForScraper()
             backuper = BackupData()
 
@@ -42,4 +40,4 @@ class Command(BaseCommand):
             adder.add_promos(promos)
             adder.add_products_data(categories)
 
-            self.set_added()
+        print("Data Initialized")
