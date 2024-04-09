@@ -23,10 +23,10 @@
     <link href="{% static 'category_slider/category_slider.css' %}" rel="stylesheet">
     <link href="{% static 'promo_slider/promo_slider.css' %}" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'fonts/roboto.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/material-icons.css' %}" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="{% static 'splide/splide.min.css' %}" rel="stylesheet">
 
     {% block css_dependencies %}
     {% endblock css_dependencies %}
@@ -63,7 +63,7 @@
     <script src="{% static 'toast/toast.js' %}"></script>
     <script src="{% static 'category_slider/category_slider.js' %}"></script>
     <script src="{% static 'promo_slider/promo_slider.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="{% static 'splide/splide.min.js' %}"></script>
 
     {% block js_dependencies %}
     {% endblock js_dependencies %}
