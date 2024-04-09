@@ -20,6 +20,9 @@ check_env = os.getenv("ENV_CHECK")
 if not check_env:
     raise FileNotFoundError(".env file not found")
 
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
