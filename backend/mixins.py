@@ -1,7 +1,10 @@
+import os
 import sys
 from pathlib import Path
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 ROOT_DIR = Path(__file__).parent
 sys.path.append(str(ROOT_DIR))
@@ -28,6 +31,18 @@ class PriorityMixin(models.Model):
             MinValueValidator(0, "Приоритет не может быть меньше нуля!"),
             MaxValueValidator(100, "Приоритет не может быть больше 100!"),
         ],
+    )
+
+    class Meta:
+        abstract = True
+
+
+class ImageMixin(models.Model):
+    image = models.ImageField(
+        verbose_name="Изображение",
+        upload_to=image_filename,
+        null=True,
+        blank=True,
     )
 
     class Meta:
@@ -79,16 +94,13 @@ class NameMixin(models.Model):
         abstract = True
 
 
-class BaseMixin(NameMixin, models.Model):
+class BaseMixin(
+    NameMixin,
+    ImageMixin,
+    models.Model,
+):
     description = models.TextField(
         verbose_name="Описание",
-        null=True,
-        blank=True,
-    )
-
-    image = models.ImageField(
-        verbose_name="Изображение",
-        upload_to=image_filename,
         null=True,
         blank=True,
     )
@@ -98,3 +110,27 @@ class BaseMixin(NameMixin, models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+@receiver(pre_delete)
+def delete_image_with_object(
+    sender,
+    instance: ImageMixin,
+    **kwargs,
+):
+    if hasattr(instance, "image") and instance.image:
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
+        instance.image.delete(False)
+
+
+@receiver(pre_delete)
+def delete_icon_with_object(
+    sender,
+    instance: IconMixin,
+    **kwargs,
+):
+    if hasattr(instance, "icon") and instance.icon:
+        if os.path.isfile(instance.icon.path):
+            os.remove(instance.icon.path)
+        instance.icon.delete(False)

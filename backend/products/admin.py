@@ -11,13 +11,30 @@ from tags.models import ProductTag
 from promotion.models import ProductPromotion, PromoAction
 
 
-class ProductTagInline(admin.TabularInline):
-    model = ProductTag
+class UnitCharcsInline(admin.TabularInline):
+    model = Characteristics
     extra = 0
+    show_change_link = True
+    fields = [
+        "unit",
+        "quantity",
+        "measure",
+        "measure_count",
+        "proteins",
+        "fats",
+        "carbohydrates",
+        "kilocalories",
+    ]
 
 
 class ProductUnitInline(admin.TabularInline):
     model = Unit
+    extra = 0
+    show_change_link = True
+
+
+class ProductTagInline(admin.TabularInline):
+    model = ProductTag
     extra = 0
 
 
@@ -40,15 +57,12 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     list_filter = ["category"]
 
-
-class ProductTagInline(admin.TabularInline):
-    model = Characteristics
-    extra = 0
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
-    inlines = [ProductTagInline]
+    inlines = [UnitCharcsInline]
 
     fields = ["name", "price", "discount_price", "product", "available"]
     list_display = ["__str__", "available"]

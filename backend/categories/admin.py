@@ -17,3 +17,5 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     list_display = ["name", "show_navbar", "priority", "available"]
     list_editable = ["show_navbar", "priority", "available"]
+
+    prepopulated_fields = {"slug": ("name",)}

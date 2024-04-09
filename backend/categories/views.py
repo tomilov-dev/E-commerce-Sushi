@@ -11,7 +11,7 @@ def get_category(
     slug: str,
 ) -> HttpResponse:
     category = Category.objects.get(slug=slug)
-    products = category.products.all()
+    products = category.products.order_by("-priority").all()
     return render(
         request,
         "categories/category.html",

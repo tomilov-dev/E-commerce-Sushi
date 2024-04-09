@@ -28,6 +28,7 @@ class PromoActionAdmin(admin.ModelAdmin):
     list_editable = ["priority", "available"]
 
     autocomplete_fields = ["product"]
+    prepopulated_fields = {"slug": ("name",)}
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "product":
