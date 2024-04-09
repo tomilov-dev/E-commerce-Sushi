@@ -17,16 +17,16 @@
 
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
 
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css">
 
-    <link href="{% static 'category_slider/category_slider.css' %}" rel="stylesheet">
-    <link href="{% static 'promo_slider/promo_slider.css' %}" rel="stylesheet">
+    <link href="{% static 'category_slider/category_slider.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'promo_slider/promo_slider.css' %}" rel="stylesheet" type="text/css">
 
-    <link href="{% static 'fonts/roboto.css' %}" rel="stylesheet">
-    <link href="{% static 'fonts/material-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/roboto.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fonts/material-icons.css' %}" rel="stylesheet" type="text/css">
 
-    <link href="{% static 'splide/splide.min.css' %}" rel="stylesheet">
+    <link href="{% static 'splide/splide.min.css' %}" rel="stylesheet" type="text/css">
 
     {% block css_dependencies %}
     {% endblock css_dependencies %}
@@ -58,12 +58,12 @@
     {% include 'toast/toast_container.html' %}
     {% include 'toast/toast_template.html' %}
 
-    <script src="{% static 'header/header.js' %}"></script>
-    <script src="{% static 'header/cart_badge.js' %}"></script>
-    <script src="{% static 'toast/toast.js' %}"></script>
-    <script src="{% static 'category_slider/category_slider.js' %}"></script>
-    <script src="{% static 'promo_slider/promo_slider.js' %}"></script>
-    <script src="{% static 'splide/splide.min.js' %}"></script>
+    <script src="{% static 'header/header.js' %}" type="application/javascript"></script>
+    <script src="{% static 'header/cart_badge.js' %}" type="application/javascript"></script>
+    <script src="{% static 'toast/toast.js' %}" type="application/javascript"></script>
+    <script src="{% static 'category_slider/category_slider.js' %}" type="application/javascript"></script>
+    <script src="{% static 'promo_slider/promo_slider.js' %}" type="application/javascript"></script>
+    <script src="{% static 'splide/splide.min.js' %}" type="application/javascript"></script>
 
     {% block js_dependencies %}
     {% endblock js_dependencies %}
