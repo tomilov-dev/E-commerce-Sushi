@@ -35,5 +35,7 @@ services:
     volumes:
       - /var/delivery-mpa/static:/backend/static
       - /var/delivery-mpa/media:/backend/media
+      - /var/delivery-mpa/nginx-certs:/etc/nginx/certs/
     ports:
-      - "${NGINX_EXTERNAL_PORT}:80"
+      - "${NGINX_HTTP_EXTERNAL_PORT}:80"
+      - "${NGINX_HTTPS_EXTERNAL_PORT}:443"
