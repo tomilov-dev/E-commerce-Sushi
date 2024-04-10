@@ -105,7 +105,7 @@ INSTALLED_APPS = [
     "orders.apps.OrdersConfig",
     "accounts.apps.AccountsConfig",
     ## Additional Modules
-    "debug_toolbar",
+    # "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -117,7 +117,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ## Additional Modules
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "backend.urls"
