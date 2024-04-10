@@ -19,7 +19,9 @@ services:
       - -c
       - redis-server --requirepass "$${REDIS_PASSWORD}"
     volumes:
-      - /var/redis_data:/var/lib/redis/data
+      - /var/delivery-mpa/redis_data:/var/lib/redis/data
+    ports:
+      - "6379:6379"
 
   backend:
     container_name: backend_deliverympa
