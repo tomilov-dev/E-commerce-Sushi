@@ -44,11 +44,11 @@ def order_confirm(request: HttpRequest) -> HttpResponse:
                 client_comment=cleaned["client_comment"],
             )
 
-            for item in cart:
+            for item, unit in cart.objects:
                 OrderItem.objects.create(
                     order=order,
-                    unit=item.unit,
-                    price=item.unit.get_price(),
+                    unit=unit,
+                    price=unit.get_price(),
                     quantity=item.quantity,
                 )
 
@@ -63,7 +63,7 @@ def order_confirm(request: HttpRequest) -> HttpResponse:
 
     order_form = OrderCreateForm(
         initial={
-            "phone": user.phone,
+            "phone": "8" + user.phone,
             "first_name": user.first_name,
             "last_name": user.last_name,
         }

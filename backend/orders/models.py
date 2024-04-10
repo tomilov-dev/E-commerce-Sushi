@@ -36,7 +36,7 @@ class Order(models.Model):
     phone = models.CharField(
         max_length=12,
         verbose_name="Номер телефона",
-        validators=[RegexValidator(r"\+?[78]\d{10}")],
+        validators=[RegexValidator(r"\+?[78]\d{10}$")],
     )
     first_name = models.CharField(
         max_length=50,

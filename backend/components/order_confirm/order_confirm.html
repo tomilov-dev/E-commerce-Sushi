@@ -18,8 +18,7 @@
 
         <div class="flex flex-col md:flex-row gap-3 justify-center">
             <div class="cart-items flex flex-col gap-3">
-                {% for item in cart %}
-                {% with unit=item.unit %}
+                {% for item, unit in cart.objects %}
                 <div class="cart-item relative">
                     <div class="cart-item-wrapper flex justify-start border bg-sec-100 rounded-3xl pr-10 py-4">
                         <div class="item-image basis-1/4 mx-4">
@@ -73,7 +72,6 @@
                         </div>
                     </div>
                 </div>
-                {% endwith %}
                 {% endfor %}
             </div>
 

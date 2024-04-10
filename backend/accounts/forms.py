@@ -6,6 +6,7 @@ from django.contrib.auth.forms import (
 )
 
 from .models import CustomUser
+from .managers import check_phone_number
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -89,11 +90,13 @@ class RestorePasswordForm(forms.Form):
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
+        phone = check_phone_number(phone)
         if not CustomUser.objects.filter(phone=phone).exists():
             raise forms.ValidationError(
                 "Пользователь с указанным номером телефона не существует."
             )
-        return phone
+
+        return "8" + phone
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -141,11 +144,13 @@ class ChangePhoneForm(forms.Form):
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
+        phone = check_phone_number(phone)
         if CustomUser.objects.filter(phone=phone).exists():
             raise forms.ValidationError(
                 "Пользователь с указанным номером телефона уже существует."
             )
-        return phone
+
+        return "8" + phone
 
 
 class ChangePasswordForm(forms.Form):

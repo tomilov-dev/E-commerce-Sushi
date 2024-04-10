@@ -8,6 +8,7 @@ services:
       - .env
     volumes:
       - /var/delivery-mpa/pg_data:/var/lib/postgresql/data
+    restart: unless-stoped
 
   redis:
     container_name: rd_deliverympa
@@ -22,6 +23,7 @@ services:
       - /var/delivery-mpa/redis_data:/var/lib/redis/data
     ports:
       - "6379:6379"
+    restart: unless-stoped
 
   backend:
     container_name: backend_deliverympa
@@ -38,6 +40,7 @@ services:
     volumes:
       - /var/delivery-mpa/static:/backend/static
       - /var/delivery-mpa/media:/backend/media
+    restart: unless-stoped
 
   nginx:
     container_name: nginx_deliverympa
@@ -54,3 +57,4 @@ services:
     ports:
       - "${NGINX_HTTP_EXTERNAL_PORT}:80"
       - "${NGINX_HTTPS_EXTERNAL_PORT}:443"
+    restart: unless-stoped

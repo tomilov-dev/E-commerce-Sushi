@@ -88,6 +88,10 @@ CACHES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    "accounts.auth_backend.CustomPhoneAuthBackend",
+]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

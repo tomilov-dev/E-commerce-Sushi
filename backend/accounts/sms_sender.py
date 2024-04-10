@@ -1,5 +1,15 @@
+import os
 import requests
+from dotenv import load_dotenv
 from abc import ABC, abstractmethod
+
+load_dotenv()
+check_env = os.getenv("ENV_CHECK")
+if not check_env:
+    raise FileNotFoundError(".env file not found")
+
+SMSAERO_APIKEY = os.getenv("ENV_CHECK")
+SMSAERO_EMAIL = os.getenv("ENV_CHECK")
 
 
 class SMSSender(ABC):
@@ -13,36 +23,14 @@ class ConsoleSender(SMSSender):
         print(phone, code)
 
 
-class GreenSMSSender(SMSSender):
-    def send(self, phone: str, code: str) -> None:
-        print(phone, code)
-
-        response = requests.post(
-            "https://api3.greensms.ru/sms/send",
-            data={
-                "user": "ivantomilov",
-                "pass": "Parad228Hurt",
-                "to": "89012207967",
-                "txt": "Test message",
-                "from": "GREENSMS",
-            },
-        )
-        print(response)
-
-
 class SMSAeroSender(SMSSender):
-    APIKEY = "iSYx37ct6NnxXFmMzi8s3Q1sp0cHQAd9"
-    EMAIL = "tomilov.vana@gmail.com"
-
     def send(self, phone: str, code: str) -> None:
-        print(phone, code)
-
         response = requests.post(
             f"https://{self.EMAIL}:{self.APIKEY}@gate.smsaero.ru/v2/sms/send",
             {
-                "number": "89012207967",
+                "number": phone,
                 "sign": "SMS Aero",
-                "text": "Служба доставки Pizzaro.\nВаш код регистрации: 605913",
+                "text": f"Служба доставки Pizzaro.\nВаш код регистрации: {code}",
             },
         )
 
@@ -50,10 +38,5 @@ class SMSAeroSender(SMSSender):
         print(response.text)
 
 
-# sms_sender = GreenSMSSender()
-# sms_sender = SMSAeroSender()
-
 sms_sender = ConsoleSender()
-
-if __name__ == "__main__":
-    sms_sender.send("1", "2")
+# sms_sender = SMSAeroSender()

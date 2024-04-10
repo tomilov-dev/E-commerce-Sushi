@@ -1,15 +1,21 @@
 import re
+import sys
+from pathlib import Path
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Order
+ROOT_DIR = Path(__file__).parent.parent
+sys.path.append(str(ROOT_DIR))
 
+from accounts.managers import check_phone_number
+from .models import Order
 
 PHONE_RX = re.compile(r"^\+?[78]\d{10}$")
 NAME_RX = re.compile(r"^[а-яa-z]+$", re.IGNORECASE)
 
 
 def validate_phone_number(value):
+    print(value)
     if not PHONE_RX.match(value):
         raise ValidationError("Неверный формат номера телефона")
 

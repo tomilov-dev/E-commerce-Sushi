@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
+from .managers import check_phone_number
 from .messages import LOGIN_LEVEL, RESEND_TEXT_LEVEL, RESEND_TIME_LEVEL, ACCOUNT_LEVEL
 from .sms_sender import sms_sender
 from .models import PhoneConfirmation, CustomUser
@@ -145,6 +146,7 @@ def restore_password(request: HttpRequest) -> HttpResponse:
 
 
 def restore_user_password(phone: str, password: str) -> CustomUser:
+    phone = check_phone_number(phone)
     user = CustomUser.objects.get(
         phone=phone,
     )
@@ -166,6 +168,7 @@ def change_user_phone(
 ) -> CustomUser:
     user = request.user
     if user.is_authenticated:
+        phone = check_phone_number(phone)
         user.phone = phone
         user.save()
         return user
