@@ -38,5 +38,5 @@ class SMSAeroSender(SMSSender):
         print(response.text)
 
 
-sms_sender = ConsoleSender()
-# sms_sender = SMSAeroSender()
+# sms_sender = ConsoleSender()
+sms_sender = SMSAeroSender()
