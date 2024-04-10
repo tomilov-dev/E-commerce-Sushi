@@ -16,4 +16,4 @@ CMD sleep 5 && python manage.py migrate \
     && python manage.py setup_superuser \
     && python manage.py fill_database \
     && python manage.py collectstatic --no-input \
-    && gunicorn -b 0.0.0.0:8000 -w 4 --threads 16 --timeout 30 backend.wsgi:application
+    && gunicorn -b 0.0.0.0:8000 -w 8 --threads 3 --timeout 30 backend.wsgi:application
