@@ -9,12 +9,9 @@ from categories.models import Category
 
 
 def home(request: HttpRequest) -> HttpRequest:
-    categories = Category.objects.all()
-
     return render(
         request,
         "pages/home.html",
-        context={"items": categories},
     )
 
 
