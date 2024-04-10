@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -57,7 +58,7 @@ class ProductPromotion(models.Model):
         PromotionCategory,
         on_delete=models.CASCADE,
         verbose_name="Промо-категория",
-        related_name="product_promotions",
+        related_name="promotion_category",
     )
 
     class Meta:

@@ -1,6 +1,7 @@
 {% extends 'products_grid/product.html' %}
 
 {% block product_units %}
+{% for unit in units %}
 <div class="product-info text-center mt-2 p-4 text-base font-normal" id="{{ product.id }}">
     <div class="product-name font-medium text-lg">
         <a href="{{ product.link }}">
@@ -16,4 +17,5 @@
         </div>
     </div>
 </div>
+{% endfor %}
 {% endblock product_units %}

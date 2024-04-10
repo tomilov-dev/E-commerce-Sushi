@@ -17,12 +17,10 @@ class CartItem(object):
         name: str,
         price: int,
         quantity: int,
-        unit: Unit,
     ) -> None:
         self.name = name
         self.price = price
         self.quantity = quantity
-        self.unit = unit
         self.total_price = price * quantity
 
 
@@ -176,22 +174,58 @@ class Cart(object):
     def __contains__(self, unit_id: int | str):
         return self.contains(unit_id)
 
-    def __iter__(self) -> Generator[CartItem, Any, Any]:
+    @property
+    def objects(self) -> list[CartItem, Unit]:
+        objects = []
+
         units_ids = self.cart.keys()
+        units = Unit.objects.filter(id__in=units_ids).select_related(
+            "product",
+        )
 
         for unit_id in units_ids:
             quantity = self.cart[unit_id]
-            unit = get_object_or_404(Unit, id=unit_id)
+
+            unit = units.get(id=unit_id)
             price = unit.price
             if unit.discount_price:
                 price = unit.discount_price
 
-            yield CartItem(
-                unit.full_name,
-                Decimal(price),
-                Decimal(quantity),
-                unit=unit,
+            objects.append(
+                [
+                    CartItem(
+                        unit.full_name,
+                        Decimal(price),
+                        Decimal(quantity),
+                    ),
+                    unit,
+                ]
             )
+
+        return objects
+
+    def __iter__(self) -> Generator[CartItem, Any, Any]:
+        units_ids = self.cart.keys()
+        units = Unit.objects.filter(id__in=units_ids).select_related(
+            "product",
+        )
+
+        for unit_id in units_ids:
+            quantity = self.cart[unit_id]
+
+            unit = units.get(id=unit_id)
+            price = unit.price
+            if unit.discount_price:
+                price = unit.discount_price
+
+            yield [
+                CartItem(
+                    unit.full_name,
+                    Decimal(price),
+                    Decimal(quantity),
+                ),
+                unit,
+            ]
 
     def __len__(self) -> int:
         return self.units_count

@@ -73,7 +73,20 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-# Application definition
+RD_USER = os.getenv("REDIS_USER")
+RD_PASS = os.getenv("REDIS_PASSWORD")
+RD_HOST = os.getenv("REDIS_HOST")
+RD_PORT = os.getenv("REDIS_PORT")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": f"redis://{RD_USER}:{RD_PASS}@{RD_HOST}:{RD_PORT}",
+        "OPTIONS": {
+            "db": "10",
+        },
+    }
+}
 
 INSTALLED_APPS = [
     "django.contrib.admin",

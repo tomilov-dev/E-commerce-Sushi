@@ -14,8 +14,12 @@ services:
     image: redis:7.2
     env_file:
       - .env
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass "$${REDIS_PASSWORD}"
     volumes:
-      - /var/delivery-mpa/rd_data:/var/lib/postgresql/data
+      - /var/redis_data:/var/lib/redis/data
 
   backend:
     container_name: backend_deliverympa

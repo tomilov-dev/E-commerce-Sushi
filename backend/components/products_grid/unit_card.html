@@ -1,12 +1,13 @@
 {% load cart_filters %}
 
+{% with charcs=unit.characteristics %}
 <div class="flex justify-between">
-    {% if unit.charcs.measure_count %}
+    {% if charcs.measure_count %}
     <div>
         <p class="text-sm text-gray-400">
-            <span>{{ unit.charcs.measure.display_name }}:</span>
-            <span>{{ unit.charcs.measure_count }}</span>
-            <span>{{unit.charcs.measure.symbol }}</span>
+            <span>{{ charcs.measure.display_name }}:</span>
+            <span>{{ charcs.measure_count }}</span>
+            <span>{{ charcs.measure.symbol }}</span>
         </p>
     </div>
     {% endif %}
@@ -16,27 +17,27 @@
         </div>
         <div class="absolute bottom-2 z-10 -right-16 flex-col items-center hidden mb-5 group-hover:flex">
             <div class="flex gap-1.5 px-8 py-2 rounded-md text-xs text-white bg-black shadow-lg">
-                {% if unit.charcs.proteins %}
+                {% if charcs.proteins %}
                 <div>
-                    <p>{{ unit.charcs.proteins }}</p>
+                    <p>{{ charcs.proteins }}</p>
                     <p>бел.</p>
                 </div>
                 {% endif %}
-                {% if unit.charcs.fats %}
+                {% if charcs.fats %}
                 <div>
-                    <p>{{ unit.charcs.fats }}</p>
+                    <p>{{ charcs.fats }}</p>
                     <p>жир.</p>
                 </div>
                 {% endif %}
-                {% if unit.charcs.carbohydrates %}
+                {% if charcs.carbohydrates %}
                 <div>
-                    <p>{{ unit.charcs.carbohydrates }}</p>
+                    <p>{{ charcs.carbohydrates }}</p>
                     <p>угл.</p>
                 </div>
                 {% endif %}
-                {% if unit.charcs.kilocalories %}
+                {% if charcs.kilocalories %}
                 <div>
-                    <p>{{ unit.charcs.kilocalories }}</p>
+                    <p>{{ charcs.kilocalories }}</p>
                     <p>Ккал</p>
                 </div>
                 {% endif %}
@@ -45,6 +46,7 @@
         </div>
     </div>
 </div>
+{% endwith %}
 
 <div class="flex justify-between my-1">
     <div class="price-value text-start flex items-center">

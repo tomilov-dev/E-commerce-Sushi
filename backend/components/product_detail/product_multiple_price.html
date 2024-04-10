@@ -1,5 +1,5 @@
 <div class="units-selectors flex justify-start gap-6">
-    {% for unit in product.units.all %}
+    {% for unit in units %}
     {% if forloop.first %}
     <div class="unit-selector selected" unit-id="{{ unit.id }}">
         <button onclick="selectUnit(this)" unit-id="{{ unit.id }}">

@@ -16,9 +16,7 @@
         {% with units=product.units.all %}
 
         {% if units|length == 1 %}
-        {% with unit=units.first %}
         {% include 'products_grid/product_one_price.html' %}
-        {% endwith %}
 
         {% elif units|length > 1 %}
         {% include 'products_grid/product_multiple_price.html' %}

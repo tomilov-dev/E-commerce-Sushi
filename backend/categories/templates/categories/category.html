@@ -9,11 +9,15 @@
 {% endblock title %}
 
 {% block category_slider %}
-{% include 'category_slider/category_slider.html' with current_category=current_category %}
+{% include 'category_slider/category_slider.html' with current_category=category.name %}
 {% endblock category_slider %}
 
 {% block main %}
-{% include 'products_grid/products_grid.html' with products=products cart_add_product_form=cart_add_product_form %}
+
+{% with products=category.products.all %}
+{% include 'products_grid/products_grid.html' with products=products %}
+{% endwith %}
+
 {% endblock main %}
 
 {% block js_dependencies %}

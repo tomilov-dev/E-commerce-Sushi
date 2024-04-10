@@ -1,5 +1,6 @@
 {% load cart_filters %}
 
+{% for unit in units %}
 <div class="units-cards">
     <div class="unit-card" unit-id="{{ unit.id }}">
         {% include 'product_detail/unit_card.html' %}
@@ -17,3 +18,4 @@
         {% include 'product_detail/unit_forms.html' %}
     </div>
 </div>
+{% endfor %}

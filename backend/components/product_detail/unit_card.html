@@ -21,45 +21,47 @@
     </div>
 </div>
 
+{% with charcs=unit.characteristics %}
 <div class="flex flex-col">
-    {% if unit.charcs.measure_count %}
+    {% if charcs.measure_count %}
     <div>
         <p>
-            <span>{{ unit.charcs.measure.display_name }}:</span>
-            <span>{{ unit.charcs.measure_count }}</span>
-            <span>{{unit.charcs.measure.symbol }}</span>
+            <span>{{ charcs.measure.display_name }}:</span>
+            <span>{{ charcs.measure_count }}</span>
+            <span>{{charcs.measure.symbol }}</span>
         </p>
     </div>
     {% endif %}
 
-    {% if unit.charcs.quantity %}
+    {% if charcs.quantity %}
     <div>
         <p>
-            Количество в упаковке: {{ unit.charcs.quantity }} шт
+            Количество в упаковке: {{ charcs.quantity }} шт
         </p>
     </div>
     {% endif %}
 
     <div class="flex gap-1">
-        {% if unit.charcs.proteins %}
+        {% if charcs.proteins %}
         <p>
-            Белки: {{ unit.charcs.proteins }}
+            Белки: {{ charcs.proteins }}
         </p>
         {% endif %}
-        {% if unit.charcs.fats %}
+        {% if charcs.fats %}
         <p>
-            Жиры: {{ unit.charcs.fats }}
+            Жиры: {{ charcs.fats }}
         </p>
         {% endif %}
-        {% if unit.charcs.carbohydrates %}
+        {% if charcs.carbohydrates %}
         <p>
-            Углеводы: {{ unit.charcs.carbohydrates }}
+            Углеводы: {{ charcs.carbohydrates }}
         </p>
         {% endif %}
-        {% if unit.charcs.kilocalories %}
+        {% if charcs.kilocalories %}
         <p>
-            Килокалории: {{ unit.charcs.kilocalories }}
+            Килокалории: {{ charcs.kilocalories }}
         </p>
         {% endif %}
     </div>
 </div>
+{% endwith %}

@@ -20,11 +20,11 @@
                     {{ product.name }}
                 </h2>
 
-                {% if product.tags %}
+                {% if product.product_tags.all %}
                 <div class="flex gap-1">
-                    {% for tag in product.tags %}
+                    {% for product_tag in product.product_tags.all %}
                     <p class="text-gray-500 text-sm">
-                        {{ tag.name }}
+                        {{ product_tag.tag.name }}
                     </p>
                     {% endfor %}
                 </div>
@@ -33,9 +33,7 @@
                 {% with units=product.units.all %}
 
                 {% if units|length == 1 %}
-                {% with unit=units.first %}
                 {% include 'product_detail/product_one_price.html' %}
-                {% endwith %}
 
                 {% else %}
                 {% include 'product_detail/product_multiple_price.html' %}
