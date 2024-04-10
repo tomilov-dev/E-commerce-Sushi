@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
     "accounts.apps.AccountsConfig",
+    ## Additional Modules
 ]
 
 MIDDLEWARE = [
@@ -181,3 +182,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# LOGGING = {
+#     "version": 1,
+#     "handlers": {"console": {"class": "logging.StreamHandler"}},
+#     "loggers": {
+#         "django.db.backends": {
+#             "handlers": ["console"],
+#             "level": "DEBUG",
+#         }
+#     },
+# }
