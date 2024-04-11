@@ -67,6 +67,7 @@ ALLOWED_HOSTS = [
     "192.168.0.102",
     "localhost",
     "127.0.0.1",
+    "185.250.47.19",
 ]
 
 INTERNAL_IPS = [
