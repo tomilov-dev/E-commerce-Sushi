@@ -32,7 +32,7 @@ class SMSAeroSender(SMSSender):
             {
                 "number": phone,
                 "sign": "SMS Aero",
-                "text": f"Служба доставки Pizzaro.\nВаш код регистрации: {code}",
+                "text": f"Служба доставки Tomilov-Delivery.\nВаш код регистрации: {code}",
             },
         )
 
