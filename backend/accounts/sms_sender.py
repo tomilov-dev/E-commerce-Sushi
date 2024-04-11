@@ -3,6 +3,7 @@ import requests
 from dotenv import load_dotenv
 from abc import ABC, abstractmethod
 
+
 load_dotenv()
 check_env = os.getenv("ENV_CHECK")
 if not check_env:
@@ -10,6 +11,7 @@ if not check_env:
 
 SMSAERO_APIKEY = os.getenv("ENV_CHECK")
 SMSAERO_EMAIL = os.getenv("ENV_CHECK")
+DEBUG = os.getenv("DJANGO_DEBUG")
 
 
 class SMSSender(ABC):
@@ -38,5 +40,7 @@ class SMSAeroSender(SMSSender):
         print(response.text)
 
 
-# sms_sender = ConsoleSender()
-sms_sender = SMSAeroSender()
+if DEBUG:
+    sms_sender = ConsoleSender()
+else:
+    sms_sender = SMSAeroSender()
