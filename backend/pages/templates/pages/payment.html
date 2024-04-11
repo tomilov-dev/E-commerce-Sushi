@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block seo %}
+{% endblock seo %}
+
+{% block title %}
+Способы оплаты
+{% endblock title %}
+
+{% block main %}
+<div class="flex justify-center mt-8">
+    <div class="w-full max-w-screen-lg bg-sec p-8 border rounded-xl mx-4">
+        <h1 class="text-center font-medium">
+            Способы оплаты
+        </h1>
+
+        <div class="flex flex-col gap-2 mt-4">
+            <div>
+                <p class="font-medium">
+                    Оплата курьеру картой
+                </p>
+                <p>
+                    Курьер приедет с терминалом. Мы принимаем VISA, Mastercard, МИР
+                </p>
+            </div>
+            <div>
+                <p class="font-medium">
+                    Оплата курьеру наличным
+                </p>
+                <p>
+                    Если вы указали в корзине, что необходима сдача, курьер приедет с нужной суммой
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

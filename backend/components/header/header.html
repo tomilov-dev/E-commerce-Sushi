@@ -56,8 +56,8 @@
                         </div>
 
                         <div class="flex-auto">
-                            <a href="tel:+79226441729" class="block">
-                                <span>8-922-644-17-29</span>
+                            <a href="tel:+79012207967" class="block">
+                                <span>8-901-220-79-67</span>
                                 <span class="absolute inset-0"></span>
                             </a>
                             <p class="mt-1">Звонок бесплатный по всей России</p>
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="flex-auto">
-                            <a href="{% url 'pages:map' %}" class="block">
+                            <a href="{% url 'pages:delivery' %}" class="block">
                                 <span class="my-text1 group-hover:my-text1-hover">ул. Шурманова, дом 113б</span>
                                 <span class="absolute inset-0"></span>
                             </a>
@@ -85,13 +85,13 @@
 
                 <div class="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
 
-                    <a href="#"
+                    <a href="{% url 'pages:important' %}"
                         class="group flex items-center justify-center gap-x-2.5 p-3 leading-6 hover:bg-gray-100">
-                        {% include 'svg/play_circle.html' %}
-                        <span class="my-text1 group-hover: my-text1-hover">Превью</span>
+                        {% include 'svg/info.html' %}
+                        <span class="my-text1 group-hover: my-text1-hover">Информация</span>
                     </a>
 
-                    <a href="tel:+79226441729"
+                    <a href="tel:+79012207967"
                         class="group flex items-center justify-center gap-x-2.5 p-3 leading-6 hover:bg-gray-100">
                         {% include 'svg/support_agent.html' %}
                         <span class="my-text1 group-hover:my-text1-hover">Связаться</span>
@@ -154,15 +154,15 @@
                     <a href="#">
                         <div class="p-2 border rounded-xl hover:border-accent hover:bg-sec-100">
                             <div class="mx-2">
-                                <a href="tel:+79226441729">
-                                    8-922-644-17-29
+                                <a href="tel:+79012207967">
+                                    8-901-220-79-67
                                 </a>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div>
-                    <a href="{% url 'pages:map' %}">
+                    <a href="{% url 'pages:delivery' %}">
                         <div class="p-2 border rounded-xl hover:border-accent hover:bg-sec-100">
                             <div class="mx-2">
                                 ул. Шурманова, дом 113б

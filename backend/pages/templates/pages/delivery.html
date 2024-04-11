@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo %}
+{% endblock seo %}
+
+{% block css_dependencies %}
+<link href="{% static 'map/map.css' %}" rel="stylesheet" type="text/css">
+{% endblock css_dependencies %}
+
+{% block title %}
+Доставка и самовывоз
+{% endblock title %}
+
+{% block main %}
+<div class="flex justify-center mt-8">
+    <div class="bg-sec p-8 rounded-xl border">
+
+        <div>
+            <h1 class="text-center text-lg font-medium mb-4">
+                Доставки и самовывоз
+            </h1>
+            <div>
+                {% include 'map/map.html' %}
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="text-center font-medium text-lg">Условия доставки</h3>
+            <div class="flex flex-col gap-4 mt-4">
+                <div class="flex flex-col gap-2">
+                    <h4 class="font-medium">Среднее время доставки от 60 минут</h4>
+                    <p class="max-w-xl">
+                        Точное время ожидания вам будет сообщено после оформления заказа.
+                        Оно может увеличиться в зависимости от загруженности нашей кухни или условий доставки.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h4 class="font-medium">Способы оплаты</h4>
+                    <p class="max-w-xl">
+                        Доступные способы оплаты и информацию об оплате вы
+                        можете узнать на странице
+                        <a class="underline" href="{% url 'pages:payment' %}">Оплата</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main %}

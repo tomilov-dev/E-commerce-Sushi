@@ -8,57 +8,90 @@
         <div class="mx-4">
 
             <!-- High footer space -->
-            <div class="flex flex-col gap-2 px-4 md:flex-row">
 
-                <div>
-                    <p class="my-text1 text-lg">Самая вкусная доставка в городе!</p>
-                    <p class="my-text2">
-                        Доставим Вам еду горячей. Если нет, то вернем Вам деньги.
-                    </p>
+            <div class="flex flex-col justify-star md:justify-between md:flex-row">
+                <div class="basis-1/2 flex flex-col gap-2 mb-4 mr-4">
+                    <div>
+                        <h1 class="text-lg font-medium">
+                            Дополнительная информация
+                        </h1>
+                    </div>
+                    <div class="text-pretty max-w-xs lg:max-w-lg">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum, et incidunt odio, soluta
+                        voluptas fugiat assumenda minus quidem doloribus nostrum corrupti accusamus quam dolores
+                        laboriosam hic illo veritatis quos quibusdam?
+                    </div>
                 </div>
 
-                <div class="flex flex-col gap-2 md:mx-auto lg:flex-row lg:mx-0 lg:ml-auto lg:justify-end lg:gap-8">
-
+                <div class="basic-1/2 flex flex-col gap-4 justify-end md:flex-row md:gap-16">
                     <div>
-                        <span class="my-text1 block uppercase mb-2">Полезные
-                            ссылки</span>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:about' %}">
-                                    О компании
+                        <h3 class="text-lg font-medium">Клиентам</h3>
+                        <div class="flex flex-col gap-2 mt-2">
+                            <div>
+                                <a href="{% url 'pages:delivery' %}">
+                                    <p>Доставка и самовывоз</p>
                                 </a>
-                            </li>
-                            <li>
-                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:blog' %}">
-                                    Блог
+                            </div>
+                            <div>
+                                <a href="{% url 'promotion:promotion_list' %}">
+                                    <p>Акции</p>
                                 </a>
-                            </li>
-                        </ul>
+                            </div>
+                            <div>
+                                <a href="{% url 'pages:payment' %}">
+                                    <p>Оплата</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{% url 'pages:news' %}">
+                                    <p>Новости</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div>
-                        <span class="my-text1 block uppercase mb-2">Прочие ресурсы</span>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:license' %}">
-                                    Лицензия
+                        <h3 class="text-lg font-medium">Компания</h3>
+                        <div class="flex flex-col gap-2 mt-2">
+                            <div>
+                                <a href="{% url 'pages:requisites' %}">
+                                    <p>Полные реквизиты</p>
                                 </a>
-                            </li>
-                            <li>
-                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:terms' %}">
-                                    Условия работы
+                            </div>
+                            <div>
+                                <a href="{% url 'pages:commercial' %}">
+                                    <p>Коммерческое предложение</p>
                                 </a>
-                            </li>
-                            <li>
-                                <a class="my-text2 hover:my-text2-hover block pb-2" href="{% url 'pages:contact' %}">
-                                    Связаться с нами
-                                </a>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
 
+                    <div>
+                        <h3 class="text-lg font-medium">Информация</h3>
+                        <div class="flex flex-col gap-2 mt-2">
+                            <div>
+                                <a href="{% url 'pages:confidential' %}">
+                                    <p>Политика конфиденциальности</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{% url 'pages:terms' %}">
+                                    <p>Пользовательское соглашение</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{% url 'pages:important' %}">
+                                    <p>Для потребителей</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{% url 'pages:rules' %}">
+                                    <p>Правила продажи</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
             <hr class="mx-auto my-8 flex">

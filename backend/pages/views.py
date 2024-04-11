@@ -15,29 +15,45 @@ def home(request: HttpRequest) -> HttpRequest:
     )
 
 
-def on_map(request: HttpRequest) -> HttpResponse:
-    return render(request, "pages/on_map.html")
+def info(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/info.html")
+
+
+def delivery(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/delivery.html")
+
+
+def payment(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/payment.html")
+
+
+def news(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/news.html")
 
 
 def about(request: HttpRequest) -> HttpResponse:
     return render(request, "pages/about.html")
 
 
-def blog(request: HttpRequest) -> HttpResponse:
-    return render(request, "pages/blog.html")
+def requisites(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/requisites.html")
 
 
-def license(request: HttpRequest) -> HttpResponse:
-    return render(request, "pages/license.html")
+def commercial(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/commercial.html")
+
+
+def confidential(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/confidential.html")
 
 
 def terms(request: HttpRequest) -> HttpResponse:
     return render(request, "pages/terms.html")
 
 
-def contact(request: HttpRequest) -> HttpResponse:
-    return render(request, "pages/contact.html")
+def rules(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/rules.html")
 
 
-def requisites(request: HttpRequest) -> HttpResponse:
-    return render(request, "pages/requisites.html")
+def important(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/important.html")
