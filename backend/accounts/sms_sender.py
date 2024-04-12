@@ -42,5 +42,7 @@ class SMSAeroSender(SMSSender):
 
 if DEBUG:
     sms_sender = ConsoleSender()
+    print("INIT CONSOLE SENDER")
 else:
     sms_sender = SMSAeroSender()
+    print("INIT SMS AERO")
