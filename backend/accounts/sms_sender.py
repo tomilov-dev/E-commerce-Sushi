@@ -9,8 +9,8 @@ check_env = os.getenv("ENV_CHECK")
 if not check_env:
     raise FileNotFoundError(".env file not found")
 
-SMSAERO_APIKEY = os.getenv("ENV_CHECK")
-SMSAERO_EMAIL = os.getenv("ENV_CHECK")
+SMSAERO_APIKEY = os.getenv("SMSAERO_APIKEY")
+SMSAERO_EMAIL = os.getenv("SMSAERO_EMAIL")
 DEBUG = os.getenv("DJANGO_DEBUG")
 
 
@@ -26,9 +26,13 @@ class ConsoleSender(SMSSender):
 
 
 class SMSAeroSender(SMSSender):
+    def __init__(self, email: str, apikey: str) -> None:
+        self.email = email
+        self.apikey = apikey
+
     def send(self, phone: str, code: str) -> None:
         response = requests.post(
-            f"https://{self.EMAIL}:{self.APIKEY}@gate.smsaero.ru/v2/sms/send",
+            f"https://{self.email}:{self.apikey}@gate.smsaero.ru/v2/sms/send",
             {
                 "number": phone,
                 "sign": "SMS Aero",
@@ -36,9 +40,9 @@ class SMSAeroSender(SMSSender):
             },
         )
 
-        print(response)
-        print(response.text)
+        # print(response)
+        # print(response.text)
 
 
 # sms_sender = ConsoleSender()
-sms_sender = SMSAeroSender()
+sms_sender = SMSAeroSender(SMSAERO_EMAIL, SMSAERO_APIKEY)
