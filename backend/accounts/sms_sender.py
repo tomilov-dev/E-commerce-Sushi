@@ -13,6 +13,9 @@ SMSAERO_APIKEY = os.getenv("ENV_CHECK")
 SMSAERO_EMAIL = os.getenv("ENV_CHECK")
 DEBUG = os.getenv("DJANGO_DEBUG")
 
+print("DEBUG is", DEBUG)
+print(DEBUG)
+
 
 class SMSSender(ABC):
     @abstractmethod
