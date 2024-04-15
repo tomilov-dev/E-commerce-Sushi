@@ -4,7 +4,14 @@
     <!-- Logo at the left -->
     <div class="flex basis-1/4">
         <a href="{% url 'pages:home' %}" class="-m-1.5 p-1.5">
-            <img class="h-8 w-auto" src="{% static 'logo.svg' %}" alt="">
+            <div class="flex">
+                <img class="" src="{% static 'logo.svg' %}" alt="">
+                <!-- <img class="ml-1.5 mt-1.5" src="{% static 'logo-icon.svg' %}" alt=""> -->
+                <div class="relative ml-1.5">
+                    <img class="spin-animation mt-2" src="{% static 'logo-icon1.svg' %}" alt="">
+                    <img class="absolute top-2.5 right-0.5" src="{% static 'logo-icon2.svg' %}" alt="">
+                </div>
+            </div>
         </a>
     </div>
 

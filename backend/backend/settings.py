@@ -59,8 +59,8 @@ SESSION_COOKIE_AGE = 86400
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 
-# DEBUG = os.getenv("DJANGO_DEBUG")
-DEBUG = False
+DEBUG = os.getenv("DJANGO_DEBUG")
+# DEBUG = True
 
 
 ALLOWED_HOSTS = [
