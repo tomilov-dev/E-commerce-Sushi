@@ -59,9 +59,15 @@ SESSION_COOKIE_AGE = 86400
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 
-DEBUG = os.getenv("DJANGO_DEBUG")
-# DEBUG = True
+debug_mode = os.getenv("DJANGO_DEBUG")
+if debug_mode == "True":
+    DEBUG = True
+elif debug_mode == "False":
+    DEBUG = False
+else:
+    raise ValueError("DJANGO_DEBUG has wrong value")
 
+print(DEBUG)
 
 ALLOWED_HOSTS = [
     "tomilov.space",

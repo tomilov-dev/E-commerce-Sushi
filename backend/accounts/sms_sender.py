@@ -2,6 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 from abc import ABC, abstractmethod
+from django.conf import settings
 
 
 load_dotenv()
@@ -9,9 +10,10 @@ check_env = os.getenv("ENV_CHECK")
 if not check_env:
     raise FileNotFoundError(".env file not found")
 
+DEBUG = settings.DEBUG
+
 SMSAERO_APIKEY = os.getenv("SMSAERO_APIKEY")
 SMSAERO_EMAIL = os.getenv("SMSAERO_EMAIL")
-DEBUG = os.getenv("DJANGO_DEBUG")
 
 
 class SMSSender(ABC):
@@ -44,5 +46,7 @@ class SMSAeroSender(SMSSender):
         # print(response.text)
 
 
-# sms_sender = ConsoleSender()
-sms_sender = SMSAeroSender(SMSAERO_EMAIL, SMSAERO_APIKEY)
+if DEBUG:
+    sms_sender = ConsoleSender()
+else:
+    sms_sender = SMSAeroSender(SMSAERO_EMAIL, SMSAERO_APIKEY)
