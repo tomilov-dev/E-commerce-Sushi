@@ -71,11 +71,7 @@ print(DEBUG)
 
 ALLOWED_HOSTS = [
     "tomilov.space",
-    "192.168.0.101",
-    "192.168.0.102",
-    "localhost",
-    "127.0.0.1",
-    "185.250.47.19",
+    "delivery-mpa.tomilov.space",
 ]
 
 INTERNAL_IPS = [
