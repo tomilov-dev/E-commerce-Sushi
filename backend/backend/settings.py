@@ -67,12 +67,15 @@ elif debug_mode == "False":
 else:
     raise ValueError("DJANGO_DEBUG has wrong value")
 
-print(DEBUG)
 
 ALLOWED_HOSTS = [
     "tomilov.space",
     "delivery-mpa.tomilov.space",
 ]
+
+if DEBUG:
+    ALLOWED_HOSTS.append("localhost")
+    ALLOWED_HOSTS.append("127.0.0.1")
 
 INTERNAL_IPS = [
     "127.0.0.1",
