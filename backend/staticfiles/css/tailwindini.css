@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .main-icon {
-  @apply text-icons;
+  @apply text-primary;
 }
 
 .unit-selector {

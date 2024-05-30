@@ -15,7 +15,11 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
+    "tw-colors": "^3.3.1",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "flowbite": "^2.3.0"
   }
 }

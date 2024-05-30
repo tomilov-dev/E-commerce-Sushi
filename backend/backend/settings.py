@@ -39,9 +39,9 @@ STATICFILES_DIRS = [
 
 
 DELIVERY_PRICES = {
-    0: 150,
-    2500: 100,
-    5000: 0,
+    0: 150,  ## if Price <2500 Then DP = 150
+    2500: 100,  ## If Price >= 2500 Then DP = 100
+    5000: 0,  ## If Price >= 5000 Then DP = 0
 }
 
 CART_SESSION_ID = "cart"
@@ -87,15 +87,24 @@ RD_PASS = os.getenv("REDIS_PASSWORD")
 RD_HOST = os.getenv("REDIS_HOST")
 RD_PORT = os.getenv("REDIS_PORT")
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"redis://{RD_USER}:{RD_PASS}@{RD_HOST}:{RD_PORT}",
-        "OPTIONS": {
-            "db": "10",
-        },
+if DEBUG:
+    ### Use MemCache in dev-mode
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
     }
-}
+else:
+    ### Use Redis Cache in production
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": f"redis://{RD_USER}:{RD_PASS}@{RD_HOST}:{RD_PORT}",
+            "OPTIONS": {
+                "db": "10",
+            },
+        }
+    }
 
 AUTHENTICATION_BACKENDS = [
     "accounts.auth_backend.CustomPhoneAuthBackend",
