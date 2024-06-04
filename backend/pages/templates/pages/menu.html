@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo %}
+{% endblock seo %}
+
+{% block title %}
+Главная страница
+{% endblock title %}
+
+{% block main %}
+
+<section>
+<div class="my-8">
+    <h2>
+        Акции для Вас
+    </h2>
+</div>
+{% include 'promo_slider/promo_slider.html' %}
+</section>
+
+<section>
+<div class="my-12">
+    <h2>
+        Категории товаров
+    </h2>
+</div>
+{% include 'categories_grid/categories_grid.html' %}
+</section>
+
+{% endblock main %}
