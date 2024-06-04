@@ -19,4 +19,8 @@ class Command(BaseCommand):
                 password=password,
             )
 
+            print("CREATE USER WITH")
+            print(f"USER LOGIN: {phone}")
+            print(f"USER PASSWORD: {password}")
+
         print("Super User Initialized")
