@@ -32,12 +32,12 @@
             <form method="post">
                 {% csrf_token %}
                 {{ user_login_form.as_p }}
-                <button class="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                <button class="mt-2 btn bg-error" type="submit">
                     Да
                 </button>
             </form>
-            <button class="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">
-                <a href="{% url 'pages:home' %}">
+            <button class="mt-2 btn bg-success" type="submit">
+                <a href="{% url 'accounts:account_page' %}">
                     Нет
                 </a>
             </button>

@@ -26,8 +26,8 @@
     <div class="account-info my-4">
         <div class="flex justify-between">
             <p>Номер телефона: 8{{ user.phone }}</p>
-            <button class="text-red-600 hover:text-red-400">
-                <a href="{% url 'accounts:change_phone' %}">
+            <button>
+                <a class='text-error' href="{% url 'accounts:change_phone' %}">
                     Сменить
                 </a>
             </button>
@@ -49,8 +49,8 @@
             {% endif %}
         </div>
         <div>
-            <button class="text-red-600 hover:text-red-400">
-                <a href="{% url 'accounts:change_presonal_info' %}">
+            <button>
+                <a class='text-error' href="{% url 'accounts:change_presonal_info' %}">
                     Редактировать аккаунт
                 </a>
             </button>
@@ -60,8 +60,8 @@
     <div class="flex justify-between mt-6">
         <div>
             <div>
-                <button class="text-red-600 hover:text-red-400">
-                    <a href="{% url 'accounts:change_password' %}">
+                <button>
+                    <a class='text-error' href="{% url 'accounts:change_password' %}">
                         Сменить пароль
                     </a>
                 </button>
@@ -69,8 +69,8 @@
         </div>
 
         <div class="mt-auto flex justify-end">
-            <button class="text-red-600 hover:text-red-400">
-                <a href="{% url 'accounts:account_logout' %}">
+            <button>
+                <a class='text-error' href="{% url 'accounts:account_logout' %}">
                     Выйти из аккаунта
                 </a>
             </button>

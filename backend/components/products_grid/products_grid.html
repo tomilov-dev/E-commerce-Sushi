@@ -1,16 +1,17 @@
 {% load static %}
 
 <div class="max-w-3xl mx-auto text-center my-10">
-    <h1 class="text-4xl font-bold text-gray-900 leading-tight mb-2 pb-4 relative">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-500">
-            {{ category.name}}
+    <h1 class="relative">
+        {{ category.name}}
+        <span
+            class="absolute -bottom-4 left-0 w-full h-1 bg-gradient-to-r from-red-300 to-pink-500">
         </span>
-        <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-300 to-pink-500"></span>
     </h1>
 </div>
 
 <div class="product-grid flex relative justify-center mx-6">
-    <div class="product-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div
+        class="product-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for product in products %}
         {% with units=product.units.all %}

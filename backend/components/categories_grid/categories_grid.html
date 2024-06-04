@@ -1,34 +1,31 @@
 {% load static %}
 
-<div class="mb-4">
-    <h1 class="text-lg text-center">
-        Категории товаров
-    </h1>
-</div>
-
 <div class="items-grid flex justify-center mx-6">
-    <div class="items-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div
+        class="items-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for item in categories_context %}
         <div
-            class="item max-w-sm border border-neutral-200 rounded-xl shadow-md p-4 bg-sec hover:shadow-lg hover:border-accent">
-            <a class="group" href="{{ item.link }}">
+            class="item category-card">
+            <div class="item-image overflow-hidden">
+                {% if item.image %}
+                <img class="rounded-t-xl"
+                    src="{{ item.image.url }}">
+                {% else %}
+                <img class="rounded-t-xl" src="{% static 'no-image.jpg' %}">
+                {% endif %}
+            </div>
 
-                <div class="item-content">
-                    <div class="text-center text-lg font-medium">
-                        <p>{{ item.name }}</p>
-                    </div>
-                </div>
-
-                <div class="item-image my-4">
-                    {% if item.image %}
-                    <img class="rounded-t-xl duration-500 group-hover:scale-95" src="{{ item.image.url }}">
-                    {% else %}
-                    <img class="rounded-t-xl" src="{% static 'no-image.jpg' %}">
-                    {% endif %}
-                </div>
-
-            </a>
+            <div class="item-content p-6 flex justify-between items-center">
+                <h3>
+                    {{ item.name }}
+                </h3>
+                <button class="btn group">
+                    <a href="{{ item.link }}">
+                        Подробнее
+                    </a>
+                </button>
+            </div>
         </div>
         {% endfor %}
 

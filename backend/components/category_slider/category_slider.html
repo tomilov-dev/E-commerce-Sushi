@@ -1,5 +1,6 @@
 <div class="flex justify-center">
-    <div id="category-carousel" class="splide mx-auto" slides-count="{{ categories_context|length }}">
+    <div id="category-carousel" class="splide mx-auto"
+        slides-count="{{ categories_context|length }}">
         <div class="splide__track">
             <ul class="splide__list">
                 {% for category in categories_context %}
@@ -7,23 +8,19 @@
                     {% if category.show_navbar %}
                     <div class="group">
                         <a href="{{ category.link }}">
-                            <!-- Max width control -->
-                            {% if current_category == category.name %}
-                            <div class="w-24 h-24 rounded-xl p-2 border bg-accent bg-opacity-50" id="selected-category"
-                                category-index="{{ forloop.counter }}">
+                            <div
+                                class="w-24 h-24 rounded-xl p-2 border {% if current_category == category.name %}border-accent border-opacity-50 bg-base-300{% endif %}"
+                                {% if current_category == category.name %}
+                                id="selected-category"
+                                category-index="{{ forloop.counter }}"
+                                {% endif %}>
                                 {% if category.icon %}
                                 <img src="{{ category.icon.url }}">
                                 {% endif %}
-                                <div class="text-center text-sm">{{ category.name }}</div>
+                                <div class="text-center text-sm">
+                                    {{ category.name }}
+                                </div>
                             </div>
-                            {% else %}
-                            <div class="w-24 h-24 rounded-xl p-2 border bg-sec">
-                                {% if category.icon %}
-                                <img src="{{ category.icon.url }}">
-                                {% endif %}
-                                <div class="text-center text-sm">{{ category.name }}</div>
-                            </div>
-                            {% endif %}
                         </a>
                     </div>
                     {% endif %}

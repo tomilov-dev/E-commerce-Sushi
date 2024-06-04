@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="product max-w-sm bg-sec border border-neutral-200 rounded-xl shadow-md hover:shadow-lg hover:border-accent">
+<div class="product product-card">
     <div class="product-tags absolute ml-1 mt-1 flex flex-col gap-1">
 
         {% for product_tag in product.product_tags.all %}
@@ -15,10 +15,10 @@
 
     </div>
 
-    <div class="product-image p-2">
+    <div class="product-image">
         <a href="{{ product.link }}">
             {% if product.image %}
-            <img class="rounded-xl duration-500 hover:scale-95" src="{{ product.image.url }}">
+            <img src="{{ product.image.url }}">
             {% else %}
             <img src="{% static 'no-image.jpg' %}">
             {% endif %}

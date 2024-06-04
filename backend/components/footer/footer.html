@@ -1,168 +1,176 @@
 {% load tz %}
 {% load static %}
 
-<footer class="mt-auto">
-
-    <div class="bg-sec mt-10 px-4 pb-4 pt-8 border-t rounded-t-2xl shadow-sm">
-
-        <div class="mx-4">
-
-            <!-- High footer space -->
-
+<div class="mt-auto">
+    <div class="bg-base-100 mt-8">
+        <div class="border-t border-gray-200 shadow-sm">
             <div
-                class="flex flex-col justify-star md:justify-between md:flex-row">
-                <div class="basis-1/2 flex flex-col gap-2 mb-4 mr-4">
-                    <div>
-                        <h1 class="text-lg font-medium">
-                            Дополнительная информация
-                        </h1>
-                    </div>
+                class="max-w-screen-2xl mx-auto mt-10 px-4 pb-4 pt-8">
+
+                <div class="mx-4">
+
+                    <!-- High footer space -->
                     <div
-                        class="flex flex-col gap-1 text-pretty max-w-xs lg:max-w-lg">
-                        <p class="font-medium">Данный сайт не предоставляет
-                            никаких услуг!</p>
-                        <p>Вся информация представлена исключительно в
-                            информационных целях.</p>
-                        <p>Не является публичной оффертой.</p>
-                        <p>Контент, изображения, названия и описания
-                            заимствованы с источника
-                            <a class="underline underline-offset-2"
-                                href="https://farfor.ru/">farfor.ru</a>
-                        </p>
-                    </div>
-                </div>
+                        class="flex flex-col justify-star md:justify-between md:flex-row">
+                        <div class="basis-1/2 flex flex-col gap-2 mb-4 mr-4">
+                            <div>
+                                <h1 class="text-lg font-medium">
+                                    Дополнительная информация
+                                </h1>
+                            </div>
+                            <div
+                                class="flex flex-col gap-1 text-pretty max-w-xs lg:max-w-lg">
+                                <p class="font-medium">Данный сайт не
+                                    предоставляет
+                                    никаких услуг!</p>
+                                <p>Вся информация представлена исключительно в
+                                    информационных целях.</p>
+                                <p>Не является публичной оффертой.</p>
+                                <p>Контент, изображения, названия и описания
+                                    заимствованы с источника
+                                    <a class="underline underline-offset-2"
+                                        href="https://farfor.ru/">farfor.ru</a>
+                                </p>
+                            </div>
+                        </div>
 
-                <div
-                    class="basic-1/2 flex flex-col gap-4 justify-end md:flex-row md:gap-16">
-                    <div>
-                        <h3 class="text-lg font-medium">Клиентам</h3>
-                        <div class="flex flex-col gap-2 mt-2">
+                        <div
+                            class="basic-1/2 flex flex-col gap-4 justify-end md:flex-row md:gap-16">
                             <div>
-                                <a href="{% url 'pages:delivery' %}">
-                                    <p>Доставка и самовывоз</p>
-                                </a>
+                                <h3>Клиентам</h3>
+                                <div class="flex flex-col gap-2 mt-2">
+                                    <div>
+                                        <a href="{% url 'pages:delivery' %}">
+                                            Доставка и самовывоз
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a
+                                            href="{% url 'promotion:promotion_list' %}">
+                                            Акции
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'pages:payment' %}">
+                                            Оплата
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'pages:news' %}">
+                                            Новости
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+
                             <div>
-                                <a href="{% url 'promotion:promotion_list' %}">
-                                    <p>Акции</p>
-                                </a>
+                                <h3>Компания</h3>
+                                <div class="flex flex-col gap-2 mt-2">
+                                    <div>
+                                        <a href="{% url 'pages:requisites' %}">
+                                            Полные реквизиты
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'pages:commercial' %}">
+                                            Коммерческое предложение
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+
                             <div>
-                                <a href="{% url 'pages:payment' %}">
-                                    <p>Оплата</p>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="{% url 'pages:news' %}">
-                                    <p>Новости</p>
-                                </a>
+                                <h3>Информация</h3>
+                                <div class="flex flex-col gap-2 mt-2">
+                                    <div>
+                                        <a
+                                            href="{% url 'pages:confidential' %}">
+                                            Политика конфиденциальности
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'pages:terms' %}">
+                                            Пользовательское соглашение
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'pages:important' %}">
+                                            Для потребителей
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'pages:rules' %}">
+                                            Правила продажи
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-medium">Компания</h3>
-                        <div class="flex flex-col gap-2 mt-2">
-                            <div>
-                                <a href="{% url 'pages:requisites' %}">
-                                    <p>Полные реквизиты</p>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="{% url 'pages:commercial' %}">
-                                    <p>Коммерческое предложение</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <hr class="mx-auto my-8 flex">
 
-                    <div>
-                        <h3 class="text-lg font-medium">Информация</h3>
-                        <div class="flex flex-col gap-2 mt-2">
-                            <div>
-                                <a href="{% url 'pages:confidential' %}">
-                                    <p>Политика конфиденциальности</p>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="{% url 'pages:terms' %}">
-                                    <p>Пользовательское соглашение</p>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="{% url 'pages:important' %}">
-                                    <p>Для потребителей</p>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="{% url 'pages:rules' %}">
-                                    <p>Правила продажи</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <!-- Low footer space -->
+                    <div class="mx-3 mb-3 flex flex-col md:flex-row">
 
-            <hr class="mx-auto my-8 flex">
-
-            <!-- Low footer space -->
-            <div class="mx-3 mb-3 flex flex-col md:flex-row">
-
-                <div class="basis-1/3">
-                    <div class="py-1 text-left">
-                        <span class="my-text2">
-                            Данные о продавце в разделе
-                            <a href="{% url 'pages:requisites' %}">
-                                <span class="underline underline-offset-2">
-                                    реквизиты
+                        <div class="basis-1/3">
+                            <div class="py-1 text-left">
+                                <span class="my-text2">
+                                    Данные о продавце в разделе
+                                    <a class="underline underline-offset-2"
+                                        href="{% url 'pages:requisites' %}">
+                                        реквизиты
+                                    </a>
                                 </span>
-                            </a>
-                        </span>
+                            </div>
+                        </div>
+
+                        <div class="basis-1/3 md:text-center my-auto">
+                            <div class="py-1">
+                                <span class="my-text2">
+                                    © {% now 'Y' %},
+                                    <a href="https://tomilov.tech"
+                                        target="_blank">
+                                        Tomilov Technologies
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="basis-1/3 flex flex-col gap-1 md:flex-row">
+
+                            <!-- Payment Methods -->
+                            <div
+                                class="basis-1/2 flex gap-2 justify-start flex-row md:justify-center">
+                                <img class="w-8"
+                                    src="{% static 'svg/visa.svg' %}">
+                                <img class="w-8"
+                                    src="{% static 'svg/mastercard.svg' %}">
+                                <img class="w-8"
+                                    src="{% static 'svg/mir.svg' %}">
+                            </div>
+
+                            <!-- Social Networks -->
+                            <div
+                                class="basis-1/2 flex gap-2 flex-row md:justify-end">
+                                <button class>
+                                    <a href="https://vk.com/id632585751">
+                                        <img class="w-6"
+                                            src="{% static 'svg/vk.svg' %}">
+                                    </a>
+                                </button>
+
+                                <button>
+                                    <a href="https://vk.com/club225577772">
+                                        <img class='w-6'
+                                            src="{% static 'svg/instagram.svg' %}">
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="basis-1/3 md:text-center my-auto">
-                    <div class="py-1">
-                        <span class="my-text2">© {% now 'Y' %}, Tomilov
-                            Technologies</span>
-                    </div>
-                </div>
-
-                <div class="basis-1/3 flex flex-col gap-1 md:flex-row">
-
-                    <!-- Payment Methods -->
-                    <div
-                        class="basis-1/2 flex gap-2 justify-start flex-row md:justify-center">
-                        <img class="w-8" src="{% static 'svg/visa.svg' %}">
-                        <img class="w-8"
-                            src="{% static 'svg/mastercard.svg' %}">
-                        <img class="w-8" src="{% static 'svg/mir.svg' %}">
-                    </div>
-
-                    <!-- Social Networks -->
-                    <div class="basis-1/2 flex gap-2 flex-row md:justify-end">
-                        <button class>
-                            <a href="#">
-                                <img class="w-6"
-                                    src="{% static 'svg/vk.svg' %}">
-                            </a>
-                        </button>
-
-                        <button>
-                            <a href="#">
-                                <img class='w-6'
-                                    src="{% static 'svg/instagram.svg' %}">
-                            </a>
-                        </button>
-                    </div>
-
-                </div>
-
             </div>
-
         </div>
-
     </div>
-
-</footer>
+</div>

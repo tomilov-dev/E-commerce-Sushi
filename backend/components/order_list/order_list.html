@@ -1,19 +1,19 @@
-<div class="mt-8 mx-4 bg-sec px-4 py-8 border rounded-lg">
+<div class="mt-8 mx-4 bg-base-100 px-4 py-8 border border-gray-200">
     <h1 class="mb-10 text-center text-2xl font-bold">История заказов</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {% for order in orders %}
-        <div class="order-card bg-sec-100 border rounded-xl pt-8 pb-6 px-10">
+        <div class="order-card bg-base-200 border border-gray-400 pt-8 pb-6 px-10">
             <p class="text-lg font-medium">Заказ №{{ order.id }}</p>
             <p>Статус: <span class="font-medium">{{ order.get_status_display }}</span></p>
             {% if order.business_comment %}
             <p>Комментарий компании: {{ order.business_comment }}</p>
             {% endif %}
 
-            <button class="mt-4 p-2 bg-sec-200 rounded-xl border hover:bg-sec-100 hover:border-accent">
-                <a href="{{ order.get_absolute_url }}">
-                    Детали заказа
-                </a>
-            </button>
+            <a class="mt-4" href="{{ order.get_absolute_url }}">
+                <button class="btn">
+                        Детали заказа
+                </button>
+            </a>
         </div>
         {% endfor %}
     </div>

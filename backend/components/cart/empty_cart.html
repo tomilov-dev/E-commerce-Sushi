@@ -4,11 +4,13 @@
     <div class="flex flex-row justify-center">
         <div>
             <div>
-                <p class="text-center text-2xl font-bold">Ваша Корзина пуста</p>
-                <a href="{% url 'pages:home' %}">
-                    <p class="text-center text-2xl font-semibold text-green-400 hover:text-green-200">
+                <h1>
+                    Ваша Корзина пуста
+                </h1>
+                <a class="mt-4" href="{% url 'pages:menu' %}">
+                    <h2 class="text-success duration-200 hover:text-accent">
                         Сделать покупки
-                    </p>
+                    </h2>
                 </a>
             </div>
             <div>

@@ -1,5 +1,5 @@
 <div class="flex items-center space-x-4 my-4">
-    <div class="rounded-lg bg-gray-100 flex py-2 px-3">
+    <div class="bg-base-200 border border-gray-200 flex py-2 px-3">
         {% if unit.discount_price %}
         <span class="font-bold text-red-500 text-3xl">
             {{unit.discount_price|floatformat:"0"}}
@@ -15,7 +15,7 @@
     </div>
     <div class="flex-1">
         {% if unit.discount %}
-        <p class="text-green-500 text-xl font-semibold">Скидка {{ unit.discount }}%</p>
+        <p class="text-success text-xl font-semibold">Скидка {{ unit.discount }}%</p>
         {% endif %}
         <p class="text-gray-400 text-sm">Без учета доставки</p>
     </div>

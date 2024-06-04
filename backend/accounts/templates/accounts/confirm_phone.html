@@ -33,7 +33,7 @@
         <form method="post">
             {% csrf_token %}
             {{ phone_confirmation_form.as_div }}
-            <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+            <button class="mt-2 btn" type="submit">
                 Отправить
             </button>
         </form>
@@ -43,8 +43,8 @@
         <h1>Не пришел код?</h1>
 
         <div id="resend-code" hidden>
-            <button class="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">
-                <a href="{% url 'accounts:resend_code' action %}">
+            <button class="mt-2 btn" type="submit">
+                <a class='text-error' href="{% url 'accounts:resend_code' action %}">
                     Отправить новый
                 </a>
             </button>

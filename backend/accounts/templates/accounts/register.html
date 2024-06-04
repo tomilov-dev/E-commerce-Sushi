@@ -33,7 +33,7 @@
             <div class="flex flex-col gap-2">
                 {{ user_creation_form.as_div }}
                 <div>
-                    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    <button class="mt-2 btn"
                         type="submit">
                         Зарегистрироваться
                     </button>
@@ -44,15 +44,15 @@
 
     <div class="flex justify-between my-2">
         <p>Уже есть аккаунт?</p>
-        <a href="{% url 'accounts:account_login' %}">
-            <p class="text-red-600 hover:text-red-400">Авторизироваться</p>
+        <a class="text-error" href="{% url 'accounts:account_login' %}">
+            Авторизироваться
         </a>
     </div>
 
     <div class="flex justify-between my-2">
         <p>Забыли пароль?</p>
-        <a href="{% url 'accounts:restore_password' %}">
-            <p class="text-red-600 hover:text-red-400">Восстановить пароль</p>
+        <a class="text-error" href="{% url 'accounts:restore_password' %}">
+            Восстановить пароль
         </a>
     </div>
 

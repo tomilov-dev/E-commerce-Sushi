@@ -32,31 +32,38 @@
     {% endblock css_dependencies %}
 </head>
 
-<body class="max-w-screen-2xl mx-auto bg-prim">
+<body class="mx-auto bg-base-100 bg-opacity-50">
     <div class="flex flex-col h-screen justify-between">
 
-        <header
-            class="p-2 fixed left-0 right-0 top-0 z-30 bg-sec mx-auto border-b max-w-screen-2xl rounded-b-xl shadow-sm">
+        <header>
             {% include 'header/header.html' %}
         </header>
 
-        <div class="mt-32">
-            {% block category_slider %}
-            {% include 'category_slider/category_slider.html' with current_category=None %}
-            {% endblock category_slider %}
+        <div class='max-w-screen-2xl mx-auto'>
+            <section>
+                <div class="mt-36">
+                    {% block category_slider %}
+                    {% include 'category_slider/category_slider.html' with current_category=None %}
+                    {% endblock category_slider %}
+                </div>
+            </section>
+
+            <main class="mt-8">
+                {% block main %}
+                {% endblock main%}
+            </main>
         </div>
 
-        <main>
-            {% block main %}
-            {% endblock main%}
-        </main>
-
+        <footer>
         {% include 'footer/footer.html' %}
+        </footer>
 
     </div>
 
     {% include 'toast/toast_container.html' %}
     {% include 'toast/toast_template.html' %}
+
+    <script src="{% static 'js/bundle.js' %}" type="application/javascript"></script>
 
     <script src="{% static 'header/header.js' %}" type="application/javascript"></script>
     <script src="{% static 'header/cart_badge.js' %}" type="application/javascript"></script>

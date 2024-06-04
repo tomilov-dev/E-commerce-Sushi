@@ -3,15 +3,17 @@
 
 <section class="cart-section">
     <div class="flex justify-center mx-4">
-        <div class="max-w-screen-lg mt-10 bg-sec border p-8 rounded-xl">
-            <h1 class="mb-10 text-center text-2xl font-bold">Корзина</h1>
+        <div class="max-w-screen-lg mt-10 p-12 bg-base-100 border border-gray-200">
+            <h1 class="my-4">
+                Корзина
+            </h1>
 
-            <div class="flex flex-col md:flex-row gap-3 justify-center">
+            <div class="flex flex-col md:flex-row gap-8 justify-center">
                 <div class="cart-items flex flex-col gap-3">
                     {% for item, unit in cart.objects %}
                     <div class="cart-item relative">
                         <div
-                            class="cart-item-wrapper flex justify-start border bg-sec-100 shadow-sm rounded-3xl pr-10 py-4">
+                            class="cart-item-wrapper flex justify-start border border-gray-400 bg-base-200 shadow-sm pr-10 py-4">
                             <div class="item-image basis-1/4 mx-4">
                                 {% if unit.product.image %}
                                 <img src="{{ unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
@@ -63,7 +65,9 @@
                                         {% csrf_token %}
                                         {{ cart_remove_product_form }}
                                         <button type="submit" onclick="return removeFromCart(this)">
-                                            <span>{% include 'svg/cart_remove.html' %}</span>
+                                            <span>
+                                                {%include 'svg/cart_remove.html'%}
+                                            </span>
                                         </button>
                                     </form>
                                 </div>
@@ -88,10 +92,12 @@
                                     {% csrf_token %}
                                     {{ cart_delete_product_form }}
                                     <button type="submit" onclick="return deleteFromCart(this)">
-                                        <span>{% include 'svg/close.html' %}</span>
+                                        <span>
+                                            {% include 'svg/close.html'%}
+                                        </span>
                                     </button>
                                 </form>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                     {% endfor %}
@@ -99,7 +105,7 @@
 
                 {% with total_prices=cart.total_price %}
                 <div class="cart-subtotal">
-                    <div class="rounded-lg border bg-white shadow-md p-10">
+                    <div class="border bg-white shadow-md p-10">
                         <div class="mb-2 flex justify-between">
                             <p class="text-gray-700">Стоимость товаров</p>
                             <p id="cart-items-price" class="ml-8 text-gray-700">
@@ -115,19 +121,23 @@
                         <hr class="my-4" />
                         <div class="flex justify-between">
                             <p class="text-lg font-bold">Итого: </p>
-                            <div class="">
+                            <div class>
                                 <p id="cart-total-price" class="mb-1 text-lg font-bold">
-                                    {{ total_prices.cart_price|floatformat:"0" }} ₽
+                                    {{total_prices.cart_price|floatformat:"0"}}
+                                    ₽
                                 </p>
-                                <p class="text-sm text-gray-700">Включая НДС</p>
+                                <p class="text-sm text-gray-700">
+                                    Включая НДС
+                                </p>
                             </div>
                         </div>
-                        <button
-                            class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                        <div class="mt-4">
                             <a href="{% url 'orders:order_confirm' %}">
-                                Сделать заказ
+                                <button class="btn">
+                                        Сделать заказ
+                                </button>                            
                             </a>
-                        </button>
+                        </div>
                     </div>
                 </div>
                 {% endwith %}

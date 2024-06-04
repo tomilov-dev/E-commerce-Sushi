@@ -1,10 +1,10 @@
 {% load static %}
 {% load cart_filters %}
 
-<div class="bg-sec mt-8 py-10 border rounded-xl mx-4">
+<div class="bg-base-100 mt-8 py-10 border border-gray-200 mx-4">
 
     {% if errors %}
-    <div class="account-error-block text-red-600 text-center mt-2">
+    <div class="account-error-block text-error text-center mt-2">
         {% for error in errors %}
         <div>
             <p>{{ error }}</p>
@@ -13,14 +13,14 @@
     </div>
     {% endif %}
 
-    <div class="mx-4">
-        <h1 class="my-2 text-center text-xl font-medium">Ваш заказ:</h1>
+    <h1 class="mb-4">Ваш заказ</h1>
 
-        <div class="flex flex-col md:flex-row gap-3 justify-center">
+    <div class="mx-4">
+        <div class="flex flex-col md:flex-row gap-8 justify-center">
             <div class="cart-items flex flex-col gap-3">
                 {% for item, unit in cart.objects %}
                 <div class="cart-item relative">
-                    <div class="cart-item-wrapper flex justify-start border bg-sec-100 rounded-3xl pr-10 py-4">
+                    <div class="cart-item-wrapper flex justify-start border border-gray-400 bg-base-200 pr-10 py-4">
                         <div class="item-image basis-1/4 mx-4">
                             {% if unit.product.image %}
                             <img src="{{ unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />
@@ -77,7 +77,7 @@
 
             {% with total_prices=cart.total_price %}
             <div class="cart-subtotal">
-                <div class="rounded-lg border bg-white shadow-md p-10">
+                <div class="border border-gray-200 bg-white shadow-md p-10">
                     <div class="mb-2 flex justify-between">
                         <p class="text-gray-700">Стоимость товаров</p>
                         <p id="cart-items-price" class="ml-8 text-gray-700">
@@ -111,6 +111,7 @@
             </div>
             {% endwith %}
         </div>
+
     </div>
 
     <div class="mt-8 mx-4">

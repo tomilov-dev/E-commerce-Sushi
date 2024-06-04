@@ -8,11 +8,12 @@ sys.path.append(str(ROOT_DIR))
 from categories.models import Category
 
 
-def home(request: HttpRequest) -> HttpRequest:
-    return render(
-        request,
-        "pages/home.html",
-    )
+def home(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/menu.html")
+
+
+def menu(request: HttpRequest) -> HttpResponse:
+    return render(request, "pages/menu.html")
 
 
 def info(request: HttpRequest) -> HttpResponse:

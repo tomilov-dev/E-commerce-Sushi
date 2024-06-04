@@ -2,20 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-icon {
-  @apply text-primary;
+@layer base {
+  h1 {
+    @apply text-black text-4xl font-medium text-center;
+  }
+
+  h2 {
+    @apply text-black text-3xl font-medium text-center;
+  }
+
+  h3 {
+    @apply text-black text-xl font-medium;
+  }
+  
+  p {
+    @apply text-black;
+  }
+
+  span {
+    @apply text-black text-sm;
+  }
+
+  a {
+    @apply text-black hover:text-accent group-hover:text-accent
+  }
+
+  button {
+    @apply text-black hover:text-accent
+  }
+
+  i {
+    @apply text-primary hover:text-accent group-hover:text-accent
+  }
 }
 
-.unit-selector {
-  @apply p-2 px-4 rounded-md;
-}
+@layer components {
+  .icon {
+      @apply p-2 bg-base-200 rounded-full duration-100 hover:bg-base-300 group-hover:bg-base-300 
+  }
 
-.unit-selector.selected {
-  @apply bg-sec-200;
+  .btn {
+    @apply p-2.5 bg-base-300 rounded-tl-lg rounded-br-lg border border-gray-400 duration-100 hover:bg-base-200 hover:rounded-bl-lg hover:rounded-tr-lg
+  }
+
+  .category-card {
+      @apply max-w-sm bg-base-100 border border-gray-200 rounded-sm duration-300 shadow-md p-4 hover:shadow-lg hover:border-accent hover:rounded-lg
+  }
+  
+  .category-card h3 {
+    @apply text-black text-xl font-medium;
+  }
+
+  .product-card {
+    @apply max-w-sm p-2 bg-base-100 border border-gray-200 shadow-md duration-300 hover:shadow-lg hover:border-accent hover:rounded-lg
+  }
+
+  .product-name {
+    @apply font-medium text-lg hover:text-accent
+  }
+
+  .unit-selector { 
+    @apply px-3 py-1 bg-base-200 border border-gray-200 hover:bg-base-300
+  }
+
+  .unit-selector.selected {
+    @apply bg-base-300 border-accent
+  }
+
+  .macronutrients {
+    @apply flex gap-1.5 px-8 py-2 rounded-md text-xs bg-black shadow-lg
+  }
+
+  .macronutrients p {
+    @apply text-white
+  }
+
 }
 
 .form-style.text-field {
-  @apply h-10 px-4 border mt-1 rounded w-full bg-gray-50;
+  @apply h-10 px-4 border mt-1 rounded w-full bg-base-100;
 }
 
 .form-style.select-field {

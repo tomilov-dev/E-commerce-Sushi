@@ -2,14 +2,15 @@
 
 {% block product_units %}
 {% for unit in units %}
-<div class="product-info text-center mt-2 p-4 text-base font-normal" id="{{ product.id }}">
-    <div class="product-name font-medium text-lg">
+<div class="product-info text-center mt-2 p-4 text-base font-normal"
+    id="{{ product.id }}">
+    <div class="product-name mt-2 mb-6">
         <a href="{{ product.link }}">
-            <p>{{ unit.full_name }}</p>
+            {{ unit.full_name }}
         </a>
     </div>
 
-    <div class="units-list mt-2 mx-4">
+    <div class="units-list mx-4">
         <div class="units-cards">
             <div class="unit-card" unit-id="{{ unit.id }}">
                 {% include 'products_grid/unit_card.html' %}

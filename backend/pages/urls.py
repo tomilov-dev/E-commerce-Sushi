@@ -13,12 +13,14 @@ from .views import (
     terms,
     important,
     rules,
+    menu,
 )
 
 app_name = "pages"
 
 urlpatterns = [
     path("", home, name="home"),
+    path("menu/", menu, name="menu"),
     path("delivery/", delivery, name="delivery"),
     path("payment/", payment, name="payment"),
     path("news/", news, name="news"),

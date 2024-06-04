@@ -2,43 +2,32 @@
 {% load cart_filters %}
 
 {% block product_units %}
-<div class="product-info text-center mt-2 p-4 text-base font-normal" id="{{ product.id }}">
-    <div class="product-name font-medium text-lg">
+<div class="product-info text-center mt-2 p-4 text-base font-normal"
+    id="{{ product.id }}">
+    <div class="product-name mt-2 mb-4">
         <a href="{{ product.link }}">
-            <p>{{ product.name }}</p>
+            {{ product.name }}
         </a>
     </div>
 
-    <div class="units-list mt-2 mx-4">
-        <div class="units-selectors flex justify-center gap-6">
+    <div class="units-list mx-4">
+        <div class="units-selectors mb-4 flex justify-center gap-6">
             {% for unit in product.units.all %}
-            {% if forloop.first %}
-            <div class="unit-selector selected" unit-id="{{ unit.id }}">
+            <div class="unit-selector {% if forloop.first %}selected{% endif %}"
+                unit-id="{{ unit.id }}">
                 <button onclick="selectUnit(this)" unit-id="{{ unit.id }}">
                     <p>{{ unit.name }}</p>
                 </button>
             </div>
-            {% else %}
-            <div class="unit-selector" unit-id="{{ unit.id }}">
-                <button onclick="selectUnit(this)" unit-id="{{ unit.id }}">
-                    <p>{{ unit.name }}</p>
-                </button>
-            </div>
-            {% endif %}
             {% endfor %}
         </div>
 
         <div class="units-cards">
             {% for unit in product.units.all %}
-            {% if forloop.first %}
-            <div class="unit-card" unit-id="{{ unit.id }}">
+            <div class="unit-card" unit-id="{{ unit.id }}"
+                {% if not forloop.first %}hidden{% endif %}>
                 {% include 'products_grid/unit_card.html' %}
             </div>
-            {% else %}
-            <div class="unit-card" unit-id="{{ unit.id }}" hidden>
-                {% include 'products_grid/unit_card.html' %}
-            </div>
-            {% endif %}
             {% endfor %}
         </div>
     </div>

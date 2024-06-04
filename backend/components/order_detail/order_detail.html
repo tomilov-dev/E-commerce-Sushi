@@ -1,10 +1,10 @@
 {% load static %}
 
 <div class="mt-8 mx-auto max-w-screen-md">
-    <div class="bg-sec border rounded-xl p-10 mx-4">
+    <div class="bg-base-100 border p-10 mx-4">
         <div class="flex flex-col justify-center gap-4">
             <div>
-                <h1 class="mb-5 text-center text-2xl font-bold">Заказ №{{ order.id }}</h1>
+                <h1 class="mb-5">Заказ №{{ order.id }}</h1>
                 <h2 class="mb-5 text-lg">Статус: <span class="font-medium">{{ order.get_status_display }}</span></h2>
             </div>
 
@@ -14,7 +14,7 @@
                     {% for item in items %}
                     {% with unit=item.unit %}
                     <div class="cart-item relative">
-                        <div class="cart-item-wrapper flex justify-start bg-sec-100 border rounded-3xl pr-10 py-4">
+                        <div class="cart-item-wrapper flex justify-start bg-base-200 border border-gray-400 pr-10 py-4">
                             <div class="item-image basis-1/4 mx-4">
                                 {% if item.unit.product.image %}
                                 <img src="{{ item.unit.product.image.url }}" class="w-full rounded-lg sm:w-40" />

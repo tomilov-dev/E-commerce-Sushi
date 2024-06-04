@@ -1,19 +1,22 @@
 {% load static %}
 
 <div class="items-grid flex justify-center mx-6">
-    <div class="items-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div
+        class="items-grid-wrapper grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {% for item in items %}
         <div
-            class="item max-w-sm border border-neutral-200 rounded-xl shadow-md bg-sec hover:shadow-lg hover:border-accent">
+            class="item max-w-sm border border-gray-200 rounded-xl shadow-md bg-base-100 duration-100 hover:shadow-lg hover:border-accent">
             <a class="group" href="{{ item.link }}">
 
                 <div class="item-image">
                     {% if item.image %}
                     {% if with_scale == True %}
-                    <img class="rounded-t-xl duration-500 group-hover:scale-95" src="{{ item.image.url }}">
+                    <img class="rounded-t-xl duration-500 group-hover:scale-95"
+                        src="{{ item.image.url }}">
                     {% else %}
-                    <img class="rounded-t-xl duration-500" src="{{ item.image.url }}">
+                    <img class="rounded-t-xl duration-500"
+                        src="{{ item.image.url }}">
                     {% endif %}
                     {% else %}
                     <img class="rounded-t-xl" src="{% static 'no-image.jpg' %}">
