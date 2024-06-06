@@ -29,6 +29,8 @@ class OrderAdmin(admin.ModelAdmin):
         "business_comment",
         "status",
         "order_done",
+        "paid_online",
+        "paid_online_amount",
     ]
 
     list_display = [
@@ -52,6 +54,8 @@ class OrderAdmin(admin.ModelAdmin):
         "client_comment",
         "delivery",
         "payment",
+        "paid_online",
+        "paid_online_amount",
     ]
     inlines = [OrderItemInline]
 
