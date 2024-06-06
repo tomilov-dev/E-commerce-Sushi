@@ -43,20 +43,16 @@ def order_confirm(request: HttpRequest) -> HttpResponse:
                 delivery=cleaned["delivery"],
                 payment=cleaned["payment"],
                 client_comment=cleaned["client_comment"],
+                total_cost=cart.total_price.cart_price,
             )
 
-            total_cost = 0
             for item, unit in cart.objects:
-                order_item = OrderItem.objects.create(
+                OrderItem.objects.create(
                     order=order,
                     unit=unit,
                     price=unit.get_price(),
                     quantity=item.quantity,
                 )
-                total_cost += order_item.total_cost
-
-            order.total_cost = total_cost
-            order.save()
 
             redir_link = "orders:order_list"
             if order.payment == Order.Payment.ONLINE:

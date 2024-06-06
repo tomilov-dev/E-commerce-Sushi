@@ -71,7 +71,6 @@ class Order(models.Model):
     )
     total_cost = models.DecimalField(
         "Сумма оплаты",
-        default=0,
         max_digits=10,
         decimal_places=2,
     )

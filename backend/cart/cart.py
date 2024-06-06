@@ -162,7 +162,7 @@ class Cart(object):
         return self.count_delivery_price(self.count_total_items_price())
 
     @property
-    def total_price(self) -> tuple[int, int]:
+    def total_price(self) -> TotalPrices:
         total_items_price = self.count_total_items_price()
         delivery_price = self.count_delivery_price(total_items_price)
         return TotalPrices(
