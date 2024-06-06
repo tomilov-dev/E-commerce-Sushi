@@ -11,6 +11,7 @@ from orders.models import Order
 @require_POST
 def order_payed(request: HttpRequest) -> HttpResponse:
     data: dict = json.loads(request.body)
+    data = data.get("object", None)
     print(data)
 
     if data:
