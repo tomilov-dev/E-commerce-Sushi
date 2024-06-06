@@ -2,10 +2,12 @@ import json
 from decimal import Decimal
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 from orders.models import Order
 
 
+@csrf_exempt
 @require_POST
 def order_payed(request: HttpRequest) -> HttpResponse:
     data: dict = json.loads(request.body)
