@@ -3,7 +3,6 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import RegexValidator
 
-
 from products.models import Unit
 from accounts.models import CustomUser
 
@@ -20,6 +19,7 @@ class Order(models.Model):
     class Payment(models.TextChoices):
         CASH = "CH", "Оплата наличными"
         CARD = "CD", "Оплата картой"
+        ONLINE = "ON", "Оплата онлайн"
 
     class Delivery(models.TextChoices):
         PICKUP = "PK", "Самовывоз"
@@ -69,6 +69,12 @@ class Order(models.Model):
         blank=True,
         null=True,
     )
+    total_cost = models.DecimalField(
+        "Сумма оплаты",
+        default=0,
+        max_digits=10,
+        decimal_places=2,
+    )
 
     ## editable
     business_comment = models.TextField(
@@ -94,6 +100,17 @@ class Order(models.Model):
     updated = models.DateTimeField(
         auto_now=True,
         verbose_name="Время последнего обновления",
+    )
+
+    paid_online = models.BooleanField(
+        verbose_name="Оплачен онлайн",
+        default=False,
+    )
+    paid_online_amount = models.DecimalField(
+        "Сумма оплаты онлайн",
+        default=0,
+        max_digits=10,
+        decimal_places=2,
     )
 
     ## FK
@@ -123,13 +140,6 @@ class Order(models.Model):
 
         else:
             return False
-
-    @property
-    def total_cost(self) -> int:
-        return self.get_total_cost()
-
-    def get_total_cost(self) -> int:
-        return sum(item.get_cost() for item in self.items.all())
 
     def __str__(self) -> str:
         return str(self.id)

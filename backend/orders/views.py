@@ -13,6 +13,7 @@ from orders.models import Order, OrderItem
 from accounts.models import CustomUser
 from accounts.messages import LOGIN_LEVEL
 from cart.cart import Cart
+from online_payment.payment import yookassa_payment
 
 
 def order_confirm(request: HttpRequest) -> HttpResponse:
@@ -44,16 +45,30 @@ def order_confirm(request: HttpRequest) -> HttpResponse:
                 client_comment=cleaned["client_comment"],
             )
 
+            total_cost = 0
             for item, unit in cart.objects:
-                OrderItem.objects.create(
+                order_item = OrderItem.objects.create(
                     order=order,
                     unit=unit,
                     price=unit.get_price(),
                     quantity=item.quantity,
                 )
+                total_cost += order_item.total_cost
+
+            order.total_cost = total_cost
+            order.save()
+
+            redir_link = "orders:order_list"
+            if order.payment == Order.Payment.ONLINE:
+                payment = yookassa_payment.online_payment(order)
+
+                confirmation = payment.confirmation
+                confirmation_url = confirmation.confirmation_url
+
+                redir_link = confirmation_url
 
             cart.clear()
-            return redirect("orders:order_list")
+            return redirect(redir_link)
 
         else:
             errors.extend(form.errors.values())

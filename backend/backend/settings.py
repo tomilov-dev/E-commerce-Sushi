@@ -114,7 +114,8 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
     "accounts.apps.AccountsConfig",
-    ## Additional Modules
+    "online_payment.apps.OnlinePaymentConfig",
+    ## Dev Modules
     # "debug_toolbar",
 ]
 
