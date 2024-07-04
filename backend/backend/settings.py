@@ -40,10 +40,6 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 SESSION_COOKIE_AGE = 86400
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 
