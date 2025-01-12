@@ -338,6 +338,12 @@ class FarForScraper(object):
 
     input_data = [
         InputData(
+            "https://pervouralsk.farfor.ru/category/kidsmenu/",
+            "Грамм",
+            "г",
+            [UnitData(None, 1, 1)],
+        ),
+        InputData(
             "https://pervouralsk.farfor.ru/category/rolly/",
             "Грамм",
             "г",
@@ -354,6 +360,12 @@ class FarForScraper(object):
             "Грамм",
             "г",
             [UnitData("25 см", 1, 0.7), UnitData("30 см", 1, 1)],
+        ),
+        InputData(
+            "https://pervouralsk.farfor.ru/category/pirogi/",
+            "Грамм",
+            "г",
+            [UnitData(None, 1, 1)],
         ),
         InputData(
             "https://pervouralsk.farfor.ru/category/wok/",
@@ -402,13 +414,13 @@ class FarForScraper(object):
     def _parse_tags(self, tag_element: soup) -> list[Tag]:
         tags = []
 
-        stags = tag_element.find_all("img")
-        for stag in stags:
-            name = stag.get("alt")
-            img = stag.get("src")
+        # stags = tag_element.find_all("img")
+        # for stag in stags:
+        #     name = stag.get("alt")
+        #     img = stag.get("src")
 
-            tag = Tag(name, img)
-            tags.append(tag)
+        #     tag = Tag(name, img)
+        #     tags.append(tag)
 
         return tags
 
@@ -419,26 +431,35 @@ class FarForScraper(object):
         input_data: InputData,
     ) -> list[Product]:
         s = soup(html, "lxml")
-        catlist = s.find("div", {"class": "category__list-desktop"})
-        sproducts = catlist.find_all("div", "product")
+        catlist = s.find("div", {"class": "category-products"})
+        sproducts = catlist.find_all("div", {"class": "product-card"})
 
         products: list[Product] = []
         for sproduct in sproducts:
-            img = sproduct.find("a", {"class": "product__image"}).find("img").get("src")
-            content = sproduct.find("div", {"class": "product__content"})
-            title = content.find("a", {"class": "product__content-title"}).text
-            url = self.main_url + content.find(
-                "a", {"class": "product__content-title"}
-            ).get("href")
-            description = content.find(
-                "a", {"class": "product__content-description"}
-            ).text
-            price = content.find("div", {"class": "product__content-price"}).text
-            measure_count = content.find(
-                "div", {"class": "product__content-weight"}
-            ).text.replace("гКБЖУ", "")
+            img = (
+                sproduct.find("a", {"class": "product-card-image"})
+                .find("img")
+                .get("src")
+            )
+            content = sproduct.find("a", {"class": "product-card-content"})
 
-            tags_element = sproduct.find("div", {"class": "product__tags"})
+            title = content.find("span", {"class": "product-card-content__title"}).text
+            url = self.main_url + content.get("href")
+            description = content.find(
+                "div", {"class": "product-card-content__text"}
+            ).text
+            price = sproduct.find("div", {"class": "app-card-button__price"}).text
+
+            try:
+                measure_count = (
+                    content.find("span", {"class": "app-measure-units"})
+                    .text.replace("г", "")
+                    .strip()
+                )
+            except Exception:
+                measure_count = "500"
+
+            tags_element = sproduct.find("div", {"class": "product-tags"})
             tags = self._parse_tags(tags_element)
 
             units_data: list[UnitData] = input_data.units_data
@@ -471,8 +492,8 @@ class FarForScraper(object):
 
     def _parse_category(self, html: str) -> Category:
         s = soup(html, "lxml")
-        catbar = s.find("div", {"class": "v-slide-group__content"})
-        cat = catbar.find("a", {"class": "router-link-active"})
+        catbar = s.find("div", {"class": "app-slider__track"})
+        cat = catbar.find("a", {"class": "router-link-exact-active"})
 
         name = cat.text
         img = cat.find("img").get("src")
