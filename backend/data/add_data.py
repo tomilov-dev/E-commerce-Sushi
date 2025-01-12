@@ -92,15 +92,18 @@ class JsonDataAdder(object):
         self,
         categoryDTO: CategoryDTO,
     ) -> None:
-        slug = get_slug(Category, categoryDTO.name)
-        categoryORM = Category.objects.create(
-            name=categoryDTO.name,
-            slug=slug,
-        )
+        try:
+            slug = get_slug(Category, categoryDTO.name)
+            categoryORM = Category.objects.create(
+                name=categoryDTO.name,
+                slug=slug,
+            )
 
-        self.add_image(categoryORM, categoryDTO.image_path)
-        self.add_icon(categoryORM, categoryDTO.image_path)
-        categoryDTO.id = categoryORM.id
+            self.add_image(categoryORM, categoryDTO.image_path)
+            self.add_icon(categoryORM, categoryDTO.image_path)
+            categoryDTO.id = categoryORM.id
+        except Exception as ex:
+            print(ex)
 
     def add_measure(
         self,
@@ -118,8 +121,11 @@ class JsonDataAdder(object):
         for categoryDTO in categoriesDTOS:
             for productDTO in categoryDTO.products:
                 for unitDTO in productDTO.units:
-                    charchs = unitDTO.characteristics
-                    self.add_measure(charchs)
+                    try:
+                        charchs = unitDTO.characteristics
+                        self.add_measure(charchs)
+                    except Exception as ex:
+                        print(ex)
 
     def add_characteristics(
         self,
@@ -156,7 +162,10 @@ class JsonDataAdder(object):
         for categoryDTO in categoriesDTOS:
             for productDTO in categoryDTO.products:
                 for tagDTO in productDTO.tags:
-                    self.add_tag(tagDTO)
+                    try:
+                        self.add_tag(tagDTO)
+                    except Exception as ex:
+                        print(ex)
 
     def add_units(
         self,
@@ -191,20 +200,23 @@ class JsonDataAdder(object):
         categoryDTO: CategoryDTO,
     ) -> None:
         for productDTO in categoryDTO.products:
-            categoryORM = Category.objects.get(id=categoryDTO.id)
-            slug = get_slug(Product, productDTO.name)
+            try:
+                categoryORM = Category.objects.get(id=categoryDTO.id)
+                slug = get_slug(Product, productDTO.name)
 
-            productORM = Product(
-                name=productDTO.name,
-                description=productDTO.description,
-                slug=slug,
-                category=categoryORM,
-            )
-            productDTO.id = productORM.id
-            self.add_image(productORM, productDTO.image_path)
+                productORM = Product(
+                    name=productDTO.name,
+                    description=productDTO.description,
+                    slug=slug,
+                    category=categoryORM,
+                )
+                productDTO.id = productORM.id
+                self.add_image(productORM, productDTO.image_path)
 
-            self.add_units(productDTO, productORM)
-            self.add_product_tags(productDTO, productORM)
+                self.add_units(productDTO, productORM)
+                self.add_product_tags(productDTO, productORM)
+            except Exception as ex:
+                print(ex)
 
     def add_products_data(
         self,
@@ -224,14 +236,17 @@ class JsonDataAdder(object):
         promosDTOS: list[ProductDTO],
     ) -> None:
         for promoDTO in promosDTOS:
-            slug = get_slug(PromoAction, promoDTO.name)
+            try:
+                slug = get_slug(PromoAction, promoDTO.name)
 
-            promoORM = PromoAction.objects.create(
-                name=promoDTO.name,
-                description=promoDTO.description,
-                slug=slug,
-            )
-            self.add_image(promoORM, promoDTO.image_path)
+                promoORM = PromoAction.objects.create(
+                    name=promoDTO.name,
+                    description=promoDTO.description,
+                    slug=slug,
+                )
+                self.add_image(promoORM, promoDTO.image_path)
+            except Exception as ex:
+                print(ex)
 
 
 if __name__ == "__main__":
