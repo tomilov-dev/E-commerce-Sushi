@@ -187,11 +187,14 @@ class Unit(object):
         self.price = int(self.parse_int(price) * kf)
         self.discount_price = self.set_discount(kf)
 
-        measure_count = int(self.parse_int(measure_count) * kf)
+        mc = self.parse_int(measure_count)
+        if mc is None:
+            mc = 1
+        mcs = int(mc * kf)
         self.characteristics = Characteristics(
             measure,
             measure_symbol,
-            measure_count,
+            str(mcs),
             quantity,
         )
 
@@ -443,12 +446,15 @@ class FarForScraper(object):
             )
             content = sproduct.find("a", {"class": "product-card-content"})
 
-            title = content.find("span", {"class": "product-card-content__title"}).text
+            title = content.find(
+                "div",
+                {"class": "product-card-content__title"},
+            ).text
             url = self.main_url + content.get("href")
             description = content.find(
                 "div", {"class": "product-card-content__text"}
             ).text
-            price = sproduct.find("div", {"class": "app-card-button__price"}).text
+            price = sproduct.find("span", {"class": "app-price-button__price"}).text
 
             try:
                 measure_count = (
@@ -493,7 +499,12 @@ class FarForScraper(object):
     def _parse_category(self, html: str) -> Category:
         s = soup(html, "lxml")
         catbar = s.find("div", {"class": "app-slider__track"})
-        cat = catbar.find("a", {"class": "router-link-exact-active"})
+        cat = catbar.find(
+            "a",
+            {
+                "class": "main-category-card main-category-card--active category-list__card"
+            },
+        )
 
         name = cat.text
         img = cat.find("img").get("src")
@@ -528,16 +539,17 @@ class FarForScraper(object):
 
     def _parse_promos(self, html: str) -> list[Promo]:
         s = soup(html, "lxml")
-        sales_list = s.find("div", {"class": "sales__grid"})
-        ssales = sales_list.find_all("div", {"class": "sale__item"})
+        sales_list = s.find("div", {"class": "sales-list"})
+        ssales = sales_list.find_all("div", {"class": "sales-card"})
 
         sales: list[Promo] = []
         for ssale in ssales:
-            top = ssale.find("a", {"class": "sale__top"})
-
-            name = top.text
-            img = top.find("img").get("src")
-            description = ssale.find("div", {"class": "sale__bottom-description"}).text
+            name = ssale.find("div", {"class": "sales-card-text__title"}).text
+            img = ssale.find("img").get("src")
+            description = ssale.find(
+                "div",
+                {"class": "sales-card-text__description"},
+            ).text
 
             sale = Promo(
                 name=name,
@@ -567,8 +579,8 @@ class FarForScraper(object):
             category = self._parse_category(html)
             products = self._parse_products(html, measure, inp)
 
-            for product in products:
-                self._add_extra_info(product)
+            # for product in products:
+            #     self._add_extra_info(product)
 
             category.products = products
             categories.append(category)
