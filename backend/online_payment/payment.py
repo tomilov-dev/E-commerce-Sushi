@@ -35,7 +35,7 @@ class YooKassaPayment:
                 "amount": {"value": order.total_cost, "currency": "RUB"},
                 "confirmation": {
                     "type": "redirect",
-                    "return_url": "https://delivery.tomilov.tech/orders/list/",
+                    "return_url": "https://delivery.itomilov.tech/orders/list/",
                 },
                 "capture": True,
                 "description": f"Заказ №{order.id}",

@@ -55,7 +55,7 @@ else:
 ALLOWED_HOSTS = [
     "tomilov.space",
     "delivery-mpa.tomilov.space",
-    "delivery.tomilov.tech",
+    "delivery.itomilov.tech",
 ]
 
 if DEBUG:
