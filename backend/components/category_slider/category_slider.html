@@ -1,32 +1,40 @@
 <div class="flex justify-center">
-    <div id="category-carousel" class="splide mx-auto"
-        slides-count="{{ categories_context|length }}">
-        <div class="splide__track">
-            <ul class="splide__list">
-                {% for category in categories_context %}
-                <li class="splide__slide">
-                    {% if category.show_navbar %}
-                    <div class="group">
-                        <a href="{{ category.link }}">
-                            <div
-                                class="w-24 h-24 rounded-xl p-2 border {% if current_category == category.name %}border-accent border-opacity-50 bg-base-300{% endif %}"
-                                {% if current_category == category.name %}
-                                id="selected-category"
-                                category-index="{{ forloop.counter }}"
-                                {% endif %}>
-                                {% if category.icon %}
-                                <img src="{{ category.icon.url }}">
-                                {% endif %}
-                                <div class="text-center text-sm">
-                                    {{ category.name }}
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+  <div
+    id="category-carousel"
+    class="splide mx-auto"
+    slides-count="{{ categories_context|length }}"
+  >
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for category in categories_context %}
+        <li class="splide__slide">
+          {% if category.show_navbar %}
+          <div class="group">
+            <a href="{{ category.link }}">
+              <div
+                class="w-20 h-20 rounded-xl p-2 border {% if current_category == category.name %}border-accent border-opacity-50 bg-base-300{% endif %}"
+                {%
+                if
+                current_category=""
+                ="category.name"
+                %}
+                id="selected-category"
+                category-index="{{ forloop.counter }}"
+                {%
+                endif
+                %}
+              >
+                {% if category.icon %}
+                <img src="{{ category.icon.url }}" />
+                {% endif %}
+                <div class="text-center text-sm">{{ category.name }}</div>
+              </div>
+            </a>
+          </div>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
     </div>
+  </div>
 </div>
