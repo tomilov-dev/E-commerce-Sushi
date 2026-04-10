@@ -20,22 +20,24 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs) -> None:
         if not self.data_added():
             print("Start Data Initialization")
-            scraper = FarForScraper()
-            backuper = BackupData()
+            # scraper = FarForScraper()
+            # backuper = BackupData()
 
-            promos, categories = scraper.scrape()
+            # promos, categories = scraper.scrape()
 
-            backuper.dump_promos(
-                backuper.transfer_promos(promos),
-            )
-            backuper.dump_categories(
-                backuper.transfer_categories(categories),
-            )
+            # backuper.dump_promos(
+            #     backuper.transfer_promos(promos),
+            # )
+            # backuper.dump_categories(
+            #     backuper.transfer_categories(categories),
+            # )
 
             reader = JsonDumpReader()
             adder = JsonDataAdder()
 
-            promos, categories = reader.read_all()
+            promos, categories = reader.read_all(
+                ROOT_DIR / "data/backup_data/json_dump/2026-02-01"
+            )
 
             adder.add_promos(promos)
             adder.add_products_data(categories)

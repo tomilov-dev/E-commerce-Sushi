@@ -40,20 +40,21 @@ class JsonDumpReader(object):
 
     def read_all(
         self,
+        dump_path: str | Path = DUMP_PATH,
     ) -> tuple[list[PromoDTO], list[CategoryDTO]]:
-        files_paths = os.listdir(DUMP_PATH)
+        files_paths = os.listdir(dump_path)
         categories_paths = [p for p in files_paths if p.startswith("category")]
         promos_paths = [p for p in files_paths if p.startswith("promo")]
 
         promos: list[PromoDTO] = []
         for promo_path in promos_paths:
-            promo = self.read(DUMP_PATH / promo_path)
+            promo = self.read(dump_path / promo_path)
             promo = PromoDTO.model_validate_json(promo)
             promos.append(promo)
 
         categories: list[CategoryDTO] = []
         for category_path in categories_paths:
-            category = self.read(DUMP_PATH / category_path)
+            category = self.read(dump_path / category_path)
             category = CategoryDTO.model_validate_json(category)
             categories.append(category)
 
@@ -252,8 +253,3 @@ class JsonDataAdder(object):
 if __name__ == "__main__":
     reader = JsonDumpReader()
     adder = JsonDataAdder()
-
-    promos, categories = reader.read_all()
-
-    adder.add_promos(promos)
-    adder.add_products_data(categories)
